@@ -1,0 +1,117 @@
+<h4>LIST SITE {{this.companyName}}</h4>
+<ul style="list-style-type: none">
+  <li><a href="#/site/company/1" (click)="load1()">I. LG Electronic</a></li>
+  <li><a href="#/site/company/2" (click)="load2()">II. LG Energy Solution</a></li>
+  <li><a href="#/site/company/3"  (click)="load3()">III. LG Chem / LG Household & Health Care</a></li>
+  <li><a href="#/site/company/4" (click)="load4()">IV. LG Display</a></li>
+  <li><a href="#/site/company/5" (click)="load5()">V. LG Innotek</a></li>
+  <li><a href="#/site/company/6" (click)="load6()">VI. LX International / LX Pantos / LX Hausys Overseas</a></li>
+
+</ul>
+<div class="row" style="margin: 5px 0">
+  <div class="col-md-2"></div>
+  <div class="col-md-2"></div>
+  <div class="col-md-2"></div>
+  <div class="col-md-2"></div>
+  <div class="col-md-2"></div>
+  <div class="col-md-2">
+    <button style="width: 100%" class="btn btn-outline-info" [routerLink]="['/site/add/' + id]">Create Site</button>
+  </div>
+</div>
+
+<div class="row" style="margin-bottom: 5px">
+  <div class="col-md-2"></div>
+  <div class="col-md-2">Name</div>
+  <div class="col-md-6">
+    <input type="text" class="form-control" [(ngModel)]="name">
+  </div>
+
+  <div class="col-md-2">
+    <button class="btn btn-outline-primary" (click)="searchSite()">Search</button>
+  </div>
+</div>
+
+<table class="table table-bordered">
+  <thead>
+  <tr>
+    <th style="border-bottom: none; text-align: center;  vertical-align: middle;" rowspan="2">No.</th>
+    <th style="border-bottom: none; vertical-align: middle;" rowspan="2">Name</th>
+    <th style="border-bottom: none; text-align: center;  vertical-align: middle;" rowspan="2">GMT</th>
+    <th style="border-bottom: none;  vertical-align: middle;" rowspan="2">Configure</th>
+    <th style="border-bottom: none;  vertical-align: middle;" rowspan="2">Configure Kr</th>
+    <th style="border-bottom: none; text-align: center;  vertical-align: middle;" rowspan="2">Position</th>
+    <th style="border-bottom: none; text-align: center;  vertical-align: middle;" rowspan="2">Company</th>
+    <th style="border-bottom: none; text-align: center;  vertical-align: middle;" rowspan="2">Contact</th>
+    <th style="border-bottom: none; text-align: center;  vertical-align: middle;" colspan="3">Line List</th>
+  </tr>
+  <tr>
+    <th style="border-bottom: none; vertical-align: middle;">Name</th>
+    <th style="border-bottom: none; vertical-align: middle;">ShortName 1 (Internal)</th>
+    <th style="border-bottom: none; vertical-align: middle;">ShortName 2 (Customer)</th>
+  </tr>
+
+  </thead>
+  <tbody>
+  <ng-container *ngFor="let site of siteList; let i = index">
+    <!-- First row with rowspan -->
+    <tr *ngIf="site.lineList.length > 0">
+      <td style="text-align: center" [attr.rowspan]="site.lineList.length">{{i + 1}}</td>
+      <td [attr.rowspan]="site.lineList.length">{{site.name}}</td>
+      <td style="text-align: center"
+          [attr.rowspan]="site.lineList.length">{{site.gmt > 0 ? '+' + site.gmt : site.gmt}}</td>
+      <td style="text-align: center" [attr.rowspan]="site.lineList.length">{{site.configure}}</td>
+      <td style="text-align: center" [attr.rowspan]="site.lineList.length">{{site.configureKr}}</td>
+      <td style="text-align: center" [attr.rowspan]="site.lineList.length">{{site.ric}}</td>
+      <td style="text-align: center" [attr.rowspan]="site.lineList.length">{{site.company.name}}</td>
+      <td style="text-align: center;padding: 0; margin: 0" [attr.rowspan]="site.lineList.length">
+        <table style="width: 100%">
+          <tr *ngFor = "let contact of this.site.contactList">
+            <td>{{contact.name}}</td>
+          </tr>
+        </table>
+      </td>
+      <td>{{ site.lineList[0].name}}</td>
+      <td>{{ site.lineList[0].shortName}}</td>
+      <td>{{ site.lineList[0].shortName2}}</td>
+      <td style="text-align: center" [attr.rowspan]="site.lineList.length">
+        <button style="margin: 5px" class="btn btn-outline-info" [routerLink]="['/site/detail/' + site.id]"> Detail</button>
+        <button style="margin: 5px" class="btn btn-outline-dark" [routerLink]="['/site/edit/' + site.id]">Edit</button>
+      </td>
+    </tr>
+
+    <!-- Additional rows for remaining line items -->
+    <ng-container *ngIf="site.lineList.length > 0">
+      <ng-container *ngFor="let line of site.lineList.slice(1)">
+        <tr>
+          <td>{{ line.name }}</td>
+          <td>{{ line.shortName }}</td>
+          <td>{{ line.shortName2 }}</td>
+        </tr>
+      </ng-container>
+    </ng-container>
+
+    <!-- Handle case where lineList is empty -->
+    <tr *ngIf="site.lineList.length === 0">
+      <td style="text-align: center">{{ i + 1 }}</td>
+      <td>{{ site.name }}</td>
+      <td style="text-align: center">
+        {{ site.gmt > 0 ? '+' + site.gmt : site.gmt }}
+      </td>
+      <td style="text-align: center">{{ site.configure }}</td>
+      <td style="text-align: center">{{ site.configureKr }}</td>
+      <td style="text-align: center">{{ site.ric }}</td>
+      <td style="text-align: center">{{ site.company.name }}</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td style="text-align: center">
+        <button style="margin: 5px" class="btn btn-outline-info" [routerLink]="['/site/detail/' + site.id]">Detail</button>
+        <button style="margin: 5px" class="btn btn-outline-dark" [routerLink]="['/site/edit/' + site.id]">Edit</button>
+      </td>
+    </tr>
+
+  </ng-container>
+  </tbody>
+</table>
+

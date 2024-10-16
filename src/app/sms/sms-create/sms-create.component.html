@@ -1,0 +1,230 @@
+<h4>SMS CREATE</h4>
+<form [formGroup]="smsForm">
+  <div class="row">
+    <div class="col-md-6">
+      <div class="row" style="margin: 10px 0px">
+        <div class="col-md-2">
+          <label style="font-weight: bold">Company</label>
+        </div>
+        <div class="col-md-10">
+          <select name="" class="form-control" formControlName="company" (change)="loadCompany()">
+            <option value="">Choose a company</option>
+            <option *ngFor="let company of companyList" [ngValue]="company">{{company.name}}</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="row" style="margin: 10px 0px">
+        <div class="col-md-2">
+          <label style="font-weight: bold">Site</label>
+        </div>
+        <div class="col-md-2">
+          <input class="form-control" type="text" formControlName = "valueFilter" (blur)="filterSite()">
+        </div>
+        <div class="col-md-3">
+          <select name="" class="form-control" formControlName="site" (change)="loadSite()">
+            <option value="">Choose a site</option>
+            <option *ngFor="let site of siteList" [ngValue]="site">{{site.ric}} {{site.ric != null ? "-" : ""}} {{site.name}}</option>
+          </select>
+        </div>
+        <div class="col-md-2">
+          <label style="font-weight: bold">Network</label>
+        </div>
+        <div class="col-md-3">
+          <select class="form-control" formControlName='network' (change)="loadNetwork()">
+            <option value="">Normal</option>
+            <option value="Down">Down</option>
+            <option value="Recovered">Recovered</option>
+          </select>
+        </div>
+      </div>
+      <div class="row" style="margin: 10px 0px">
+        <div class="col-md-2">
+          <label style="font-weight: bold">Line</label>
+        </div>
+        <div class="col-md-10">
+          <select name="" class="form-control" formControlName="line" (change)="loadLine()">
+            <option value="">Choose a line</option>
+            <option *ngFor="let line of lineList" [ngValue]="line">{{line.name}}</option>
+          </select>
+        </div>
+      </div>
+      <div class="row" style="margin: 10px 0px">
+        <div class="col-md-2">
+          <label style="font-weight: bold">Event</label>
+        </div>
+        <div class="col-md-6">
+          <select name="" class="form-control" formControlName="event" (change)="loadEvent()">
+            <option value="">Choose a event</option>
+            <option *ngFor="let event of eventList" [ngValue]="event">{{event.name}}</option>
+          </select>
+        </div>
+        <div class="col-md-2">
+          <label style="font-weight: bold">Value</label>
+        </div>
+        <div class="col-md-2">
+          <input class="form-control" type="text" formControlName="extra">
+        </div>
+      </div>
+      <div class="row" style="margin: 10px 0px">
+        <div class="col-md-2">
+          <label style="font-weight: bold">Impact</label>
+        </div>
+        <div class="col-md-10">
+          <select name="" class="form-control" formControlName="impact" [compareWith]="compareByID">
+            <option value="">Choose a impact</option>
+            <option *ngFor="let impact of impactList" [ngValue]="impact">{{impact.name}}</option>
+          </select>
+        </div>
+      </div>
+      <div class="row" style="margin: 10px 0px">
+        <div class="col-md-2">
+          <label style="font-weight: bold">Issue Time</label>
+        </div>
+        <div class="col-md-5">
+          <input type="datetime-local" [attr.max]="maxDateTime" class="form-control" formControlName="issueTime"
+                 placeholder="">
+        </div>
+      </div>
+
+<!--      Restore Time-->
+      <div class="row" style="margin: 10px 0px">
+        <div class="col-md-2">
+          <label style="font-weight: bold">Restore Time</label>
+        </div>
+        <div class="col-md-5">
+          <input type="datetime-local" [attr.min]="" [attr.max]="maxDateTime" class="form-control"
+                 formControlName="restoreTime" placeholder="">
+        </div>
+      </div>
+      <div class="row" style="margin: 20px 0px">
+        <div class="col-md-3"></div>
+        <div class="col-md-3"></div>
+        <div class="col-md-3"></div>
+        <div class="col-md-3">
+          <button style="width: 100%" [disabled]="!smsForm.valid" class="btn btn-outline-primary"
+                  (click)="generatorSms()">Generator SMS
+          </button>
+        </div>
+      </div>
+
+<!--SMS-->
+      <div>
+        <h4 *ngIf="isTextPresent">Internal</h4>
+        <div class="row" style="margin-left: 0">
+          <p> {{smsString}}</p>
+          <button style="margin-left: 20px" class="btn btn-outline-info" *ngIf="isTextPresent"
+                  (click)="copyToClipboard()">
+            Copy
+          </button>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="col-md-6">
+      <div class="row" *ngIf="isTextPresentContact">
+        <div id="contact">
+          <p>SITE: {{siteName}}</p>
+          <p>CONTACTS:</p>
+          <ol>
+            <li *ngFor = "let contact of contactList">
+              {{contact.name}} - Tel: {{contact.office}} - Mobile: {{contact.phone}}
+            </li>
+          </ol>
+        </div>
+        <div>
+          <button style="margin-left: 20px" class="btn btn-outline-info"
+                  (click)="copyContact()">
+            Copy
+          </button>
+        </div>
+      </div>
+
+
+      <div>
+        <p style="font-weight: bold">TOPO:</p>
+        <img style="width: 100%" src="{{topoPath}}" alt="">
+      </div>
+      <div *ngIf="isTextPresentPingLog">
+        <p style="font-weight: bold">WORKING:</p>
+        <p>Device IP: {{ipAddress}}</p>
+        <p>Ping Command: {{pingCommand}}</p>
+      </div>
+      <div>
+        <p style="font-weight: bold"> EMAIL:</p>
+
+        <p style="font-weight: bold" style="" *ngIf="isTextPresentToEmail">To:</p>
+        <div class="row" *ngIf="isTextPresentToEmail">
+          <div style="padding-left: 15px;" id="toEmail">
+            <p>{{recipients}}</p>
+          </div>
+          <button style="margin-left: 20px" class="btn btn-outline-info"
+                  (click)="copyToEmail()">
+            Copy
+          </button>
+        </div>
+
+        <p style="font-weight: bold" *ngIf="isTextPresentCcEmail">Cc:</p>
+        <div class="row" *ngIf="isTextPresentCcEmail">
+          <div style="padding-left: 15px;" id="ccEmail">
+            <p>lgnetnmc@lgcns.com</p>
+          </div>
+          <button style="margin-left: 20px" class="btn btn-outline-info"
+                  (click)="copyCcEmail()">
+            Copy
+          </button>
+        </div>
+
+        <p style="font-weight: bold" *ngIf="isTextPresentSubjectEmail">Subject:</p>
+        <div class="row" *ngIf="isTextPresentSubjectEmail">
+          <div style="padding-left: 15px;" id="subjectEmail">
+            <p>{{line}} is {{event}}</p>
+          </div>
+          <button style="margin-left: 20px" class="btn btn-outline-info"
+                  (click)="copySubjectEmail()">
+            Copy
+          </button>
+        </div>
+
+        <p style="font-weight: bold" *ngIf="isTextPresentEmail">Content</p>
+        <div class="row" *ngIf="isTextPresentEmail" >
+          <div style="padding-left: 15px;" id="email">
+            <ul style="list-style-type: none; padding-left: 0">
+              <li>Dear {{ispName}}</li>
+              <li>This is GNMC (Global Network Management Center) of LGCNS</li>
+              <li>&nbsp;</li>
+              <li>{{line}} is {{event}}</li>
+              <li>Please open ticket and investigated cause</li>
+              <li>&nbsp;</li>
+              <li>Customer: {{customer}}</li>
+              <li>Service ID: {{ci}}</li>
+              <li>Issue: Link {{event}}</li>
+              <li>Time: {{time}}</li>
+              <li>Power verified: Yes</li>
+              <li>Equipment status: Normal</li>
+              <li>&nbsp;</li>
+              <li>-----------------------------</li>
+              <li>&nbsp;</li>
+              <li>#Pingtest</li>
+              <li style="color: red">Replace ping test here</li>
+              <li>&nbsp;</li>
+              <li>#Log</li>
+              <li style="color: red">Replace log here</li>
+            </ul>
+          </div>
+          <div>
+            <button *ngIf="isTextPresentEmail" style="margin-left: 20px" class="btn btn-outline-info"
+                    (click)="copyToClipboardEmail()">
+              Copy
+            </button>
+          </div>
+
+
+        </div>
+      </div>
+    </div>
+  </div>
+</form>
+
+<!--{{smsForm.value | json}}-->

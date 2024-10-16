@@ -1,0 +1,98 @@
+<p>contact-add works!</p>
+<h4>CREATE LINE</h4>
+<div style="margin: 5px 0px">
+  <p><span style="font-weight: bold">Name</span>: {{site.name}}</p>
+  <p><span style="font-weight: bold">GMT</span>: {{site.gmt}}</p>
+  <p><span style="font-weight: bold">Configuration</span>: {{site.configure}}</p>
+  <p><span style="font-weight: bold">Configuration Kr</span>: {{site.configureKr}}</p>
+  <p><span style="font-weight: bold">Company</span>: {{site.company.name}}</p>
+</div>
+
+<form [formGroup]="contactForm">
+  <div class="row" style="margin: 5px 0px">
+    <div class="col-md-2">
+      <label style="font-weight: bold">Name</label>
+    </div>
+    <div class="col-md-10">
+      <input type="text" class="form-control" formControlName="name">
+    </div>
+  </div>
+
+  <div class="row" style="margin: 5px 0px">
+    <div class="col-md-2">
+      <label style="font-weight: bold">Email</label>
+    </div>
+    <div class="col-md-10">
+      <input type="text" class="form-control" formControlName="email">
+    </div>
+  </div>
+
+  <div class="row" style="margin: 5px 0px">
+    <div class="col-md-2">
+      <label style="font-weight: bold">Office</label>
+    </div>
+    <div class="col-md-10">
+      <input type="text" class="form-control" formControlName="office">
+    </div>
+  </div>
+
+  <div class="row" style="margin: 5px 0px">
+    <div class="col-md-2">
+      <label style="font-weight: bold">Mobile</label>
+    </div>
+    <div class="col-md-10">
+      <input type="text" class="form-control" formControlName="phone">
+    </div>
+  </div>
+
+  <div class="row" style="margin: 5px 0px">
+    <div class="col-md-2">
+      <label style="font-weight: bold">Role</label>
+    </div>
+    <div class="col-md-10">
+      <input type="text" class="form-control" formControlName="role">
+    </div>
+  </div>
+
+  <div class="row" style="margin: 5px 0px">
+    <div class="col-md-2">
+      <label style="font-weight: bold">Note</label>
+    </div>
+    <div class="col-md-10">
+      <input type="text" class="form-control" formControlName="note">
+    </div>
+  </div>
+
+  <div class="row" style="margin: 5px 0px">
+    <div class="col-md-9"></div>
+    <div class="col-md-1">
+      <button style="width: 100%" class="btn btn-outline-dark" (click)="cancel()">Cancel</button>
+    </div>
+    <div class="col-md-1">
+      <button [disabled]="!contactForm.valid" style="width: 100%" class="btn btn-outline-success" (click)="save()">Save</button>
+    </div>
+    <div class="col-md-1"></div>
+  </div>
+</form>
+
+<h5>Contact List</h5>
+<table class="table table-bordered">
+  <thead>
+  <th style="text-align: center">No.</th>
+  <th>Name</th>
+  <th>Email</th>
+  <th style="text-align: center">Office</th>
+  <th style="text-align: center">Mobile</th>
+  <th style="text-align: center">Role</th>
+  </thead>
+  <tbody>
+  <tr *ngFor="let contact of site.contactList,  index as i">
+    <td style="text-align: center">{{i + 1}}</td>
+    <td>{{contact.name != null ? contact.name : ""}}</td>
+    <td>{{contact.email != null ? contact.email : ""}}</td>
+    <td style="text-align: center">{{contact.office != null ? contact.phone : ""}}</td>
+    <td style="text-align: center">{{contact.phone != null ? contact.office : ""}}</td>
+    <td style="text-align: center">{{contact.role != null ? contact.role : ""}}</td>
+  </tr>
+  </tbody>
+</table>

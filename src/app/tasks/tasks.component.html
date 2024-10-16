@@ -1,0 +1,180 @@
+<!--<div class="container">-->
+<h4>CREATE TASK</h4>
+<form [formGroup]="taskForm">
+
+  <div class="row" style="margin: 5px 0px">
+    <div class="col-md-2">
+      <label class="form-label" style="font-weight: bold">Task Name</label>
+    </div>
+    <div class="col-md-8">
+      <textarea (paste)="handlePaste($event)" style="white-space: pre-wrap; text-align: left" class="form-control"  [attr.rows] = "nameRows" rows="1" formControlName="name"></textarea>
+    </div>
+    <div class="col-md-1">
+      <label class="form-label" style="font-weight: bold">P1</label>
+    </div>
+    <div class="col-md-1">
+      <input class="form-control" type="checkbox" formControlName="isP1" (click)="checkCheckbox()">
+    </div>
+  </div>
+
+  <div class="row" style="margin: 5px 0px">
+    <div class="col-md-2">
+      <label style="font-weight: bold">Company</label>
+    </div>
+    <div class="col-md-4">
+      <select name="" class="form-control" formControlName="company" (change)="loadCompany()">
+        <option value="">Choose a company</option>
+        <option *ngFor="let company of companyList" [ngValue]="company">{{company.name}}</option>
+      </select>
+    </div>
+    <div class="col-md-1">
+      <label style="font-weight: bold">Site</label>
+    </div>
+    <div class="col-md-2">
+      <input type="text" class="form-control" formControlName = "valueFilter" (blur)="filterSite()">
+    </div>
+    <div class="col-md-3">
+      <select name="" class="form-control" formControlName="site" (change)="loadSite()">
+        <option value="">Choose a site</option>
+        <option *ngFor="let site of siteList" [ngValue]="site">{{site.ric}} {{site.ric != null ? "-" : ""}} {{site.name}}</option>
+
+      </select>
+    </div>
+  </div>
+
+  <div class="row" style="margin: 5px 0px">
+    <div class="col-md-2">
+      <label style="font-weight: bold">Cause</label>
+    </div>
+    <div class="col-md-5">
+      <input type="text" formControlName="cause" class="form-control">
+      <!--        <input class="form-control" formControlName="configure"></input>-->
+    </div>
+    <div class="col-md-5">
+      <input type="text" formControlName="causeKr" class="form-control">
+      <!--        <input class="form-control" formControlName="configureKr"></input>-->
+    </div>
+  </div>
+
+  <div class="row" style="margin: 5px 0px">
+    <div class="col-md-2">
+      <label style="font-weight: bold">Impact</label>
+    </div>
+    <div class="col-md-10">
+      <select name="" class="form-control" formControlName="impact">
+        <option value="">Choose a impact</option>
+        <option *ngFor="let impact of impactList" [ngValue]="impact">{{impact.name}}</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="row" style="margin: 5px 0px">
+    <div class="col-md-2">
+      <label style="font-weight: bold">Configuration</label>
+    </div>
+    <div class="col-md-5">
+      <textarea class="form-control" formControlName="configure" rows="2" [(ngModel)]="configure"></textarea>
+    </div>
+    <div class="col-md-5">
+      <textarea class="form-control" formControlName="configureKr" rows="2" [(ngModel)]="configureKr"></textarea>
+    </div>
+  </div>
+
+
+
+  <div class="row" style="margin: 5px 0px">
+    <div class="col-md-2">
+      <label style="font-weight: bold">Action</label>
+    </div>
+    <div class="col-md-10">
+      <div formArrayName="actionList"
+           *ngFor="let item of taskForm.get('actionList').controls; let i = index;">
+
+        <div [formGroupName]="i" class="row" style="margin-top: 2px">
+          <div class="col-md-3">
+            <select name="" class="form-control" formControlName="type" [compareWith]="compareByID" (change) = filetype(i)>
+              <option value="">Choose a type</option>
+              <option *ngFor="let type of typeList" [ngValue]="type">{{type.name}}</option>
+            </select>
+            <input type="datetime-local" class="form-control" formControlName="actionDate" placeholder="" style="margin-top: 5px">
+          </div>
+
+          <div class="col-md-4">
+            <textarea class="form-control" rows="5" formControlName="actionContent"></textarea>
+          </div>
+          <div class="col-md-4">
+            <textarea class="form-control" rows="5" formControlName="actionContentKr"></textarea>
+          </div>
+          <div class="col-md-1">
+            <button (click)="removeAction(i)" class="btn btn-outline-danger">X</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row" style="margin: 5px 0px">
+    <div class="col-md-2"></div>
+    <div class="col-md-10">
+      <div class="row">
+        <div class="col-md-2"></div>
+        <div class="col-md-3"></div>
+        <div class="col-md-3"></div>
+        <div class="col-md-3">
+        </div>
+        <div class="col-md-1">
+          <button style="width: 100%" class="btn btn-outline-primary" (click)="addAction()">Add</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div style="margin: 5px 0px" class="row">
+    <div class="col-md-2">
+      <label style="font-weight: bold">Position in Report</label>
+    </div>
+    <div class="col-md-10">
+      <select name="" class="form-control" formControlName="position">
+        <option value="">Choose a position</option>
+        <option *ngFor="let position of positionList" [ngValue]="position">{{position.name}}</option>
+      </select>
+    </div>
+  </div>
+
+
+  <div class="row" style="margin: 20px 0px">
+    <div class="col-md-9"></div>
+    <div class="col-md-1">
+      <button style="width: 100%" class="btn btn-outline-dark" (click)="cancel()"> Cancel</button>
+    </div>
+    <div class="col-md-1">
+      <button [disabled]="!taskForm.valid" style="width: 100%" class="btn btn-outline-success" (click)="save()">Save
+      </button>
+    </div>
+    <div class="col-md-1"></div>
+  </div>
+
+  <h5>TIPS</h5>
+  <div class="row" style="margin: 20px 0px">
+    <div class="col-md-6">
+      <p>Report failure to ... (...)</p>
+      <p>Request RFO to ...</p>
+      <p>When connecting to ... equipment, BGP is down, interface up</p>
+      <p>Report problem to ... and request RFO (...)</p>
+      <p>Request confirmation via email, call from...</p>
+      <p>Request confirmation via email from site administrator and ... administrator</p>
+    </div>
+    <div class="col-md-6">
+      <p>... 에 장애 신고(...)</p>
+      <p>... 에서 RFO 제공했음</p>
+      <p>... 장비에 접속시 BGP 다운 및 인터페이스 업 확인됨</p>
+      <p>... 에 장애신고 및 RFO 요청함 (...)</p>
+      <p>... 에게 이메일 및 전화를 통해 확인을 요청함</p>
+      <p>사이트 관리자 및 ... 관리자에게 이메일을 통해 확인 요청함</p>
+    </div>
+  </div>
+
+</form>
+
+<!--{{taskForm.value | json}}-->
+

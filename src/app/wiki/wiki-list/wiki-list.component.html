@@ -1,0 +1,19 @@
+<h3>WIKI</h3>
+<div class="row">
+  <div class="col-md-2"></div>
+  <div class="col-md-6">
+    <input class="form-control" type="text" [(ngModel)]="keyword">
+  </div>
+  <div class="col-md-2">
+    <button class="form-control" (click)="search()">Search</button>
+  </div>
+  <div class="col-md-2"></div>
+
+
+</div>
+<ul style="list-style-type: none">
+  <li style="font-size: 18px" *ngFor = "let wiki of wikiList">
+    <a style="text-decoration: none" [routerLink]="['/wiki/detail/' + wiki.id]">{{wiki.name}}</a>
+
+  </li>
+</ul>

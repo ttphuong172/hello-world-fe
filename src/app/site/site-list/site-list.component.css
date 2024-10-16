@@ -4,6 +4,7 @@ ul {
   padding: 0;
   overflow: hidden;
   background-color: #A50034;
+  font-size: 12px;
 }
 
 li {
@@ -14,10 +15,16 @@ li a {
   display: block;
   color: white;
   text-align: center;
-  padding: 14px 16px;
+  padding: 5px 10px;
+  margin: 0 5px;
   text-decoration: none;
 }
 
 li a:hover {
   background-color: #6b6b6b;
+}
+
+li a.active {
+  background-color: #388e3c; /* Active link background color */
+  color: white; /* Active link text color */
 }

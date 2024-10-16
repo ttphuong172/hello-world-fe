@@ -1,0 +1,681 @@
+
+<div class="row" style="margin: 5px 0px">
+  <div style="text-align: left" class="col-md-6">
+    <h3>REPORT</h3>
+  </div>
+  <div class="col-md-2"></div>
+  <div class="col-md-2"></div>
+  <div style="text-align: right" class="col-md-2">
+    <button class="form-control" (click)="exportReport()">Export Report</button>
+  </div>
+</div>
+<table class="table table-bordered">
+  <thead>
+
+  </thead>
+  <tbody>
+  <tr>
+    <td style="font-weight: bold" colspan="8">I. LG Electronics Overseas</td>
+  </tr>
+  <tr>
+    <td style="font-weight: bold" colspan="8">[Overseas Disability & Events]</td>
+  </tr>
+  <tr>
+    <td style="font-weight: bold" colspan="8">1. AIC</td>
+  </tr>
+  <ng-container *ngFor="let task of taskListAIC; let i = index" >
+    <!-- First row with rowspan -->
+    <tr *ngIf="task.actionList.length > 0" [style.color]="task.isVisible ? 'black': 'red'">
+      <td style="text-align: center" [attr.rowspan]="task.actionList.length">{{i + 1}}</td>
+      <td style="white-space: pre-line" [attr.rowspan]="task.actionList.length">
+        <p style="font-weight: bold">{{task.name}}</p>
+        <p><span style="font-weight: bold">Impact: </span>{{task.impact.name}}</p>
+        <p><span style="font-weight: bold">ImpactKr: </span>{{task.impact.nameKr}}</p>
+        <p><span style="font-weight: bold">Configure: </span>{{task.configure}}</p>
+        <p><span style="font-weight: bold"> ConfigureKr: </span>{{task.configureKr}}</p>
+      </td>
+      <td>{{ task.actionList[0].type.name}}</td>
+      <td>{{task.actionList[0].actionDate | date :'MM-dd-yyyy H:mm'}}</td>
+      <td>{{task.actionList[0].actionContent}}</td>
+      <td>{{task.actionList[0].actionContentKr}}</td>
+      <td [attr.rowspan]="task.actionList.length">
+        <p><span style="font-weight:bold">Company: </span>{{task.company.name}}</p>
+        <p><span style="font-weight:bold">Site: </span>{{task.site.name}}</p>
+        <p><span style="font-weight:bold">Position: </span>{{task.position.name}}</p>
+      </td>
+    </tr>
+
+    <!-- Remaining rows for each category item -->
+    <ng-container *ngIf = "task.actionList.length > 0">
+      <ng-container *ngFor="let action of task.actionList.slice(1)">
+        <tr [style.color]="task.isVisible ? 'black': 'red'">
+          <td>{{ action.type.name }}</td>
+          <td>{{action.actionDate | date :'MM-dd-yyyy H:mm'}}</td>
+          <td style="white-space: pre-line">{{action.actionContent}}</td>
+          <td style="white-space: pre-line">{{action.actionContentKr}}</td>
+        </tr>
+      </ng-container>
+    </ng-container>
+
+    <!-- Handle case where lineList is empty -->
+    <tr *ngIf="task.actionList.length == 0" [style.color]="task.isVisible ? 'black': 'red'">
+      <td style="text-align: center">{{i + 1}}</td>
+      <td style="white-space: pre-line">
+        <p style="font-weight: bold">{{task.name}}</p>
+        <p><span style="font-weight: bold">Impact: </span>{{task.impact.name}}</p>
+        <p><span style="font-weight: bold">ImpactKr: </span>{{task.impact.nameKr}}</p>
+        <p><span style="font-weight: bold">Configure: </span>{{task.configure}}</p>
+        <p><span style="font-weight: bold"> ConfigureKr: </span>{{task.configureKr}}</p>
+      </td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td>
+        <p><span style="font-weight:bold">Company: </span>{{task.company.name}}</p>
+        <p><span style="font-weight:bold">Site: </span>{{task.site.name}}</p>
+        <p><span style="font-weight:bold">Position: </span>{{task.position.name}}</p>
+      </td>
+    </tr>
+  </ng-container>
+
+  <tr>
+    <td style="font-weight: bold" colspan="8">2. EIC</td>
+  </tr>
+  <ng-container *ngFor="let task of taskListEIC; let i = index" >
+    <!-- First row with rowspan -->
+    <tr *ngIf="task.actionList.length > 0" [style.color]="task.isVisible ? 'black': 'red'">
+      <td style="text-align: center" [attr.rowspan]="task.actionList.length">{{i + 1}}</td>
+      <td style="white-space: pre-line" [attr.rowspan]="task.actionList.length">
+        <p style="font-weight: bold">{{task.name}}</p>
+        <p><span style="font-weight: bold">Impact: </span>{{task.impact.name}}</p>
+        <p><span style="font-weight: bold">ImpactKr: </span>{{task.impact.nameKr}}</p>
+        <p><span style="font-weight: bold">Configure: </span>{{task.configure}}</p>
+        <p><span style="font-weight: bold"> ConfigureKr: </span>{{task.configureKr}}</p>
+      </td>
+      <td>{{ task.actionList[0].type.name}}</td>
+      <td>{{task.actionList[0].actionDate | date :'MM-dd-yyyy H:mm'}}</td>
+      <td>{{task.actionList[0].actionContent}}</td>
+      <td>{{task.actionList[0].actionContentKr}}</td>
+      <td [attr.rowspan]="task.actionList.length">
+        <p><span style="font-weight:bold">Company: </span>{{task.company.name}}</p>
+        <p><span style="font-weight:bold">Site: </span>{{task.site.name}}</p>
+        <p><span style="font-weight:bold">Position: </span>{{task.position.name}}</p>
+      </td>
+    </tr>
+
+    <!-- Remaining rows for each category item -->
+    <ng-container *ngIf = "task.actionList.length > 0">
+      <ng-container *ngFor="let action of task.actionList.slice(1)">
+        <tr [style.color]="task.isVisible ? 'black': 'red'">
+          <td>{{ action.type.name }}</td>
+          <td>{{action.actionDate | date :'MM-dd-yyyy H:mm'}}</td>
+          <td style="white-space: pre-line">{{action.actionContent}}</td>
+          <td style="white-space: pre-line">{{action.actionContentKr}}</td>
+        </tr>
+      </ng-container>
+    </ng-container>
+
+    <!-- Handle case where lineList is empty -->
+    <tr *ngIf="task.actionList.length == 0" [style.color]="task.isVisible ? 'black': 'red'">
+      <td style="text-align: center">{{i + 1}}</td>
+      <td style="white-space: pre-line">
+        <p style="font-weight: bold">{{task.name}}</p>
+        <p><span style="font-weight: bold">Impact: </span>{{task.impact.name}}</p>
+        <p><span style="font-weight: bold">ImpactKr: </span>{{task.impact.nameKr}}</p>
+        <p><span style="font-weight: bold">Configure: </span>{{task.configure}}</p>
+        <p><span style="font-weight: bold"> ConfigureKr: </span>{{task.configureKr}}</p>
+      </td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td>
+        <p><span style="font-weight:bold">Company: </span>{{task.company.name}}</p>
+        <p><span style="font-weight:bold">Site: </span>{{task.site.name}}</p>
+        <p><span style="font-weight:bold">Position: </span>{{task.position.name}}</p>
+      </td>
+    </tr>
+  </ng-container>
+
+  <tr>
+    <td style="font-weight: bold" colspan="8">3. APIC</td>
+  </tr>
+  <ng-container *ngFor="let task of taskListAPIC; let i = index" >
+    <!-- First row with rowspan -->
+    <tr *ngIf="task.actionList.length > 0" [style.color]="task.isVisible ? 'black': 'red'">
+      <td style="text-align: center" [attr.rowspan]="task.actionList.length">{{i + 1}}</td>
+      <td style="white-space: pre-line" [attr.rowspan]="task.actionList.length">
+        <p style="font-weight: bold">{{task.name}}</p>
+        <p><span style="font-weight: bold">Impact: </span>{{task.impact.name}}</p>
+        <p><span style="font-weight: bold">ImpactKr: </span>{{task.impact.nameKr}}</p>
+        <p><span style="font-weight: bold">Configure: </span>{{task.configure}}</p>
+        <p><span style="font-weight: bold"> ConfigureKr: </span>{{task.configureKr}}</p>
+      </td>
+      <td>{{ task.actionList[0].type.name}}</td>
+      <td>{{task.actionList[0].actionDate | date :'MM-dd-yyyy H:mm'}}</td>
+      <td>{{task.actionList[0].actionContent}}</td>
+      <td>{{task.actionList[0].actionContentKr}}</td>
+      <td [attr.rowspan]="task.actionList.length">
+        <p><span style="font-weight:bold">Company: </span>{{task.company.name}}</p>
+        <p><span style="font-weight:bold">Site: </span>{{task.site.name}}</p>
+        <p><span style="font-weight:bold">Position: </span>{{task.position.name}}</p>
+      </td>
+    </tr>
+
+    <!-- Remaining rows for each category item -->
+    <ng-container *ngIf = "task.actionList.length > 0">
+      <ng-container *ngFor="let action of task.actionList.slice(1)">
+        <tr [style.color]="task.isVisible ? 'black': 'red'">
+          <td>{{ action.type.name }}</td>
+          <td>{{action.actionDate | date :'MM-dd-yyyy H:mm'}}</td>
+          <td style="white-space: pre-line">{{action.actionContent}}</td>
+          <td style="white-space: pre-line">{{action.actionContentKr}}</td>
+        </tr>
+      </ng-container>
+    </ng-container>
+
+    <!-- Handle case where lineList is empty -->
+    <tr *ngIf="task.actionList.length == 0" [style.color]="task.isVisible ? 'black': 'red'">
+      <td style="text-align: center">{{i + 1}}</td>
+      <td style="white-space: pre-line">
+        <p style="font-weight: bold">{{task.name}}</p>
+        <p><span style="font-weight: bold">Impact: </span>{{task.impact.name}}</p>
+        <p><span style="font-weight: bold">ImpactKr: </span>{{task.impact.nameKr}}</p>
+        <p><span style="font-weight: bold">Configure: </span>{{task.configure}}</p>
+        <p><span style="font-weight: bold"> ConfigureKr: </span>{{task.configureKr}}</p>
+      </td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td>
+        <p><span style="font-weight:bold">Company: </span>{{task.company.name}}</p>
+        <p><span style="font-weight:bold">Site: </span>{{task.site.name}}</p>
+        <p><span style="font-weight:bold">Position: </span>{{task.position.name}}</p>
+      </td>
+    </tr>
+  </ng-container>
+
+  <tr>
+    <td style="font-weight: bold" colspan="8">4. CIC</td>
+  </tr>
+  <ng-container *ngFor="let task of taskListCIC; let i = index" >
+    <!-- First row with rowspan -->
+    <tr *ngIf="task.actionList.length > 0" [style.color]="task.isVisible ? 'black': 'red'">
+      <td style="text-align: center" [attr.rowspan]="task.actionList.length">{{i + 1}}</td>
+      <td style="white-space: pre-line" [attr.rowspan]="task.actionList.length">
+        <p style="font-weight: bold">{{task.name}}</p>
+        <p><span style="font-weight: bold">Impact: </span>{{task.impact.name}}</p>
+        <p><span style="font-weight: bold">ImpactKr: </span>{{task.impact.nameKr}}</p>
+        <p><span style="font-weight: bold">Configure: </span>{{task.configure}}</p>
+        <p><span style="font-weight: bold"> ConfigureKr: </span>{{task.configureKr}}</p>
+      </td>
+      <td>{{ task.actionList[0].type.name}}</td>
+      <td>{{task.actionList[0].actionDate | date :'MM-dd-yyyy H:mm'}}</td>
+      <td>{{task.actionList[0].actionContent}}</td>
+      <td>{{task.actionList[0].actionContentKr}}</td>
+      <td [attr.rowspan]="task.actionList.length">
+        <p><span style="font-weight:bold">Company: </span>{{task.company.name}}</p>
+        <p><span style="font-weight:bold">Site: </span>{{task.site.name}}</p>
+        <p><span style="font-weight:bold">Position: </span>{{task.position.name}}</p>
+      </td>
+    </tr>
+
+    <!-- Remaining rows for each category item -->
+    <ng-container *ngIf = "task.actionList.length > 0">
+      <ng-container *ngFor="let action of task.actionList.slice(1)">
+        <tr [style.color]="task.isVisible ? 'black': 'red'">
+          <td>{{ action.type.name }}</td>
+          <td>{{action.actionDate | date :'MM-dd-yyyy H:mm'}}</td>
+          <td style="white-space: pre-line">{{action.actionContent}}</td>
+          <td style="white-space: pre-line">{{action.actionContentKr}}</td>
+        </tr>
+      </ng-container>
+    </ng-container>
+
+    <!-- Handle case where lineList is empty -->
+    <tr *ngIf="task.actionList.length == 0" [style.color]="task.isVisible ? 'black': 'red'">
+      <td style="text-align: center">{{i + 1}}</td>
+      <td style="white-space: pre-line">
+        <p style="font-weight: bold">{{task.name}}</p>
+        <p><span style="font-weight: bold">Impact: </span>{{task.impact.name}}</p>
+        <p><span style="font-weight: bold">ImpactKr: </span>{{task.impact.nameKr}}</p>
+        <p><span style="font-weight: bold">Configure: </span>{{task.configure}}</p>
+        <p><span style="font-weight: bold"> ConfigureKr: </span>{{task.configureKr}}</p>
+      </td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td>
+        <p><span style="font-weight:bold">Company: </span>{{task.company.name}}</p>
+        <p><span style="font-weight:bold">Site: </span>{{task.site.name}}</p>
+        <p><span style="font-weight:bold">Position: </span>{{task.position.name}}</p>
+      </td>
+    </tr>
+  </ng-container>
+
+  <tr>
+    <td style="font-weight: bold" colspan="8">5. Local ISP Failure</td>
+  </tr>
+  <ng-container *ngFor="let task of taskListLocal; let i = index" >
+    <!-- First row with rowspan -->
+    <tr *ngIf="task.actionList.length > 0" [style.color]="task.isVisible ? 'black': 'red'">
+      <td style="text-align: center" [attr.rowspan]="task.actionList.length">{{i + 1}}</td>
+      <td style="white-space: pre-line" [attr.rowspan]="task.actionList.length">
+        <p style="font-weight: bold">{{task.name}}</p>
+        <p><span style="font-weight: bold">Impact: </span>{{task.impact.name}}</p>
+        <p><span style="font-weight: bold">ImpactKr: </span>{{task.impact.nameKr}}</p>
+        <p><span style="font-weight: bold">Configure: </span>{{task.configure}}</p>
+        <p><span style="font-weight: bold"> ConfigureKr: </span>{{task.configureKr}}</p>
+      </td>
+      <td>{{ task.actionList[0].type.name}}</td>
+      <td>{{task.actionList[0].actionDate | date :'MM-dd-yyyy H:mm'}}</td>
+      <td>{{task.actionList[0].actionContent}}</td>
+      <td>{{task.actionList[0].actionContentKr}}</td>
+      <td [attr.rowspan]="task.actionList.length">
+        <p><span style="font-weight:bold">Company: </span>{{task.company.name}}</p>
+        <p><span style="font-weight:bold">Site: </span>{{task.site.name}}</p>
+        <p><span style="font-weight:bold">Position: </span>{{task.position.name}}</p>
+      </td>
+    </tr>
+
+    <!-- Remaining rows for each category item -->
+    <ng-container *ngIf = "task.actionList.length > 0">
+      <ng-container *ngFor="let action of task.actionList.slice(1)">
+        <tr [style.color]="task.isVisible ? 'black': 'red'">
+          <td>{{ action.type.name }}</td>
+          <td>{{action.actionDate | date :'MM-dd-yyyy H:mm'}}</td>
+          <td style="white-space: pre-line">{{action.actionContent}}</td>
+          <td style="white-space: pre-line">{{action.actionContentKr}}</td>
+        </tr>
+      </ng-container>
+    </ng-container>
+
+    <!-- Handle case where lineList is empty -->
+    <tr *ngIf="task.actionList.length == 0" [style.color]="task.isVisible ? 'black': 'red'">
+      <td style="text-align: center">{{i + 1}}</td>
+      <td style="white-space: pre-line">
+        <p style="font-weight: bold">{{task.name}}</p>
+        <p><span style="font-weight: bold">Impact: </span>{{task.impact.name}}</p>
+        <p><span style="font-weight: bold">ImpactKr: </span>{{task.impact.nameKr}}</p>
+        <p><span style="font-weight: bold">Configure: </span>{{task.configure}}</p>
+        <p><span style="font-weight: bold"> ConfigureKr: </span>{{task.configureKr}}</p>
+      </td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td>
+        <p><span style="font-weight:bold">Company: </span>{{task.company.name}}</p>
+        <p><span style="font-weight:bold">Site: </span>{{task.site.name}}</p>
+        <p><span style="font-weight:bold">Position: </span>{{task.position.name}}</p>
+      </td>
+    </tr>
+  </ng-container>
+
+  <tr>
+    <td style="font-weight: bold" colspan="8">[Other]</td>
+  </tr>
+  <tr>
+    <td style="font-weight: bold" colspan="8">1. Customer work (power problems, change design, etc...)</td>
+  </tr>
+  <ng-container *ngFor="let task of taskListWorkCustomer; let i = index" >
+    <!-- First row with rowspan -->
+    <tr *ngIf="task.actionList.length > 0" [style.color]="task.isVisible ? 'black': 'red'">
+      <td style="text-align: center" [attr.rowspan]="task.actionList.length">{{i + 1}}</td>
+      <td style="white-space: pre-line" [attr.rowspan]="task.actionList.length">
+        <p style="font-weight: bold">{{task.name}}</p>
+        <p><span style="font-weight: bold">Impact: </span>{{task.impact.name}}</p>
+        <p><span style="font-weight: bold">ImpactKr: </span>{{task.impact.nameKr}}</p>
+        <p><span style="font-weight: bold">Configure: </span>{{task.configure}}</p>
+        <p><span style="font-weight: bold"> ConfigureKr: </span>{{task.configureKr}}</p>
+      </td>
+      <td>{{ task.actionList[0].type.name}}</td>
+      <td>{{task.actionList[0].actionDate | date :'MM-dd-yyyy H:mm'}}</td>
+      <td>{{task.actionList[0].actionContent}}</td>
+      <td>{{task.actionList[0].actionContentKr}}</td>
+      <td [attr.rowspan]="task.actionList.length">
+        <p><span style="font-weight:bold">Company: </span>{{task.company.name}}</p>
+        <p><span style="font-weight:bold">Site: </span>{{task.site.name}}</p>
+        <p><span style="font-weight:bold">Position: </span>{{task.position.name}}</p>
+      </td>
+    </tr>
+
+    <!-- Remaining rows for each category item -->
+    <ng-container *ngIf = "task.actionList.length > 0">
+      <ng-container *ngFor="let action of task.actionList.slice(1)">
+        <tr [style.color]="task.isVisible ? 'black': 'red'">
+          <td>{{ action.type.name }}</td>
+          <td>{{action.actionDate | date :'MM-dd-yyyy H:mm'}}</td>
+          <td style="white-space: pre-line">{{action.actionContent}}</td>
+          <td style="white-space: pre-line">{{action.actionContentKr}}</td>
+        </tr>
+      </ng-container>
+    </ng-container>
+
+    <!-- Handle case where lineList is empty -->
+    <tr *ngIf="task.actionList.length == 0" [style.color]="task.isVisible ? 'black': 'red'">
+      <td style="text-align: center">{{i + 1}}</td>
+      <td style="white-space: pre-line">
+        <p style="font-weight: bold">{{task.name}}</p>
+        <p><span style="font-weight: bold">Impact: </span>{{task.impact.name}}</p>
+        <p><span style="font-weight: bold">ImpactKr: </span>{{task.impact.nameKr}}</p>
+        <p><span style="font-weight: bold">Configure: </span>{{task.configure}}</p>
+        <p><span style="font-weight: bold"> ConfigureKr: </span>{{task.configureKr}}</p>
+      </td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td>
+        <p><span style="font-weight:bold">Company: </span>{{task.company.name}}</p>
+        <p><span style="font-weight:bold">Site: </span>{{task.site.name}}</p>
+        <p><span style="font-weight:bold">Position: </span>{{task.position.name}}</p>
+      </td>
+    </tr>
+  </ng-container>
+
+  <tr>
+    <td style="font-weight: bold" colspan="8">2. Work (line operation work)</td>
+  </tr>
+  <ng-container *ngFor="let task of taskListWork; let i = index" >
+    <!-- First row with rowspan -->
+    <tr *ngIf="task.actionList.length > 0" [style.color]="task.isVisible ? 'black': 'red'">
+      <td style="text-align: center" [attr.rowspan]="task.actionList.length">{{i + 1}}</td>
+      <td style="white-space: pre-line" [attr.rowspan]="task.actionList.length">
+        <p style="font-weight: bold">{{task.name}}</p>
+        <p><span style="font-weight: bold">Impact: </span>{{task.impact.name}}</p>
+        <p><span style="font-weight: bold">ImpactKr: </span>{{task.impact.nameKr}}</p>
+        <p><span style="font-weight: bold">Configure: </span>{{task.configure}}</p>
+        <p><span style="font-weight: bold"> ConfigureKr: </span>{{task.configureKr}}</p>
+      </td>
+      <td>{{ task.actionList[0].type.name}}</td>
+      <td>{{task.actionList[0].actionDate | date :'MM-dd-yyyy H:mm'}}</td>
+      <td>{{task.actionList[0].actionContent}}</td>
+      <td>{{task.actionList[0].actionContentKr}}</td>
+      <td [attr.rowspan]="task.actionList.length">
+        <p><span style="font-weight:bold">Company: </span>{{task.company.name}}</p>
+        <p><span style="font-weight:bold">Site: </span>{{task.site.name}}</p>
+        <p><span style="font-weight:bold">Position: </span>{{task.position.name}}</p>
+      </td>
+    </tr>
+
+    <!-- Remaining rows for each category item -->
+    <ng-container *ngIf = "task.actionList.length > 0">
+      <ng-container *ngFor="let action of task.actionList.slice(1)">
+        <tr [style.color]="task.isVisible ? 'black': 'red'">
+          <td>{{ action.type.name }}</td>
+          <td>{{action.actionDate | date :'MM-dd-yyyy H:mm'}}</td>
+          <td style="white-space: pre-line">{{action.actionContent}}</td>
+          <td style="white-space: pre-line">{{action.actionContentKr}}</td>
+        </tr>
+      </ng-container>
+    </ng-container>
+
+    <!-- Handle case where lineList is empty -->
+    <tr *ngIf="task.actionList.length == 0" [style.color]="task.isVisible ? 'black': 'red'">
+      <td style="text-align: center">{{i + 1}}</td>
+      <td style="white-space: pre-line">
+        <p style="font-weight: bold">{{task.name}}</p>
+        <p><span style="font-weight: bold">Impact: </span>{{task.impact.name}}</p>
+        <p><span style="font-weight: bold">ImpactKr: </span>{{task.impact.nameKr}}</p>
+        <p><span style="font-weight: bold">Configure: </span>{{task.configure}}</p>
+        <p><span style="font-weight: bold"> ConfigureKr: </span>{{task.configureKr}}</p>
+      </td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td>
+        <p><span style="font-weight:bold">Company: </span>{{task.company.name}}</p>
+        <p><span style="font-weight:bold">Site: </span>{{task.site.name}}</p>
+        <p><span style="font-weight:bold">Position: </span>{{task.position.name}}</p>
+      </td>
+    </tr>
+  </ng-container>
+
+  <tr>
+    <td style="font-weight: bold" colspan="8">3. Previously reported cases and indentified causes of failure</td>
+  </tr>
+  <ng-container *ngFor="let task of taskListPrevious; let i = index" >
+    <!-- First row with rowspan -->
+    <tr *ngIf="task.actionList.length > 0" [style.color]="task.isVisible ? 'black': 'red'">
+      <td style="text-align: center" [attr.rowspan]="task.actionList.length">{{i + 1}}</td>
+      <td style="white-space: pre-line" [attr.rowspan]="task.actionList.length">
+        <p style="font-weight: bold">{{task.name}}</p>
+        <p><span style="font-weight: bold">Impact: </span>{{task.impact.name}}</p>
+        <p><span style="font-weight: bold">ImpactKr: </span>{{task.impact.nameKr}}</p>
+        <p><span style="font-weight: bold">Configure: </span>{{task.configure}}</p>
+        <p><span style="font-weight: bold"> ConfigureKr: </span>{{task.configureKr}}</p>
+      </td>
+      <td>{{ task.actionList[0].type.name}}</td>
+      <td>{{task.actionList[0].actionDate | date :'MM-dd-yyyy H:mm'}}</td>
+      <td>{{task.actionList[0].actionContent}}</td>
+      <td>{{task.actionList[0].actionContentKr}}</td>
+      <td [attr.rowspan]="task.actionList.length">
+        <p><span style="font-weight:bold">Company: </span>{{task.company.name}}</p>
+        <p><span style="font-weight:bold">Site: </span>{{task.site.name}}</p>
+        <p><span style="font-weight:bold">Position: </span>{{task.position.name}}</p>
+      </td>
+    </tr>
+
+    <!-- Remaining rows for each category item -->
+    <ng-container *ngIf = "task.actionList.length > 0">
+      <ng-container *ngFor="let action of task.actionList.slice(1)">
+        <tr [style.color]="task.isVisible ? 'black': 'red'">
+          <td>{{ action.type.name }}</td>
+          <td>{{action.actionDate | date :'MM-dd-yyyy H:mm'}}</td>
+          <td style="white-space: pre-line">{{action.actionContent}}</td>
+          <td style="white-space: pre-line">{{action.actionContentKr}}</td>
+        </tr>
+      </ng-container>
+    </ng-container>
+
+    <!-- Handle case where lineList is empty -->
+    <tr *ngIf="task.actionList.length == 0" [style.color]="task.isVisible ? 'black': 'red'">
+      <td style="text-align: center">{{i + 1}}</td>
+      <td style="white-space: pre-line">
+        <p style="font-weight: bold">{{task.name}}</p>
+        <p><span style="font-weight: bold">Impact: </span>{{task.impact.name}}</p>
+        <p><span style="font-weight: bold">ImpactKr: </span>{{task.impact.nameKr}}</p>
+        <p><span style="font-weight: bold">Configure: </span>{{task.configure}}</p>
+        <p><span style="font-weight: bold"> ConfigureKr: </span>{{task.configureKr}}</p>
+      </td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td>
+        <p><span style="font-weight:bold">Company: </span>{{task.company.name}}</p>
+        <p><span style="font-weight:bold">Site: </span>{{task.site.name}}</p>
+        <p><span style="font-weight:bold">Position: </span>{{task.position.name}}</p>
+      </td>
+    </tr>
+  </ng-container>
+
+  <tr>
+    <td style="font-weight: bold" colspan="8">4. Others (Disability / Non- Work Shares)</td>
+  </tr>
+  <ng-container *ngFor="let task of taskListOther; let i = index" >
+    <!-- First row with rowspan -->
+    <tr *ngIf="task.actionList.length > 0" [style.color]="task.isVisible ? 'black': 'red'">
+      <td style="text-align: center" [attr.rowspan]="task.actionList.length">{{i + 1}}</td>
+      <td style="white-space: pre-line" [attr.rowspan]="task.actionList.length">
+        <p style="font-weight: bold">{{task.name}}</p>
+        <p><span style="font-weight: bold">Impact: </span>{{task.impact.name}}</p>
+        <p><span style="font-weight: bold">ImpactKr: </span>{{task.impact.nameKr}}</p>
+        <p><span style="font-weight: bold">Configure: </span>{{task.configure}}</p>
+        <p><span style="font-weight: bold"> ConfigureKr: </span>{{task.configureKr}}</p>
+      </td>
+      <td>{{ task.actionList[0].type.name}}</td>
+      <td>{{task.actionList[0].actionDate | date :'MM-dd-yyyy H:mm'}}</td>
+      <td>{{task.actionList[0].actionContent}}</td>
+      <td>{{task.actionList[0].actionContentKr}}</td>
+      <td [attr.rowspan]="task.actionList.length">
+        <p><span style="font-weight:bold">Company: </span>{{task.company.name}}</p>
+        <p><span style="font-weight:bold">Site: </span>{{task.site.name}}</p>
+        <p><span style="font-weight:bold">Position: </span>{{task.position.name}}</p>
+      </td>
+    </tr>
+
+    <!-- Remaining rows for each category item -->
+    <ng-container *ngIf = "task.actionList.length > 0">
+      <ng-container *ngFor="let action of task.actionList.slice(1)">
+        <tr [style.color]="task.isVisible ? 'black': 'red'">
+          <td>{{ action.type.name }}</td>
+          <td>{{action.actionDate | date :'MM-dd-yyyy H:mm'}}</td>
+          <td style="white-space: pre-line">{{action.actionContent}}</td>
+          <td style="white-space: pre-line">{{action.actionContentKr}}</td>
+        </tr>
+      </ng-container>
+    </ng-container>
+
+    <!-- Handle case where lineList is empty -->
+    <tr *ngIf="task.actionList.length == 0" [style.color]="task.isVisible ? 'black': 'red'">
+      <td style="text-align: center">{{i + 1}}</td>
+      <td style="white-space: pre-line">
+        <p style="font-weight: bold">{{task.name}}</p>
+        <p><span style="font-weight: bold">Impact: </span>{{task.impact.name}}</p>
+        <p><span style="font-weight: bold">ImpactKr: </span>{{task.impact.nameKr}}</p>
+        <p><span style="font-weight: bold">Configure: </span>{{task.configure}}</p>
+        <p><span style="font-weight: bold"> ConfigureKr: </span>{{task.configureKr}}</p>
+      </td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td>
+        <p><span style="font-weight:bold">Company: </span>{{task.company.name}}</p>
+        <p><span style="font-weight:bold">Site: </span>{{task.site.name}}</p>
+        <p><span style="font-weight:bold">Position: </span>{{task.position.name}}</p>
+      </td>
+    </tr>
+  </ng-container>
+
+  <tr>
+    <td style="font-weight: bold" colspan="8">II. LG Energy Solution Overseas</td>
+  </tr>
+  <tr>
+    <td style="font-weight: bold" colspan="8">[Overseas Disability & Events]</td>
+  </tr>
+  <tr>
+    <td style="font-weight: bold" colspan="8">1. Operational Disability</td>
+  </tr>
+  <ng-container *ngFor="let task of taskListEnsolOperationalDisability; let i = index" >
+    <!-- First row with rowspan -->
+    <tr *ngIf="task.actionList.length > 0" [style.color]="task.isVisible ? 'black': 'red'">
+      <td style="text-align: center" [attr.rowspan]="task.actionList.length">{{i + 1}}</td>
+      <td style="white-space: pre-line" [attr.rowspan]="task.actionList.length">
+        <p style="font-weight: bold">{{task.name}}</p>
+        <p><span style="font-weight: bold">Impact: </span>{{task.impact.name}}</p>
+        <p><span style="font-weight: bold">ImpactKr: </span>{{task.impact.nameKr}}</p>
+        <p><span style="font-weight: bold">Configure: </span>{{task.configure}}</p>
+        <p><span style="font-weight: bold"> ConfigureKr: </span>{{task.configureKr}}</p>
+      </td>
+      <td>{{ task.actionList[0].type.name}}</td>
+      <td>{{task.actionList[0].actionDate | date :'MM-dd-yyyy H:mm'}}</td>
+      <td>{{task.actionList[0].actionContent}}</td>
+      <td>{{task.actionList[0].actionContentKr}}</td>
+      <td [attr.rowspan]="task.actionList.length">
+        <p><span style="font-weight:bold">Company: </span>{{task.company.name}}</p>
+        <p><span style="font-weight:bold">Site: </span>{{task.site.name}}</p>
+        <p><span style="font-weight:bold">Position: </span>{{task.position.name}}</p>
+      </td>
+    </tr>
+
+    <!-- Remaining rows for each category item -->
+    <ng-container *ngIf = "task.actionList.length > 0">
+      <ng-container *ngFor="let action of task.actionList.slice(1)">
+        <tr [style.color]="task.isVisible ? 'black': 'red'">
+          <td>{{ action.type.name }}</td>
+          <td>{{action.actionDate | date :'MM-dd-yyyy H:mm'}}</td>
+          <td style="white-space: pre-line">{{action.actionContent}}</td>
+          <td style="white-space: pre-line">{{action.actionContentKr}}</td>
+        </tr>
+      </ng-container>
+    </ng-container>
+
+    <!-- Handle case where lineList is empty -->
+    <tr *ngIf="task.actionList.length == 0" [style.color]="task.isVisible ? 'black': 'red'">
+      <td style="text-align: center">{{i + 1}}</td>
+      <td style="white-space: pre-line">
+        <p style="font-weight: bold">{{task.name}}</p>
+        <p><span style="font-weight: bold">Impact: </span>{{task.impact.name}}</p>
+        <p><span style="font-weight: bold">ImpactKr: </span>{{task.impact.nameKr}}</p>
+        <p><span style="font-weight: bold">Configure: </span>{{task.configure}}</p>
+        <p><span style="font-weight: bold"> ConfigureKr: </span>{{task.configureKr}}</p>
+      </td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td>
+        <p><span style="font-weight:bold">Company: </span>{{task.company.name}}</p>
+        <p><span style="font-weight:bold">Site: </span>{{task.site.name}}</p>
+        <p><span style="font-weight:bold">Position: </span>{{task.position.name}}</p>
+      </td>
+    </tr>
+  </ng-container>
+  <tr>
+    <td style="font-weight: bold" colspan="8">2. Local Event</td>
+  </tr>
+  <ng-container *ngFor="let task of taskListEnsolLocalEvent; let i = index" >
+    <!-- First row with rowspan -->
+    <tr *ngIf="task.actionList.length > 0" [style.color]="task.isVisible ? 'black': 'red'">
+      <td style="text-align: center" [attr.rowspan]="task.actionList.length">{{i + 1}}</td>
+      <td style="white-space: pre-line" [attr.rowspan]="task.actionList.length">
+        <p style="font-weight: bold">{{task.name}}</p>
+        <p><span style="font-weight: bold">Impact: </span>{{task.impact.name}}</p>
+        <p><span style="font-weight: bold">ImpactKr: </span>{{task.impact.nameKr}}</p>
+        <p><span style="font-weight: bold">Configure: </span>{{task.configure}}</p>
+        <p><span style="font-weight: bold"> ConfigureKr: </span>{{task.configureKr}}</p>
+      </td>
+      <td>{{ task.actionList[0].type.name}}</td>
+      <td>{{task.actionList[0].actionDate | date :'MM-dd-yyyy H:mm'}}</td>
+      <td>{{task.actionList[0].actionContent}}</td>
+      <td>{{task.actionList[0].actionContentKr}}</td>
+      <td [attr.rowspan]="task.actionList.length">
+        <p><span style="font-weight:bold">Company: </span>{{task.company.name}}</p>
+        <p><span style="font-weight:bold">Site: </span>{{task.site.name}}</p>
+        <p><span style="font-weight:bold">Position: </span>{{task.position.name}}</p>
+      </td>
+    </tr>
+
+    <!-- Remaining rows for each category item -->
+    <ng-container *ngIf = "task.actionList.length > 0">
+      <ng-container *ngFor="let action of task.actionList.slice(1)">
+        <tr [style.color]="task.isVisible ? 'black': 'red'">
+          <td>{{ action.type.name }}</td>
+          <td>{{action.actionDate | date :'MM-dd-yyyy H:mm'}}</td>
+          <td style="white-space: pre-line">{{action.actionContent}}</td>
+          <td style="white-space: pre-line">{{action.actionContentKr}}</td>
+        </tr>
+      </ng-container>
+    </ng-container>
+
+    <!-- Handle case where lineList is empty -->
+    <tr *ngIf="task.actionList.length == 0" [style.color]="task.isVisible ? 'black': 'red'">
+      <td style="text-align: center">{{i + 1}}</td>
+      <td style="white-space: pre-line">
+        <p style="font-weight: bold">{{task.name}}</p>
+        <p><span style="font-weight: bold">Impact: </span>{{task.impact.name}}</p>
+        <p><span style="font-weight: bold">ImpactKr: </span>{{task.impact.nameKr}}</p>
+        <p><span style="font-weight: bold">Configure: </span>{{task.configure}}</p>
+        <p><span style="font-weight: bold"> ConfigureKr: </span>{{task.configureKr}}</p>
+      </td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td>
+        <p><span style="font-weight:bold">Company: </span>{{task.company.name}}</p>
+        <p><span style="font-weight:bold">Site: </span>{{task.site.name}}</p>
+        <p><span style="font-weight:bold">Position: </span>{{task.position.name}}</p>
+      </td>
+    </tr>
+  </ng-container>
+
+  </tbody>
+</table>

@@ -1,0 +1,131 @@
+<h4>LIST TASK</h4>
+<div class="row" style="margin-bottom: 5px">
+  <div class="col-md-2"></div>
+  <div class="col-md-2"></div>
+  <div class="col-md-2"></div>
+  <div class="col-md-2"></div>
+  <div class="col-md-2">
+
+  </div>
+  <div class="col-md-2">
+    <button class="form-control" [routerLink]="['/add/']">Create Task</button>
+  </div>
+</div>
+
+<div class="row" style="margin-bottom: 5px">
+  <div class="col-md-2"></div>
+  <div class="col-md-2">Name</div>
+  <div class="col-md-2">
+    <input type="text" class="form-control" [(ngModel)]="name">
+  </div>
+  <div class="col-md-2">Company</div>
+  <div class="col-md-2">
+    <select name="" class="form-control" [(ngModel)]="companyId" name="companyId">
+      <option value="">Choose a company</option>
+      <option *ngFor="let company of companyList" [value]="company.id">{{company.name}}</option>
+    </select>
+  </div>
+  <div class="col-md-2">
+    <button class="btn btn-outline-primary" (click)="searchTask()">Search</button>
+  </div>
+</div>
+
+
+<table class="table table-bordered">
+  <thead>
+  <tr style="border-bottom: none">
+    <th style="border-bottom: none; text-align: center;  vertical-align: middle;" rowspan="2">No.</th>
+    <th style="border-bottom: none;vertical-align: middle" rowspan="2">Name</th>
+    <th style="border-bottom: none;  text-align: center;  vertical-align: middle;" colspan="4">Actions</th>
+    <th style="border-bottom: none; text-align: center;  vertical-align: middle;" rowspan="2">Company</th>
+  </tr>
+  <tr>
+  <th style="border-bottom: none">Type</th>
+  <th style="border-bottom: none">Time</th>
+  <th style="border-bottom: none">Content</th>
+  <th style="border-bottom: none">Content Kr</th>
+  </tr>
+  </thead>
+  <tbody>
+  <!-- Iterate over categories -->
+  <ng-container *ngFor="let task of taskList; let i = index" >
+    <!-- First row with rowspan -->
+    <tr *ngIf="task.actionList.length > 0" [style.color]="task.isVisible ? 'black': 'red'">
+      <td style="text-align: center" [attr.rowspan]="task.actionList.length">{{i + 1}}</td>
+      <td style="white-space: pre-line" [attr.rowspan]="task.actionList.length">
+        <p style="font-weight: bold">{{task.name}}</p>
+        <p><span style="font-weight: bold">Impact: </span>{{task.impact.name}}</p>
+        <p><span style="font-weight: bold">ImpactKr: </span>{{task.impact.nameKr}}</p>
+        <p><span style="font-weight: bold">Configure: </span>{{task.configure}}</p>
+        <p><span style="font-weight: bold"> ConfigureKr: </span>{{task.configureKr}}</p>
+      </td>
+      <td>{{ task.actionList[0].type.name}}</td>
+      <td>{{task.actionList[0].actionDate | date :'MM-dd-yyyy H:mm'}}</td>
+      <td>{{task.actionList[0].actionContent}}</td>
+      <td>{{task.actionList[0].actionContentKr}}</td>
+      <td [attr.rowspan]="task.actionList.length">
+        <p><span style="font-weight:bold">Company: </span>{{task.company.name}}</p>
+        <p><span style="font-weight:bold">Site: </span>{{task.site.name}}</p>
+        <p><span style="font-weight:bold">Position: </span>{{task.position.name}}</p>
+      </td>
+      <td style="text-align: center" [attr.rowspan]="task.actionList.length">
+        <button style="margin: 5px" class="btn btn-outline-dark" [routerLink]="['/edit/' + task.id]">Edit</button>
+        <button style="margin: 5px" class="btn btn-outline-info"
+                (click)="isVisible(task.id)">{{ (task.isVisible ? 'Hide' : 'Unhide')   }} </button>
+        <button  style="margin: 5px" class="btn btn-outline-primary" (click)="exportReportById(task.id)">Report</button>
+      </td>
+    </tr>
+
+    <!-- Remaining rows for each category item -->
+    <ng-container *ngIf = "task.actionList.length > 0">
+      <ng-container *ngFor="let action of task.actionList.slice(1)">
+        <tr [style.color]="task.isVisible ? 'black': 'red'">
+          <td>{{ action.type.name }}</td>
+          <td>{{action.actionDate | date :'MM-dd-yyyy H:mm'}}</td>
+          <td style="white-space: pre-line">{{action.actionContent}}</td>
+          <td style="white-space: pre-line">{{action.actionContentKr}}</td>
+        </tr>
+      </ng-container>
+    </ng-container>
+
+
+    <!-- Handle case where lineList is empty -->
+    <tr *ngIf="task.actionList.length == 0" [style.color]="task.isVisible ? 'black': 'red'">
+      <td style="text-align: center">{{i + 1}}</td>
+      <td style="white-space: pre-line">
+        <p style="font-weight: bold">{{task.name}}</p>
+        <p><span style="font-weight: bold">Impact: </span>{{task.impact.name}}</p>
+        <p><span style="font-weight: bold">ImpactKr: </span>{{task.impact.nameKr}}</p>
+        <p><span style="font-weight: bold">Configure: </span>{{task.configure}}</p>
+        <p><span style="font-weight: bold"> ConfigureKr: </span>{{task.configureKr}}</p>
+      </td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td>
+        <p><span style="font-weight:bold">Company: </span>{{task.company.name}}</p>
+        <p><span style="font-weight:bold">Site: </span>{{task.site.name}}</p>
+        <p><span style="font-weight:bold">Position: </span>{{task.position.name}}</p>
+      </td>
+      <td style="text-align: center">
+        <button style="margin: 5px" class="btn btn-outline-dark" [routerLink]="['/edit/' + task.id]">Edit</button>
+        <button style="margin: 5px" class="btn btn-outline-info"
+                (click)="isVisible(task.id)">{{ (task.isVisible ? 'Hide' : 'Unhide')   }} </button>
+        <button  style="margin: 5px" class="btn btn-outline-primary" (click)="exportReportById(task.id)">Report</button>
+      </td>
+    </tr>
+
+  </ng-container>
+
+
+
+  </tbody>
+</table>
+
+
+
+
+
+
+

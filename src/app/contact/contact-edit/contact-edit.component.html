@@ -1,0 +1,77 @@
+<h4>EDIT CONTACT</h4>
+<div style="margin: 5px 0px">
+  <p><span style="font-weight: bold">Name</span>: {{contact.site.name}}</p>
+  <p><span style="font-weight: bold">GMT</span>: {{contact.site.gmt}}</p>
+  <p><span style="font-weight: bold">Configuration</span>: {{contact.site.configure}}</p>
+  <p><span style="font-weight: bold">Configuration Kr</span>: {{contact.site.configureKr}}</p>
+  <p><span style="font-weight: bold">Company</span>: {{contact.site.company.name}}</p>
+</div>
+
+<form [formGroup]="contactForm">
+  <div class="row" style="margin: 5px 0px">
+    <div class="col-md-2">
+      <label style="font-weight: bold">Name</label>
+    </div>
+    <div class="col-md-10">
+      <input type="text" class="form-control" formControlName="name">
+    </div>
+  </div>
+
+  <div class="row" style="margin: 5px 0px">
+    <div class="col-md-2">
+      <label style="font-weight: bold">Email</label>
+    </div>
+    <div class="col-md-10">
+      <input type="text" class="form-control" formControlName="email">
+    </div>
+  </div>
+
+  <div class="row" style="margin: 5px 0px">
+    <div class="col-md-2">
+      <label style="font-weight: bold">Office</label>
+    </div>
+    <div class="col-md-10">
+      <input type="text" class="form-control" formControlName="office">
+    </div>
+  </div>
+
+  <div class="row" style="margin: 5px 0px">
+    <div class="col-md-2">
+      <label style="font-weight: bold">Mobile</label>
+    </div>
+    <div class="col-md-10">
+      <input type="text" class="form-control" formControlName="phone">
+    </div>
+  </div>
+
+  <div class="row" style="margin: 5px 0px">
+    <div class="col-md-2">
+      <label style="font-weight: bold">Role</label>
+    </div>
+    <div class="col-md-10">
+      <input type="text" class="form-control" formControlName="role">
+    </div>
+  </div>
+
+  <div class="row" style="margin: 5px 0px">
+    <div class="col-md-2">
+      <label style="font-weight: bold">Note</label>
+    </div>
+    <div class="col-md-10">
+      <input type="text" class="form-control" formControlName="note">
+    </div>
+  </div>
+
+  <div class="row" style="margin: 5px 0px">
+    <div class="col-md-9"></div>
+    <div class="col-md-1">
+      <button style="width: 100%" class="btn btn-outline-dark" (click)="cancel()">Cancel</button>
+    </div>
+    <div class="col-md-1">
+      <button [disabled]="!contactForm.valid" style="width: 100%" class="btn btn-outline-success" (click)="update()">Update</button>
+    </div>
+    <div class="col-md-1"></div>
+  </div>
+</form>
+
+<!--{{contactForm.value | json}}-->
