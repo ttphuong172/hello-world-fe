@@ -1,4 +1,4 @@
-import {NgModule} from '@angular/core';
+import {CUSTOM_ELEMENTS_SCHEMA, NgModule} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
 
 import {AppComponent} from './app.component';
@@ -23,6 +23,23 @@ import { ContactAddComponent } from './contact/contact-add/contact-add.component
 import { ContactEditComponent } from './contact/contact-edit/contact-edit.component';
 import { WikiListComponent } from './wiki/wiki-list/wiki-list.component';
 import { WikiDetailComponent } from './wiki/wiki-detail/wiki-detail.component';
+import { ContactListComponent } from './contact/contact-list/contact-list.component';
+import { PingListComponent } from './ping/ping-list/ping-list.component';
+import { PingAddComponent } from './ping/ping-add/ping-add.component';
+import { ContactDetailComponent } from './contact/contact-detail/contact-detail.component';
+import { LineListComponent } from './line/line-list/line-list.component';
+import { LineDetailComponent } from './line/line-detail/line-detail.component';
+import { SmsCreateTrunkComponent } from './sms/sms-create-trunk/sms-create-trunk.component';
+import { ClockComponent } from './common/clock/clock.component';
+import { NewPingListComponent } from './ping/new-ping-list/new-ping-list.component';
+import { TknCreateComponent } from './tkn/tkn-create/tkn-create.component';
+import {QuillModule} from "ngx-quill";
+import { TknListComponent } from './tkn/tkn-list/tkn-list.component';
+import { LoginComponent } from './common/login/login.component';
+import {JWT_OPTIONS, JwtHelperService} from "@auth0/angular-jwt";
+import { HomeComponent } from './common/home/home.component';
+import { TknDetailComponent } from './tkn/tkn-detail/tkn-detail.component';
+import { TknEditComponent } from './tkn/tkn-edit/tkn-edit.component';
 
 
 @NgModule({
@@ -46,39 +63,98 @@ import { WikiDetailComponent } from './wiki/wiki-detail/wiki-detail.component';
     ContactEditComponent,
     WikiListComponent,
     WikiDetailComponent,
+    ContactListComponent,
+    PingListComponent,
+    PingAddComponent,
+    ContactDetailComponent,
+    LineListComponent,
+    LineDetailComponent,
+    SmsCreateTrunkComponent,
+    ClockComponent,
+    NewPingListComponent,
+    TknCreateComponent,
+    TknListComponent,
+    LoginComponent,
+    HomeComponent,
+    TknDetailComponent,
+    TknEditComponent,
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
-
-
+    QuillModule.forRoot(),
     RouterModule.forRoot([
-      {path: "", component: TasksListComponent},
-      {path: "add", component: TasksComponent},
-      {path: "edit/:id", component: TasksEditComponent},
-      {path: "site/company/:id", component: SiteListComponent},
-      {path: "site/add/:id", component: SiteAddComponent},
-      {path: "site/edit/:id", component: SiteEditComponent},
-      {path: "site/detail/:id", component: SiteDetailComponent},
-      {path: "line/add/:id", component: LineAddComponent},
-      {path: "line/edit/:id", component: LineEditComponent},
-      {path: "contact/add/:id", component: ContactAddComponent},
-      {path: "contact/edit/:id", component: ContactEditComponent},
-      {path: "sms", component: SmsCreateComponent},
-      {path: "smsinnotek", component: SmsCreateInnotekComponent},
-      {path: "smsensol", component: SmsCreateEnsolComponent},
-      {path: "smschem", component: SmsCreateChemComponent},
-      {path: "task", component: TaskReportComponent},
-      {path: "wiki", component: WikiListComponent},
-      {path: "wiki/detail/:id", component: WikiDetailComponent},
+      {path: "", component: LoginComponent},
+      {
+        path:"", component:HomeComponent, children:[
+          {path:"tkn", component:TknListComponent},
+          {path: "tkn/add", component: TknCreateComponent},
+          {path: "tkn/detail/:id", component: TknDetailComponent},
+          {path: "tkn/edit/:id", component: TknEditComponent},
+          {path: "task", component: TasksListComponent},
+          {path: "add", component: TasksComponent},
+          {path: "edit/:id", component: TasksEditComponent},
+          {path: "site/company/:id", component: SiteListComponent},
+          {path: "site/company/contacts/:id", component: ContactListComponent},
+          {path: "site/company/lines/:id", component: LineListComponent},
+          {path: "site/add/:id", component: SiteAddComponent},
+          {path: "site/edit/:id", component: SiteEditComponent},
+          {path: "site/detail/:id", component: SiteDetailComponent},
+          {path: "line/add/:id", component: LineAddComponent},
+          {path: "line/edit/:id", component: LineEditComponent},
+          {path: "line/detail/:id", component: LineDetailComponent},
+          {path: "contact/add/:id", component: ContactAddComponent},
+          {path: "contact/edit/:id", component: ContactEditComponent},
+          {path: "contact/detail/:id", component: ContactDetailComponent},
+          {path: "ping", component: PingListComponent},
+          {path: "ping/add", component: PingAddComponent},
+          {path: "sms", component: SmsCreateComponent},
+          {path: "smsinnotek", component: SmsCreateInnotekComponent},
+          {path: "smsensol", component: SmsCreateEnsolComponent},
+          {path: "smschem", component: SmsCreateChemComponent},
+          {path: "report", component: TaskReportComponent},
+          {path: "wiki", component: WikiListComponent},
+          {path: "wiki/detail/:id", component: WikiDetailComponent},
+          {path: "smstrunk", component: SmsCreateTrunkComponent},
+        ]
+      }
+      // {path: "tkn", component: TknListComponent},
+      // {path: "tkn/add", component: TknCreateComponent},
+      // {path: "task", component: TasksListComponent},
+      // {path: "add", component: TasksComponent},
+      // {path: "edit/:id", component: TasksEditComponent},
+      // {path: "site/company/:id", component: SiteListComponent},
+      // {path: "site/company/contacts/:id", component: ContactListComponent},
+      // {path: "site/company/lines/:id", component: LineListComponent},
+      // {path: "site/add/:id", component: SiteAddComponent},
+      // {path: "site/edit/:id", component: SiteEditComponent},
+      // {path: "site/detail/:id", component: SiteDetailComponent},
+      // {path: "line/add/:id", component: LineAddComponent},
+      // {path: "line/edit/:id", component: LineEditComponent},
+      // {path: "line/detail/:id", component: LineDetailComponent},
+      // {path: "contact/add/:id", component: ContactAddComponent},
+      // {path: "contact/edit/:id", component: ContactEditComponent},
+      // {path: "contact/detail/:id", component: ContactDetailComponent},
+      // {path: "ping", component: PingListComponent},
+      // {path: "ping/add", component: PingAddComponent},
+      // {path: "sms", component: SmsCreateComponent},
+      // {path: "smsinnotek", component: SmsCreateInnotekComponent},
+      // {path: "smsensol", component: SmsCreateEnsolComponent},
+      // {path: "smschem", component: SmsCreateChemComponent},
+      // {path: "report", component: TaskReportComponent},
+      // {path: "wiki", component: WikiListComponent},
+      // {path: "wiki/detail/:id", component: WikiDetailComponent},
+      // {path: "smstrunk", component: SmsCreateTrunkComponent},
 
     ], {useHash: true})
   ],
-  providers: [],
-  bootstrap: [AppComponent]
+  providers: [
+    {provide: JWT_OPTIONS, useValue: JWT_OPTIONS},
+    JwtHelperService],
+  bootstrap: [AppComponent],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class AppModule {
 }
-

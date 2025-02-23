@@ -91,7 +91,7 @@ export class TasksComponent implements OnInit, AfterViewInit {
 
     this.taskService.save(this.taskForm.value).subscribe(
       () => {
-        this.router.navigateByUrl('')
+        this.router.navigateByUrl('/task')
       }
     )
   }
@@ -144,7 +144,7 @@ export class TasksComponent implements OnInit, AfterViewInit {
   }
 
   cancel() {
-    this.router.navigateByUrl("")
+    this.router.navigateByUrl("/task")
   }
 
   filetype(i: any) {

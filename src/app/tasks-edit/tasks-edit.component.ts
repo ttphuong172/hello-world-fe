@@ -155,14 +155,14 @@ export class TasksEditComponent implements OnInit{
   update() {
     this.taskService.update(this.taskForm.value).subscribe(
       ()=>{
-        this.router.navigateByUrl("")
+        this.router.navigateByUrl("/task")
       }
 
     )
   }
 
   cancel() {
-    this.router.navigateByUrl("")
+    this.router.navigateByUrl("/task")
   }
 
   // loadConfigure() {

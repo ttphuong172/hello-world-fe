@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
-import {HttpClient} from "@angular/common/http";
+import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {environment} from "../enviroments/enviroments";
+import {AuthService} from "./auth.service";
 
 @Injectable({
   providedIn: 'root'
@@ -8,8 +9,18 @@ import {environment} from "../enviroments/enviroments";
 export class SiteService {
   private apiURL = environment.apiURL;
   constructor(
-    private httpClient:HttpClient
+    private httpClient:HttpClient,
+    private authService:AuthService
   ) { }
+
+  private getHttpOptions() {
+    return {
+      headers: new HttpHeaders({
+        'Authorization': `Bearer ${this.authService.getToken()}`
+      })
+    };
+  }
+
   findSitesByCompany_Id(id: any){
     return this.httpClient.get(this.apiURL + "/sites/company/" + id)
   }
@@ -23,11 +34,11 @@ export class SiteService {
   }
 
   save(site: any){
-    return this.httpClient.post(this. apiURL+ "/sites",site);
+    return this.httpClient.post(this. apiURL+ "/sites",site, this.getHttpOptions());
   }
 
   update(site:any){
-    return this.httpClient.put(this.apiURL + "/sites/" + site.id, site)
+    return this.httpClient.put(this.apiURL + "/sites/" + site.id, site, this.getHttpOptions())
   }
 
   search(name:any, companyId:any){

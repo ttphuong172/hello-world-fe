@@ -23,6 +23,7 @@
           <select class="form-control" formControlName='network' (change)="loadNetwork()">
             <option value="">Normal</option>
             <option value="Down">Down</option>
+            <!--            <option value="Down, power outage confirmed">Down, power outage confirmed</option>-->
             <option value="Recovered">Recovered</option>
           </select>
         </div>
@@ -101,19 +102,19 @@
         </div>
       </div>
 
-      <div>
-        <h4 *ngIf="isTextPresent">Internal</h4>
+      <div *ngIf="isTextPresent">
+        <h4>Internal</h4>
         <div class="row" style="margin-left: 0">
           <p> {{smsString}}</p>
           <button style="margin-left: 20px" class="btn btn-outline-info" *ngIf="isTextPresent"
                   (click)="copyToClipboard()">
-            Copy
+            <i class="fa fa-copy"></i>
           </button>
         </div>
       </div>
 
-      <div>
-        <h4 *ngIf="isTextPresentCustomer">Customer</h4>
+      <div *ngIf="isTextPresentCustomer">
+        <h4>Customer</h4>
         <div class="row" style="margin-left: 0">
           <div id="customer">
             <p>{{smsStringCustomer[0]}}</p>
@@ -121,9 +122,12 @@
               <li>&#9632; {{e}}</li>
             </ul>
           </div>
-          <button style="margin-left: 20px" class="btn btn-outline-info" *ngIf="isTextPresentCustomer"
-                  (click)="copyToClipboardCustomer()">Copy
-          </button>
+          <div>
+            <button style="margin-left: 20px" class="btn btn-outline-info" *ngIf="isTextPresentCustomer"
+                    (click)="copyToClipboardCustomer()">
+              <i class="fa fa-copy"></i>
+            </button>
+          </div>
         </div>
       </div>
 
@@ -131,12 +135,23 @@
 
     <div class="col-md-6">
 
-      <div class="row" *ngIf="isTextPresentContact">
+      <div class="row">
+        <div *ngIf="isClockPresent" class="col-md-4">
+          <app-clock [childData]="zoneIdToChild">
+
+          </app-clock>
+        </div>
+        <div *ngIf="isInfoSitePresent" class="col-md-8">
+          <p style="font-weight: bold">Nation: {{this.site.nation}} - City: {{this.site.city}}</p>
+          <p style="font-weight: bold">ZoneId: {{this.site.zoneId}} - {{gmtValue}}</p>
+        </div>
+      </div>
+
+      <div style="margin: 0" class="row" *ngIf="isTextPresentContact">
         <div id="contact">
-          <p>SITE: {{siteName}}</p>
-          <p>CONTACTS:</p>
+          <span style="font-weight: bold">SITE: {{siteName}}</span>
           <ol>
-            <li *ngFor = "let contact of contactList">
+            <li *ngFor="let contact of contactList">
               {{contact.name}} - Tel: {{contact.office}} - Mobile: {{contact.phone}}
             </li>
           </ol>
@@ -144,12 +159,11 @@
         <div>
           <button style="margin-left: 20px" class="btn btn-outline-info"
                   (click)="copyContact()">
-            Copy
+            <i class="fa fa-copy"></i>
           </button>
         </div>
 
       </div>
-
 
       <div>
         <p style="font-weight: bold">TOPO:</p>
@@ -163,79 +177,57 @@
       <div>
         <p style="font-weight: bold"> EMAIL:</p>
 
-        <p style="font-weight: bold" style="" *ngIf="isTextPresentToEmail">To:</p>
+        <p style="font-weight: bold" *ngIf="isTextPresentToEmail">To:</p>
         <div class="row" *ngIf="isTextPresentToEmail">
           <div style="padding-left: 15px;" id="toEmail">
-            <p>{{recipients}}</p>
+            <p>{{email.recipients}}</p>
           </div>
           <button style="margin-left: 20px" class="btn btn-outline-info"
                   (click)="copyToEmail()">
-            Copy
+            <i class="fa fa-copy"></i>
           </button>
         </div>
 
         <p style="font-weight: bold" *ngIf="isTextPresentCcEmail">Cc:</p>
         <div class="row" *ngIf="isTextPresentCcEmail">
           <div style="padding-left: 15px;" id="ccEmail">
-            <p>lgnetnmc@lgcns.com</p>
+            <p>{{email.carbonCopy}}</p>
           </div>
           <button style="margin-left: 20px" class="btn btn-outline-info"
-                  (click)="copyCcEmail()">
-            Copy
+                  (click)="copyCarbonCopy()">
+            <i class="fa fa-copy"></i>
           </button>
         </div>
 
         <p style="font-weight: bold" *ngIf="isTextPresentSubjectEmail">Subject:</p>
         <div class="row" *ngIf="isTextPresentSubjectEmail">
           <div style="padding-left: 15px;" id="subjectEmail">
-            <p>{{line}} is {{event}}</p>
+            <p>{{email.subject}}</p>
           </div>
           <button style="margin-left: 20px" class="btn btn-outline-info"
                   (click)="copySubjectEmail()">
-            Copy
+            <i class="fa fa-copy"></i>
           </button>
         </div>
 
-        <p style="font-weight: bold" *ngIf="isTextPresentEmail">Content</p>
-        <div class="row" *ngIf="isTextPresentEmail" >
+        <p style="font-weight: bold" *ngIf="isTextPresentEmail">Content:</p>
+        <div class="row" *ngIf="isTextPresentEmail">
           <div style="padding-left: 15px;" id="email">
-            <ul style="list-style-type: none; padding-left: 0">
-              <li>Dear {{ispName}}</li>
-              <li>This is GNMC (Global Network Management Center) of LGCNS</li>
-              <li>&nbsp;</li>
-              <li>{{line}} is {{event}}</li>
-              <li>Please open ticket and investigated cause</li>
-              <li>&nbsp;</li>
-              <li>Customer: {{customer}}</li>
-              <li>Service ID: {{ci}}</li>
-              <li>Issue: Link {{event}}</li>
-              <li>Time: {{time}}</li>
-              <li>Power verified: Yes</li>
-              <li>Equipment status: Normal</li>
-              <li>&nbsp;</li>
-              <li>-----------------------------</li>
-              <li>&nbsp;</li>
-              <li>#Pingtest</li>
-              <li style="color: red">Replace ping test here</li>
-              <li>&nbsp;</li>
-              <li>#Log</li>
-              <li style="color: red">Replace log here</li>
+            <ul *ngFor="let item of content" style="list-style-type: none; padding-left: 0; margin-bottom:0">
+              <li style="white-space: pre">{{item}}</li>
             </ul>
           </div>
           <div>
             <button *ngIf="isTextPresentEmail" style="margin-left: 20px" class="btn btn-outline-info"
                     (click)="copyToClipboardEmail()">
-              Copy
+              <i class="fa fa-copy"></i>
             </button>
           </div>
-
-
         </div>
       </div>
     </div>
   </div>
 
 </form>
-
 
 <!--{{smsForm.value | json}}-->

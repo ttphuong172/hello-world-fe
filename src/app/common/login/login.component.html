@@ -1,0 +1,62 @@
+<div class="container-fluid" style="height: 100vh">
+  <form [formGroup]="formLogin" (ngSubmit)="login()">
+    <div class="row">
+      <div class="col-md-4"></div>
+      <div class="col-md-4 background">
+        <div style="border-radius: 15px;background-color: #6b6b6b">
+          <h3 style="text-align: center;margin: 20px 0; color: white">Hello World</h3>
+          <div class="row" style="margin: 10px 0">
+            <div class="col-md-1"></div>
+            <div class="col-md-4">
+              <label style="color: white">Username</label>
+            </div>
+            <div class="col-md-6">
+              <input class="form-control" type="text" style="width: 100%"
+                     formControlName="username">
+              <!--              <div *ngIf="username.invalid && (username.dirty || username.touched)"-->
+              <!--                   class="alert alert-danger">-->
+              <!--                <div *ngIf="username.errors?.['required']">-->
+              <!--                  username is required.-->
+              <!--                </div>-->
+              <!--              </div>-->
+            </div>
+            <div class="col-md-1"></div>
+          </div>
+          <div class="row" style="margin: 10px 0">
+            <div class="col-md-1"></div>
+            <div class="col-md-4">
+              <label style="color: white">Password</label>
+            </div>
+            <div class="col-md-6">
+              <input class="form-control" type="password" style="width: 100%"
+                     formControlName="password">
+              <!--              <div *ngIf="password.invalid && (password.dirty || password.touched)"-->
+              <!--                   class="alert alert-danger">-->
+              <!--                <div *ngIf="password.errors?.['required']">-->
+              <!--                  password is required.-->
+              <!--                </div>-->
+              <!--              </div>-->
+
+            </div>
+            <div class="col-md-1"></div>
+          </div>
+
+          <div class="row" style="margin: 0">
+            <div class="col-md-4"></div>
+            <div class="col-md-4">
+              <button class="btn btn-lg" [disabled]="!formLogin.valid"
+                      style="width: 100%; background-color: #A50034; color: white">Đăng nhập
+              </button>
+
+            </div>
+            <div class="col-md-4"></div>
+          </div>
+
+
+        </div>
+      </div>
+      <div class="col-md-4"></div>
+    </div>
+  </form>
+</div>
+

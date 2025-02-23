@@ -32,7 +32,7 @@ export class LineAddComponent implements OnInit{
       site: new FormControl(''),
       company: new FormControl(''),
       isp: new FormControl(''),
-      ci: new FormControl(''),
+      circuitId: new FormControl(''),
       ipAddress: new FormControl(''),
       pingtest: new FormControl(''),
     })
@@ -55,13 +55,13 @@ export class LineAddComponent implements OnInit{
   save() {
     this.lineService.save(this.lineForm.value).subscribe(
       ()=>{
-        this.router.navigateByUrl("site/detail/" + this.siteId)
+        this.router.navigateByUrl("line/detail/" + this.siteId)
       }
     )
   }
 
   cancel() {
-    this.router.navigateByUrl("site/detail/" + this.siteId)
+    this.router.navigateByUrl("line/detail/" + this.siteId)
   }
 
 }

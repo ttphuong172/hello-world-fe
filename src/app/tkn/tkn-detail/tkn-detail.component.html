@@ -1,0 +1,96 @@
+<h3>DETAIL DOCUMENT</h3>
+<div class="row">
+  <div class="col-md-1"></div>
+  <div class="col-md-8">
+    <div class="row">
+      <div class="col-md-3"></div>
+      <div class="col-md-3"></div>
+      <div class="col-md-3"></div>
+      <div class="col-md-3"><span>Người tạo: </span>{{this.tkn?.creator}}</div>
+    </div>
+    <div class="row">
+      <div class="col-md-3"></div>
+      <div class="col-md-3"></div>
+      <div class="col-md-3"></div>
+      <div class="col-md-3"><span>Ngày tạo: </span>{{this.tkn?.creatingDate | date :'short'}}</div>
+    </div>
+
+    <div class="row" class="row" style="margin: 10px 0px">
+      <div class="col-md-2"></div>
+      <div class="col-md-2"></div>
+      <div class="col-md-2"></div>
+      <div class="col-md-2"></div>
+      <div class="col-md-2">
+        <button style="width: 100%;" [hidden]="this.username != this.tkn?.creator" class="btn btn-outline-info" [routerLink]="['/tkn/edit/' + tkn?.id]">Edit</button>
+      </div>
+      <div class="col-md-2">
+        <button style="width: 100%" [hidden]="this.username != this.tkn?.creator" class="btn btn-outline-danger" (click)="delete()">Delete</button>
+      </div>
+    </div>
+    <h4>{{tkn?.title}}</h4>
+
+    <div [innerHTML]="htmlContent"></div>
+<!--    <div ng-bind-html="htmlContent"></div>-->
+    <p>---------------------------------------------</p>
+    <span style="font-weight: bold">Danh sách người đã đọc: </span>
+      <ol>
+        <li *ngFor = "let a of tkn?.readingList">{{a?.account.username}} - {{a?.readingDate | date :'short'}}</li>
+      </ol>
+<!--      <span  *ngFor = "let a of tkn?.readingList">{{a?.account.username}} - {{a?.readingDate}} &nbsp;</span>-->
+
+  </div>
+  <div class="col-md-1"></div>
+</div>
+
+
+
+<div class="row">
+  <div class="col-md-2"></div>
+  <div class="col-md-2"></div>
+  <div class="col-md-2">
+    <button (click)="toggleComment()" style="width: 100%" class="btn btn-outline-info">Comment</button>
+  </div>
+
+  <div class="col-md-2">
+    <button [disabled]="isRead" style="width: 100%" class="btn btn-outline-success" (click)="mark()">Đã đọc và hiểu</button>
+  </div>
+  <div class="col-md-2">
+    <button style="width: 100%" class="btn btn-outline-dark" (click)="cancel()">Đóng</button>
+  </div>
+  <div class="col-md-2"></div>
+</div>
+
+<div *ngIf="isCommentVisible" class="row" style="margin: 10px 0px">
+
+  <div class="col-md-2"></div>
+  <div class="col-md-6">
+    <input class="form-control" type="text" [(ngModel)] = "content">
+  </div>
+  <div class="col-md-2">
+    <button style="width: 100%" class="btn btn-outline-info" (click)="commentPost()">Send</button>
+  </div>
+  <div class="col-md-2"></div>
+</div>
+
+<div>
+  <div  class="row" style="margin: 10px 0px">
+    <div class="col-md-1"></div>
+
+    <div class="col-md-10">
+      <table class="table table-bordered">
+        <tbody>
+        <tr *ngFor = "let comment of this.tkn?.commentList">
+          <td>{{comment.account.username}}</td>
+          <td>{{comment.commentDate | date: 'short'}}</td>
+          <td>{{comment.content}}</td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="col-md-1"></div>
+  </div>
+</div>
+
+
+

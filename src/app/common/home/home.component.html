@@ -1,0 +1,84 @@
+<head>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+
+<div class="row" style="margin: 0">
+  <div class="col-1">
+
+  </div>
+  <div class="col-10">
+    <ul>
+<!--      <li (click)="selectItem('HOME')" [ngClass]="{'selected': selectedItem === 'HOME'}">-->
+<!--        <a class="active" href="#">HOME</a>-->
+<!--      </li>-->
+
+      <li (click)="selectItem('TKN')" [ngClass]="{'selected': selectedItem === 'TKN'}">
+        <a class="active" href="#tkn">DOCUMENT</a>
+      </li>
+
+<!--      <li (click)="selectItem('REPORT')" [ngClass]="{'selected': selectedItem === 'REPORT'}">-->
+<!--        <a class="active" href="#report">REPORT</a>-->
+<!--      </li>-->
+
+      <li (click)="selectItem('TASKS')" [ngClass]="{'selected': selectedItem === 'TASKS'}">
+        <a href="#task">TASKS</a>
+      </li>
+
+      <li (click)="selectItem('SITES')" [ngClass]="{'selected': selectedItem === 'SITES'}">
+        <a href="#site/company/1">SITES</a>
+      </li>
+
+      <li (click)="selectItem('LINES')" [ngClass]="{'selected': selectedItem === 'LINES'}">
+        <a href="#site/company/lines/1">LINES</a>
+      </li>
+
+      <li (click)="selectItem('CONTACTS')" [ngClass]="{'selected': selectedItem === 'CONTACTS'}">
+        <a href="#site/company/contacts/1">CONTACTS</a>
+      </li>
+
+      <li (click)="selectItem('PING')" [ngClass]="{'selected': selectedItem === 'PING'}">
+        <a href="#ping">PINGTEST</a>
+      </li>
+
+      <li (click)="selectItem('TRUNK')" [ngClass]="{'selected': selectedItem === 'TRUNK'}">
+        <a href="#smstrunk">TRUNK</a>
+      </li>
+
+      <li (click)="selectItem('INNOTEK')" [ngClass]="{'selected': selectedItem === 'INNOTEK'}">
+        <a href="#smsinnotek">INNOTEK</a>
+      </li>
+
+      <li (click)="selectItem('ENSOL')" [ngClass]="{'selected': selectedItem === 'ENSOL'}">
+        <a href="#smsensol">ENSOL</a>
+      </li>
+
+      <li (click)="selectItem('CHEM')" [ngClass]="{'selected': selectedItem === 'CHEM'}">
+        <a href="#smschem">CHEM</a>
+      </li>
+
+      <li (click)="selectItem('OTHER')" [ngClass]="{'selected': selectedItem === 'OTHER'}">
+        <a href="#sms">OTHER</a>
+      </li>
+      <li [hidden]="!isLogin" (click)="selectItem('ACCOUNT')" [ngClass]="{'selected': selectedItem === 'ACCOUNT'}">
+        <a href="#account">{{fullname}}</a>
+      </li>
+      <li [hidden]="!isLogin" (click)=logout() [ngClass]="{'selected': selectedItem === 'LOGOUT'}">
+        <a href="#logout"><i class="fa fa-sign-out"></i></a>
+      </li>
+    </ul>
+
+    <router-outlet></router-outlet>
+
+  </div>
+  <div class="col-1">
+
+  </div>
+</div>
+
+
+<div>
+  <!-- The audio element will automatically play as soon as the audioUrl is set -->
+  <audio *ngIf="audioUrl" controls [src]="audioUrl" autoplay hidden>
+    Your browser does not support the audio element.
+  </audio>
+</div>

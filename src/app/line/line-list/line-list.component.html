@@ -1,0 +1,110 @@
+<h4>LIST LINES OF SITE {{this.companyName}}</h4>
+<ul style="list-style-type: none">
+  <li [ngClass]="{'selected': selectedItem === 'I. LG Electronic'}">
+    <a href="#/site/company/lines/1" (click)="load1()">I. LG Electronic</a>
+  </li>
+
+  <li [ngClass]="{'selected': selectedItem === 'II. LG Energy Solution'}">
+    <a href="#/site/company/lines/2" (click)="load2()">II. LG Energy Solution</a>
+  </li>
+
+  <li [ngClass]="{'selected': selectedItem === 'III. LG Chem / LG Household & Health Care'}">
+    <a href="#/site/company/lines/3"  (click)="load3()">III. LG Chem / LG Household & Health Care</a>
+  </li>
+
+  <li [ngClass]="{'selected': selectedItem === 'IV. LG Display'}">
+    <a href="#/site/company/lines/4" (click)="load4()">IV. LG Display</a>
+  </li>
+
+  <li [ngClass]="{'selected': selectedItem === 'V. LG Innotek'}">
+    <a href="#/site/company/lines/5" (click)="load5()">V. LG Innotek</a>
+  </li>
+
+  <li [ngClass]="{'selected': selectedItem === 'VI. LX International / LX Pantos / LX Hausys Overseas'}">
+    <a href="#/site/company/lines/6" (click)="load6()">VI. LX International / LX Pantos / LX Hausys Overseas</a>
+  </li>
+
+<!--  <li [ngClass]="{'selected': selectedItem === 'VII. Trunk'}">-->
+<!--    <a href="#/site/company/lines/7" (click)="load7()">VII. Trunk</a>-->
+<!--  </li>-->
+</ul>
+
+<div class="row" style="margin-bottom: 5px; margin-top: 10px">
+  <div class="col-md-2"></div>
+  <div class="col-md-2" style="font-weight: bold">Name</div>
+  <div class="col-md-6">
+    <input type="text" class="form-control" [(ngModel)]="name" (keyup.enter)="searchSite()">
+  </div>
+
+  <div class="col-md-2">
+    <button class="btn btn-outline-primary" (click)="searchSite()">Search</button>
+  </div>
+</div>
+
+<table class="table table-bordered table-striped">
+<!--  <thead>-->
+<!--  <tr>-->
+<!--    <th rowspan="2" style="text-align: center">No.</th>-->
+<!--    <th rowspan="2" style="text-align: center">Position</th>-->
+<!--    <th rowspan="2">Name</th>-->
+<!--    <th rowspan="2" style="text-align: center">Nation</th>-->
+<!--    <th rowspan="2" style="text-align: center">City</th>-->
+<!--    <th colspan="4" style="width: 50%">Lines</th>-->
+<!--  </tr>-->
+<!--  <tr>-->
+<!--    <th style="width: 15%">Name</th>-->
+<!--    <th style="width: 10%;text-align: center" >Circuit ID</th>-->
+<!--    <th style="width: 13%">ShortName 1 (Internal)</th>-->
+<!--    <th style="width: 12%">ShortName 2 (Customer)</th>-->
+
+<!--  </tr>-->
+<!--  </thead>-->
+
+  <thead>
+  <tr>
+    <th rowspan="2" style="text-align: center; vertical-align: middle;">No.</th>
+    <th rowspan="2" style="text-align: center; vertical-align: middle;">Position</th>
+    <th rowspan="2" style="vertical-align: middle;">Name</th>
+<!--    <th rowspan="2" style="text-align: center; vertical-align: middle;">Nation</th>-->
+<!--    <th rowspan="2" style="text-align: center; vertical-align: middle;">City</th>-->
+    <th rowspan="2" style="text-align: center; vertical-align: middle;">Zone Id</th>
+    <th rowspan="2" style="text-align: center; vertical-align: middle;">GMT</th>
+    <th colspan="5" style="width: 50%; text-align: center; vertical-align: middle;">Lines</th>
+  </tr>
+  <tr>
+    <th style="width: 13%; vertical-align: middle;">Name</th>
+    <th style="width: 5%; text-align: center; vertical-align: middle;">ISP</th>
+    <th style="width: 9%; text-align: center; vertical-align: middle;">Circuit ID</th>
+    <th style="width: 12%; vertical-align: middle;">ShortName 1 (Internal)</th>
+    <th style="width: 11%; vertical-align: middle;">ShortName 2 (Customer)</th>
+  </tr>
+  </thead>
+
+  <tbody>
+  <tr *ngFor = "let site of siteList; let i = index">
+    <td style="text-align: center">{{i + 1}}</td>
+    <td style="text-align: center">{{site.ric}}</td>
+    <td>{{site.name}}</td>
+<!--    <td style="text-align: center">{{site.nation}}</td>-->
+<!--    <td style="text-align: center">{{site.city}}</td>-->
+    <td style="text-align: center">{{site.zoneId}}</td>
+    <td style="text-align: center">{{site.gmt}}</td>
+    <td colspan="5" style="padding: 0; margin: 0; width: 50%">
+      <table class="table table-bordered" style="margin: 0;">
+        <tbody>
+        <tr *ngFor = "let line of site.lineList">
+          <td style="width: 26%">{{line.name}}</td>
+          <td style="width: 10%;text-align: center">{{line.isp}}</td>
+          <td style="width: 18%;text-align: center">{{line.circuitId}}</td>
+          <td style="width: 24%">{{line.shortName}}</td>
+          <td style="width: 22%">{{line.shortName2}}</td>
+        </tr>
+        </tbody>
+      </table>
+    </td>
+    <td style="text-align: center">
+      <button style="margin: 5px" class="btn btn-outline-primary" [routerLink]="['/line/detail/' + site.id]">Detail</button>
+    </td>
+  </tr>
+  </tbody>
+</table>

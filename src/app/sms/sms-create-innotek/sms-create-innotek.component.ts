@@ -6,13 +6,18 @@ import {ImpactService} from "../../../services/impact.service";
 import {EventService} from "../../../services/event.service";
 import {SmsService} from "../../../services/sms.service";
 import {IspService} from "../../../services/isp.service";
+import {TimeService} from "../../../services/time.service";
 
 @Component({
   selector: 'app-sms-create-innotek',
   templateUrl: './sms-create-innotek.component.html',
-  styleUrls: ['./sms-create-innotek.component.css']
+  styleUrls: ['./sms-create-innotek.component.css'],
+
 })
 export class SmsCreateInnotekComponent implements OnInit {
+
+  zoneIdToChild: string = '';
+
   smsForm: FormGroup | any;
   siteList: any;
   idSite: any;
@@ -20,41 +25,37 @@ export class SmsCreateInnotekComponent implements OnInit {
   impactList: any;
   eventList: any;
   private smsList: any;
+
+  // Variable for SMS
   smsString: any;
-  smsStringCustomer: string[] = [""];
+  smsStringCustomer: string[] = [];
   isTextPresent: boolean = false;
   isTextPresentCustomer: boolean = false;
 
   // Variable for email template
-  isTextPresentPingLog: boolean = false;
-  isTextPresentEmail: boolean = false;
-  topoPath = "";
-  recipients = "";
-  isp: any;
-  ispName = "";
-  customer = "";
-  ci = "";
-  line = "";
-  event = "";
-  time = "";
-  ipAddress = "";
-  pingCommand = "";
-
+  email: any;
   isTextPresentSubjectEmail: boolean = false;
   isTextPresentCcEmail: boolean = false;
   isTextPresentToEmail: boolean = false;
+  isTextPresentEmail: boolean = false;
 
+  isTextPresentPingLog: boolean = false;
+  topoPath = "";
+  ipAddress = "";
+  pingCommand = "";
+
+  // Variable for contacts
   contactList: any;
   site: any;
   siteName: any;
   isTextPresentContact: boolean = false;
+  content: any;
+  contentHtml = "";
+  currentTime: any;
 
-  addZero(i: number): string {
-    if (i < 10) {
-      return "0" + i;
-    }
-    return i.toString();
-  }
+  isClockPresent: boolean = false;
+  isInfoSitePresent: boolean = false;
+  gmtValue: any;
 
   constructor(
     private siteService: SiteService,
@@ -63,10 +64,14 @@ export class SmsCreateInnotekComponent implements OnInit {
     private eventService: EventService,
     private smsService: SmsService,
     private ispService: IspService,
+    private timeService: TimeService,
   ) {
   }
 
   ngOnInit(): void {
+
+    this.zoneIdToChild = 'Asia/Seoul';
+
     this.smsForm = new FormGroup({
       site: new FormControl('', [Validators.required]),
       line: new FormControl('', [Validators.required]),
@@ -98,7 +103,6 @@ export class SmsCreateInnotekComponent implements OnInit {
   }
 
   loadSite() {
-
     this.idSite = this.smsForm.get('site').value.id
     this.lineService.findLinesBySite_Id(this.idSite).subscribe(
       (data) => {
@@ -106,14 +110,32 @@ export class SmsCreateInnotekComponent implements OnInit {
         this.siteService.findById(this.idSite).subscribe(
           (data) => {
             this.site = data
+            // console.log(this.site.zoneId)
             this.topoPath = this.site.topoPath;
             this.contactList = this.site.contactList
             this.siteName = this.site.name
+
+            // Display clock
+            this.zoneIdToChild = this.site.zoneId;
+            this.isClockPresent = true;
+            this.isInfoSitePresent = true;
+            this.gmtValue = this.timeService.getGmt(this.site.zoneId).subscribe(
+              (data)=>{
+                this.gmtValue = data;
+              }
+            )
+
             if (this.site.contactList.length > 0) {
               this.isTextPresentContact = true
             } else {
               this.isTextPresentContact = false
             }
+
+            // this.timeService.getTime(this.site.zoneId).subscribe(
+            //   (data)=>{
+            //     this.currentTime = data;
+            //   }
+            // )
           }
         )
       }
@@ -123,14 +145,32 @@ export class SmsCreateInnotekComponent implements OnInit {
   generatorInnotekSms() {
     if ((this.smsForm.get('event').value.name == "Up" ||
       this.smsForm.get('event').value.name == "Down and recovery" ||
-      this.smsForm.get('event').value.name == "Redown and recovey" ||
+      this.smsForm.get('event').value.name == "Down/up x times" ||
+      this.smsForm.get('event').value.name == "Redown and recovery" ||
       this.smsForm.get('event').value.name == "Recovery flapping" ||
       this.smsForm.get('event').value.name == "Flapping and recovery" ||
       this.smsForm.get('event').value.name == "Recovery pingloss") &&
       this.smsForm.get('restoreTime').value == "") {
       alert("Fill restore time")
+      this.isTextPresent = false
+      this.isTextPresentCustomer = false
+      this.isTextPresentSubjectEmail = false
+      this.isTextPresentCcEmail = false
+      this.isTextPresentToEmail = false
+      this.isTextPresentEmail = false
       this.smsString = "";
-      this.smsStringCustomer = [""];
+      this.smsStringCustomer = [];
+    } else if ((this.smsForm.get('event').value.name == "Down/up x times" ||
+      this.smsForm.get('event').value.name == "Down/up" ||
+      this.smsForm.get('event').value.name == "Pingloss" ||
+      this.smsForm.get('event').value.name == "RTT") && this.smsForm.get('extra').value == ""){
+      alert("Fill extra value")
+      this.isTextPresent = false
+      this.isTextPresentCustomer = false
+      this.isTextPresentSubjectEmail = false
+      this.isTextPresentCcEmail = false
+      this.isTextPresentToEmail = false
+      this.isTextPresentEmail = false
     } else {
       this.smsService.generatorInnotekSms(this.smsForm.value).subscribe(
         (data) => {
@@ -139,51 +179,20 @@ export class SmsCreateInnotekComponent implements OnInit {
           this.isTextPresent = this.smsString.trim().length > 0;
 
           this.smsStringCustomer = this.smsList[1].split(";");
-          this.isTextPresentCustomer = this.smsStringCustomer.length > 0
+          this.isTextPresentCustomer = this.smsStringCustomer.length > 1
+
+          this.email = this.smsList[2];
+
+          this.isTextPresentToEmail = Object.keys(this.email).length > 0
+          this.isTextPresentCcEmail = Object.keys(this.email).length > 0
+          this.isTextPresentSubjectEmail = Object.keys(this.email).length > 0
+          this.isTextPresentEmail = Object.keys(this.email).length > 0
+
+          this.content = this.smsList[3];
+
         }
       )
     }
-
-    this.isTextPresentSubjectEmail = true
-    this.isTextPresentCcEmail = true
-    this.isTextPresentToEmail = true
-
-    // Get info for email template
-    this.ispName = this.smsForm.get('line').value.isp
-
-    if (this.smsForm.get('network').value == "") {
-      this.isTextPresentEmail = true
-    } else {
-      this.isTextPresentEmail = false
-    }
-
-    this.ispService.findByName(this.ispName).subscribe(
-      (data) => {
-        this.isp = data;
-        // console.log(this.isp)
-        this.recipients = this.isp.recipients
-      }
-    )
-
-    this.customer = "LG Innotek";
-    this.ci = this.smsForm.get('line').value.ci;
-    this.line = this.smsForm.get('line').value.name;
-
-    if (this.smsForm.get('event').value.name == "Down/up") {
-      this.event = this.smsForm.get('event').value.name.toLowerCase() + " about " + this.smsForm.get('extra').value + " seconds"
-    } else if (this.smsForm.get('event').value.name == "Pingloss") {
-      this.event = this.smsForm.get('event').value.name.toLowerCase() + " " + this.smsForm.get('extra').value + "%"
-    } else if (this.smsForm.get('event').value.name == "Down/up x times") {
-      this.event =  "down/up " +this.smsForm.get('extra').value + " times"
-    } else if (this.smsForm.get('event').value.name == "RTT") {
-      this.event =  "RTT increase " +this.smsForm.get('extra').value + "ms"
-    }
-    else {
-      this.event = this.smsForm.get('event').value.name.toLowerCase()
-    }
-
-    const date = new Date(this.smsForm.get('issueTime').value);
-    this.time = this.addZero(date.getMonth() + 1) + "/" + this.addZero(date.getDate()) + " " + this.addZero(date.getHours()) + ":" + this.addZero(date.getMinutes()) + " ~ " + "(KST)";
   }
 
   copyToClipboard(): void {
@@ -253,7 +262,7 @@ export class SmsCreateInnotekComponent implements OnInit {
     }
   }
 
-  copyCcEmail() {
+  copyCarbonCopy() {
     // Create a temporary textarea element to hold the text
     const content = document.getElementById('ccEmail');
 
@@ -516,6 +525,22 @@ export class SmsCreateInnotekComponent implements OnInit {
       this.smsForm.get('restoreTime')?.enable();
 
     } else if (this.smsForm.get('network').value == "Down") {
+      this.smsForm.get('line').setValue("")
+      this.smsForm.get('line')?.disable();
+
+      this.smsForm.get('event').setValue("")
+      this.smsForm.get('event')?.disable();
+
+      this.smsForm.get('extra').setValue("")
+      this.smsForm.get('extra')?.disable();
+
+      this.smsForm.get('impact')?.enable();
+      this.smsForm.get('impact').setValue({"id": 2, "name": "Service unavailable", "nameKr": "서비스 불가"})
+
+      this.smsForm.get('restoreTime').setValue("")
+      this.smsForm.get('restoreTime')?.disable();
+
+    } else if (this.smsForm.get('network').value == "Down, power outage confirmed") {
       this.smsForm.get('line').setValue("")
       this.smsForm.get('line')?.disable();
 

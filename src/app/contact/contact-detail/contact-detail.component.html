@@ -1,0 +1,104 @@
+<h4>DETAIL CONTACT</h4>
+<div class="row">
+  <div style="margin: 5px 0px" class="col-md-6">
+    <p><span style="font-weight: bold">Name</span>: {{site.name}}</p>
+    <p><span style="font-weight: bold">ZoneId</span>: {{site.zoneId}}</p>
+    <p><span style="font-weight: bold">GMT</span>: {{gmtValue}}</p>
+    <p><span style="font-weight: bold">Configuration</span>: {{site.configure}}</p>
+    <p><span style="font-weight: bold">Configuration Kr</span>: {{site.configureKr}}</p>
+    <p><span style="font-weight: bold">Company</span>: {{site.company.name}}</p>
+  </div>
+
+
+</div>
+
+<h5>Contact List</h5>
+<div class="row" style="margin-bottom: 5px">
+  <div class="col-md-2"></div>
+  <div class="col-md-2"></div>
+  <div class="col-md-2"></div>
+  <div class="col-md-2"></div>
+  <div class="col-md-2"></div>
+  <div class="col-md-2">
+    <button [routerLink]="['/contact/add/' + site.id]" style="width: 100%" class="btn btn-outline-info">Create Contact</button>
+  </div>
+</div>
+<table class="table table-bordered">
+  <thead>
+  <th style="text-align: center">No.</th>
+  <th>Name</th>
+  <th>Email</th>
+  <th style="text-align: center">Office</th>
+  <th style="text-align: center">Mobile</th>
+  <th style="text-align: center">Role</th>
+  <th>Note</th>
+  <th style="text-align: center">Action</th>
+  </thead>
+  <tbody>
+  <tr *ngFor="let contact of site.contactList,  index as i">
+    <td style="text-align: center">{{i + 1}}</td>
+    <td>{{contact.name != null ? contact.name : "" }}</td>
+    <td>{{contact.email != null ? contact.email : ""}}</td>
+    <td style="text-align: center">{{contact.office != null ? contact.office : ""}}</td>
+    <td style="text-align: center">{{contact.phone != null ? contact.phone : ""}}</td>
+    <td style="text-align: center">{{contact.role != null ? contact.role : ""}}</td>
+    <td>{{contact.note != null ? contact.note : ""}}</td>
+    <td style="text-align: center">
+      <button class="btn btn-outline-info" [routerLink]="['/contact/edit/' + contact.id]">Edit</button>
+    </td>
+  </tr>
+  </tbody>
+</table>
+
+<!--<h5>Line List</h5>-->
+<!--<div class="row" style="margin-bottom: 5px">-->
+<!--  <div class="col-md-2"></div>-->
+<!--  <div class="col-md-2"></div>-->
+<!--  <div class="col-md-2"></div>-->
+<!--  <div class="col-md-2"></div>-->
+<!--  <div class="col-md-2"></div>-->
+<!--  <div class="col-md-2">-->
+<!--    <button [routerLink]="['/line/add/' + site.id]" style="width: 100%" class="btn btn-outline-info">Create Line</button>-->
+<!--  </div>-->
+<!--</div>-->
+<!--<table class="table table-bordered">-->
+<!--  <thead>-->
+<!--  <th style="text-align: center">No.</th>-->
+<!--  &lt;!&ndash;    <th>ID</th>&ndash;&gt;-->
+<!--  <th>Name</th>-->
+<!--  <th>Short Name 1 (Internal)</th>-->
+<!--  <th>Short Name 2 (Customer)</th>-->
+<!--  <th style="text-align: center">ISP</th>-->
+<!--  <th style="text-align: center">Circuit ID</th>-->
+<!--  <th>Device IP</th>-->
+<!--  <th>Ping Test</th>-->
+<!--  <th style="text-align: center">Action</th>-->
+<!--  </thead>-->
+<!--  <tbody>-->
+<!--  <tr *ngFor="let line of site.lineList,  index as i">-->
+<!--    <td style="text-align: center">{{i + 1}}</td>-->
+<!--    &lt;!&ndash;      <td>{{line.id}}</td>&ndash;&gt;-->
+<!--    <td>{{line.name}}</td>-->
+<!--    <td>{{line.shortName}}</td>-->
+<!--    <td>{{line.shortName2}}</td>-->
+<!--    <td style="text-align: center">{{line.isp != null ? line.isp : ""}}</td>-->
+<!--    <td style="text-align: center">{{line.circuitId != null ? line.circuitId : ""}}</td>-->
+<!--    <td>{{line.ipAddress != null ? line.ipAddress : ""}}</td>-->
+<!--    <td>{{line.pingtest != null ? line.pingtest : ""}}</td>-->
+<!--    <td style="text-align: center">-->
+<!--      <button class="btn btn-outline-info" [routerLink]="['/line/edit/' + line.id]">Edit</button>-->
+<!--    </td>-->
+<!--  </tr>-->
+<!--  </tbody>-->
+<!--</table>-->
+
+<div class="row">
+  <div class="col-md-2"></div>
+  <div class="col-md-2"></div>
+  <div class="col-md-2"></div>
+  <div class="col-md-2"></div>
+  <div class="col-md-2"></div>
+  <div class="col-md-2">
+    <button style="width: 100%" class="btn btn-outline-info" (click)="return()">Return</button>
+  </div>
+</div>

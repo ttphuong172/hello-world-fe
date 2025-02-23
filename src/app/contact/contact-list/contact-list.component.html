@@ -1,0 +1,112 @@
+<h4>LIST CONTACTS OF SITE {{this.companyName}}</h4>
+<ul style="list-style-type: none">
+  <li [ngClass]="{'selected': selectedItem === 'I. LG Electronic'}">
+    <a href="#/site/company/contacts/1" (click)="load1()">I. LG Electronic</a>
+  </li>
+
+  <li [ngClass]="{'selected': selectedItem === 'II. LG Energy Solution'}">
+    <a href="#/site/company/contacts/2" (click)="load2()">II. LG Energy Solution</a>
+  </li>
+
+  <li [ngClass]="{'selected': selectedItem === 'III. LG Chem / LG Household & Health Care'}">
+    <a href="#/site/company/contacts/3"  (click)="load3()">III. LG Chem / LG Household & Health Care</a>
+  </li>
+
+  <li [ngClass]="{'selected': selectedItem === 'IV. LG Display'}">
+    <a href="#/site/company/contacts/4" (click)="load4()">IV. LG Display</a>
+  </li>
+
+  <li [ngClass]="{'selected': selectedItem === 'V. LG Innotek'}">
+    <a href="#/site/company/contacts/5" (click)="load5()">V. LG Innotek</a>
+  </li>
+
+  <li [ngClass]="{'selected': selectedItem === 'VI. LX International / LX Pantos / LX Hausys Overseas'}">
+    <a href="#/site/company/contacts/6" (click)="load6()">VI. LX International / LX Pantos / LX Hausys Overseas</a>
+  </li>
+</ul>
+
+<div class="row" style="margin-bottom: 5px; margin-top: 10px">
+  <div class="col-md-2"></div>
+  <div class="col-md-2" style="font-weight: bold">Name</div>
+  <div class="col-md-6">
+    <input type="text" class="form-control" [(ngModel)]="name" (keyup.enter)="searchSite()">
+  </div>
+
+  <div class="col-md-2">
+    <button class="btn btn-outline-primary" (click)="searchSite()">Search</button>
+  </div>
+</div>
+
+<table class="table table-bordered table-striped">
+<!--  <thead>-->
+<!--  <tr>-->
+<!--    <th rowspan="2" style="text-align: center">No.</th>-->
+<!--    <th rowspan="2" style="text-align: center">Position</th>-->
+<!--    <th rowspan="2">Name</th>-->
+<!--    <th rowspan="2" style="text-align: center">Nation</th>-->
+<!--    <th rowspan="2" style="text-align: center">City</th>-->
+<!--    <th rowspan="2">Address</th>-->
+<!--    <th colspan="6" style="text-align: center; width: 50%">Manager</th>-->
+<!--  </tr>-->
+<!--  <tr>-->
+<!--    <th style="width: 9%">Name</th>-->
+<!--    <th style="width: 11%">Email</th>-->
+<!--    <th style="width: 8%;text-align: center">Office</th>-->
+<!--    <th style="width: 8%;text-align: center">Mobile</th>-->
+<!--    <th style="width: 7%;text-align: center">Role</th>-->
+<!--    <th style="width: 7%">Note</th>-->
+<!--  </tr>-->
+<!--  </thead>-->
+  <thead>
+  <tr>
+    <th rowspan="2" style="text-align: center; vertical-align: middle;">No.</th>
+    <th rowspan="2" style="text-align: center; vertical-align: middle;">Position</th>
+    <th rowspan="2" style="vertical-align: middle;">Name</th>
+    <th rowspan="2" style="text-align: center; vertical-align: middle;">Nation</th>
+    <th rowspan="2" style="text-align: center; vertical-align: middle;">City</th>
+    <th rowspan="2" style="vertical-align: middle;">Address</th>
+    <th colspan="6" style="text-align: center; width: 50%; vertical-align: middle;">Manager</th>
+  </tr>
+  <tr>
+    <th style="width: 9%; vertical-align: middle;">Name</th>
+    <th style="width: 11%; vertical-align: middle;">Email</th>
+    <th style="width: 8%; text-align: center; vertical-align: middle;">Office</th>
+    <th style="width: 8%; text-align: center; vertical-align: middle;">Mobile</th>
+    <th style="width: 7%; text-align: center; vertical-align: middle;">Role</th>
+    <th style="width: 7%; vertical-align: middle;">Note</th>
+  </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor = "let site of siteList; let i = index">
+      <td style="text-align: center">{{i + 1}}</td>
+      <td style="text-align: center">{{site.ric}}</td>
+      <td>{{site.name}}</td>
+      <td style="text-align: center">{{site.nation}}</td>
+      <td style="text-align: center">{{site.city}}</td>
+      <td>{{site.address}}</td>
+      <td colspan="6" style="padding: 0; margin: 0; width: 50%">
+        <table class="table table-bordered" style="margin: 0">
+          <tbody>
+            <tr *ngFor = "let manager of site.contactList">
+              <td style="width: 18%">{{manager.name | titlecase}}</td>
+              <td style="width: 22%">{{manager.email}}</td>
+              <td style="width: 16%;text-align: center">{{manager.office}}</td>
+              <td style="width: 16%;text-align: center">{{manager.phone}}</td>
+              <td style="width: 14%;text-align: center">{{manager.role}}</td>
+              <td style="width: 14%">{{manager.note}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </td>
+      <td style="text-align: center">
+        <button style="margin: 5px" class="btn btn-outline-primary" [routerLink]="['/contact/detail/' + site.id]">Detail</button>
+<!--        <button style="margin: 5px" class="btn btn-outline-info">-->
+<!--          <i class="fa fa-copy"></i>-->
+<!--        </button>-->
+        <button style="margin: 5px" class="btn btn-outline-info" (click)="copyEmail(site.id)">
+          <i class="fa fa-envelope-o"></i>
+        </button>
+      </td>
+    </tr>
+  </tbody>
+</table>

@@ -32,7 +32,7 @@ export class LineEditComponent implements OnInit{
       site: new FormControl(''),
       company: new FormControl(''),
       isp: new FormControl(''),
-      ci: new FormControl(''),
+      circuitId: new FormControl(''),
       ipAddress: new FormControl(''),
       pingtest: new FormControl(''),
     })
@@ -48,7 +48,7 @@ export class LineEditComponent implements OnInit{
         this.lineForm.controls['site'].setValue(this.line.site)
         this.lineForm.controls['company'].setValue(this.line.company)
         this.lineForm.controls['isp'].setValue(this.line.isp)
-        this.lineForm.controls['ci'].setValue(this.line.ci)
+        this.lineForm.controls['circuitId'].setValue(this.line.circuitId)
         this.lineForm.controls['ipAddress'].setValue(this.line.ipAddress)
         this.lineForm.controls['pingtest'].setValue(this.line.pingtest)
 
@@ -58,22 +58,19 @@ export class LineEditComponent implements OnInit{
           }
         )
       }
-
-
-
     )
 
   }
 
   cancel() {
-    this.router.navigateByUrl('/site/detail/' + this.line.site.id)
+    this.router.navigateByUrl('line/detail/' + this.line.site.id)
   }
 
 
   update() {
     this.lineService.update(this.lineForm.value).subscribe(
       ()=>{
-        this.router.navigateByUrl('/site/detail/' + this.line.site.id)
+        this.router.navigateByUrl('/line/detail/' + this.line.site.id)
       }
 
     )

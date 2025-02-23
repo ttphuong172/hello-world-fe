@@ -42,13 +42,13 @@ export class ContactAddComponent implements OnInit{
   }
 
   cancel() {
-    this.router.navigateByUrl("site/detail/" + this.siteId)
+    this.router.navigateByUrl("contact/detail/" + this.siteId)
   }
 
   save() {
     this.contactService.save(this.contactForm.value).subscribe(
       ()=>{
-        this.router.navigateByUrl("site/detail/" + this.siteId)
+        this.router.navigateByUrl("contact/detail/" + this.siteId)
       }
     )
   }

@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
-import {HttpClient} from "@angular/common/http";
+import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {environment} from "../enviroments/enviroments";
+import {AuthService} from "./auth.service";
 
 @Injectable({
   providedIn: 'root'
@@ -8,20 +9,30 @@ import {environment} from "../enviroments/enviroments";
 export class TaskService {
   private apiURL = environment.apiURL;
   constructor(
-    private httpClient:HttpClient
+    private httpClient:HttpClient,
+    private authService:AuthService
   ) { }
+
+  private getHttpOptions() {
+    return {
+      headers: new HttpHeaders({
+        'Authorization': `Bearer ${this.authService.getToken()}`
+      })
+    };
+  }
+
   getTask(){
     return this.httpClient.get(this.apiURL + "/tasks")
   }
   save(task: any){
-    return this.httpClient.post(this.apiURL + "/tasks",task);
+    return this.httpClient.post(this.apiURL + "/tasks",task, this.getHttpOptions());
   }
   findById(id:any){
     return this.httpClient.get(this. apiURL + "/tasks/" + id);
   }
 
   update(task:any){
-    return this.httpClient.put(this. apiURL + "/tasks/" + task.id, task)
+    return this.httpClient.put(this. apiURL + "/tasks/" + task.id, task, this.getHttpOptions())
   }
 
   isVisible(id:any){

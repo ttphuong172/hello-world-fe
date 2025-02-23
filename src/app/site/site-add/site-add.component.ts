@@ -3,6 +3,7 @@ import {CompanyService} from "../../../services/company.service";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {SiteService} from "../../../services/site.service";
 import {ActivatedRoute, Router} from "@angular/router";
+import {TimeService} from "../../../services/time.service";
 
 @Component({
   selector: 'app-site-add',
@@ -14,12 +15,15 @@ export class SiteAddComponent implements OnInit {
   company: any
   siteForm: FormGroup | any;
   id: any;
+  zoneIdList: any;
+  gmtValue: any;
 
   constructor(
     private companyService: CompanyService,
     private siteService: SiteService,
     private router: Router,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    private timeService: TimeService
   ) {
   }
 
@@ -27,7 +31,12 @@ export class SiteAddComponent implements OnInit {
     this.id = Number(this.activatedRoute.snapshot.paramMap.get('id'));
     this.siteForm = new FormGroup({
       name: new FormControl('', [Validators.required]),
-      gmt: new FormControl('', [Validators.required]),
+      nation: new FormControl(''),
+      city: new FormControl(''),
+      address: new FormControl(''),
+      gmt: new FormControl(''),
+      zoneId: new FormControl('', [Validators.required]),
+      valueFilter: new FormControl(''),
       configure: new FormControl(''),
       configureKr: new FormControl(''),
       company: new FormControl('', [Validators.required]),
@@ -47,6 +56,12 @@ export class SiteAddComponent implements OnInit {
             this.loadCompany()
           }
         )
+      }
+    )
+
+    this.timeService.getzonidList().subscribe(
+      (data)=>{
+        this.zoneIdList = data
       }
     )
 
@@ -77,5 +92,29 @@ export class SiteAddComponent implements OnInit {
     return obj1 && obj2 && obj1.id == obj2.id
   }
 
+  loadGMT() {
+    this.timeService.getGmt(this.siteForm.get('zoneId').value).subscribe(
+      (data)=>{
+        this.gmtValue = data
+        this.siteForm.controls['gmt'].setValue(this.gmtValue)
+      }
+    )
+  }
+
+  filterZoneId() {
+    this.timeService.getzonidList().subscribe(
+      (data)=>{
+        this.zoneIdList = data
+        let newZoneIdList = []
+        let valueFilter = this.siteForm.get('valueFilter').value.toLowerCase()
+        for (let i = 0; i < this.zoneIdList.length; i ++){
+          if (this.zoneIdList[i].toLowerCase().includes(valueFilter)){
+            newZoneIdList.push(this.zoneIdList[i])
+          }
+        }
+        this.zoneIdList = newZoneIdList
+      }
+    )
+  }
 }
 

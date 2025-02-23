@@ -1,0 +1,29 @@
+<!--<p>new-ping-list works!</p>-->
+<table class="table table-bordered">
+  <thead>
+  <th style="text-align: center">No.</th>
+  <th style="text-align: center">IP Address</th>
+  <th>Name</th>
+  <th style="text-align: center">Status</th>
+  <th style="text-align: center">Last Uptime</th>
+  <th style="text-align: center">Action</th>
+  </thead>
+  <tbody>
+  <tr *ngFor = "let ping of pingList; let i = index" [style.color]="ping.isUp ? 'green': 'red'">
+    <td style="text-align: center">{{i + 1}}</td>
+    <td style="text-align: center">{{ping.ipAddress}}</td>
+    <td>{{ping.name}}</td>
+    <td style="text-align: center">{{ (ping.isUp ? 'UP' : 'DOWN')   }}</td>
+    <td style="text-align: center">{{ping.upTime | date: 'MM/dd: HH:mm'}}</td>
+    <td style="text-align: center"><button class="btn btn-outline-danger" (click)="delete(ping)"><i class="fa fa-trash"></i></button></td>
+  </tr>
+  </tbody>
+</table>
+
+
+<div>
+  <!-- The audio element will automatically play as soon as the audioUrl is set -->
+  <audio *ngIf="audioUrl" controls [src]="audioUrl" autoplay hidden>
+    Your browser does not support the audio element.
+  </audio>
+</div>
