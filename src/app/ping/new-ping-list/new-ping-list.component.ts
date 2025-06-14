@@ -3,9 +3,10 @@ import {PingService} from "../../../services/ping.service";
 import {AudioService} from "../../../services/audio.service";
 
 @Component({
-  selector: 'app-new-ping-list',
-  templateUrl: './new-ping-list.component.html',
-  styleUrls: ['./new-ping-list.component.css']
+    selector: 'app-new-ping-list',
+    templateUrl: './new-ping-list.component.html',
+    styleUrls: ['./new-ping-list.component.css'],
+    standalone: false
 })
 export class NewPingListComponent implements OnInit, OnDestroy{
   pingList: any;

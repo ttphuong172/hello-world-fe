@@ -1,5 +1,5 @@
 <h4>LIST CONTACTS OF SITE {{this.companyName}}</h4>
-<ul style="list-style-type: none">
+<ul id="submenu" style="list-style-type: none">
   <li [ngClass]="{'selected': selectedItem === 'I. LG Electronic'}">
     <a href="#/site/company/contacts/1" (click)="load1()">I. LG Electronic</a>
   </li>
@@ -9,7 +9,7 @@
   </li>
 
   <li [ngClass]="{'selected': selectedItem === 'III. LG Chem / LG Household & Health Care'}">
-    <a href="#/site/company/contacts/3"  (click)="load3()">III. LG Chem / LG Household & Health Care</a>
+    <a href="#/site/company/contacts/3" (click)="load3()">III. LG Chem / LG Household & Health Care</a>
   </li>
 
   <li [ngClass]="{'selected': selectedItem === 'IV. LG Display'}">
@@ -37,76 +37,65 @@
   </div>
 </div>
 
-<table class="table table-bordered table-striped">
-<!--  <thead>-->
-<!--  <tr>-->
-<!--    <th rowspan="2" style="text-align: center">No.</th>-->
-<!--    <th rowspan="2" style="text-align: center">Position</th>-->
-<!--    <th rowspan="2">Name</th>-->
-<!--    <th rowspan="2" style="text-align: center">Nation</th>-->
-<!--    <th rowspan="2" style="text-align: center">City</th>-->
-<!--    <th rowspan="2">Address</th>-->
-<!--    <th colspan="6" style="text-align: center; width: 50%">Manager</th>-->
-<!--  </tr>-->
-<!--  <tr>-->
-<!--    <th style="width: 9%">Name</th>-->
-<!--    <th style="width: 11%">Email</th>-->
-<!--    <th style="width: 8%;text-align: center">Office</th>-->
-<!--    <th style="width: 8%;text-align: center">Mobile</th>-->
-<!--    <th style="width: 7%;text-align: center">Role</th>-->
-<!--    <th style="width: 7%">Note</th>-->
-<!--  </tr>-->
-<!--  </thead>-->
+<table class="table table-bordered">
   <thead>
   <tr>
     <th rowspan="2" style="text-align: center; vertical-align: middle;">No.</th>
     <th rowspan="2" style="text-align: center; vertical-align: middle;">Position</th>
     <th rowspan="2" style="vertical-align: middle;">Name</th>
-    <th rowspan="2" style="text-align: center; vertical-align: middle;">Nation</th>
-    <th rowspan="2" style="text-align: center; vertical-align: middle;">City</th>
     <th rowspan="2" style="vertical-align: middle;">Address</th>
-    <th colspan="6" style="text-align: center; width: 50%; vertical-align: middle;">Manager</th>
+    <th colspan="3" style="text-align: center; vertical-align: middle;width: 60%">Manager</th>
   </tr>
   <tr>
-    <th style="width: 9%; vertical-align: middle;">Name</th>
-    <th style="width: 11%; vertical-align: middle;">Email</th>
-    <th style="width: 8%; text-align: center; vertical-align: middle;">Office</th>
-    <th style="width: 8%; text-align: center; vertical-align: middle;">Mobile</th>
-    <th style="width: 7%; text-align: center; vertical-align: middle;">Role</th>
-    <th style="width: 7%; vertical-align: middle;">Note</th>
+    <th style="vertical-align: middle; width: 18%">Name</th>
+    <th style="text-align: center; vertical-align: middle;width: 18%">Phone Number</th>
+    <th style="al-align: middle;">Note</th>
   </tr>
   </thead>
   <tbody>
-    <tr *ngFor = "let site of siteList; let i = index">
-      <td style="text-align: center">{{i + 1}}</td>
-      <td style="text-align: center">{{site.ric}}</td>
-      <td>{{site.name}}</td>
-      <td style="text-align: center">{{site.nation}}</td>
-      <td style="text-align: center">{{site.city}}</td>
-      <td>{{site.address}}</td>
-      <td colspan="6" style="padding: 0; margin: 0; width: 50%">
-        <table class="table table-bordered" style="margin: 0">
-          <tbody>
-            <tr *ngFor = "let manager of site.contactList">
-              <td style="width: 18%">{{manager.name | titlecase}}</td>
-              <td style="width: 22%">{{manager.email}}</td>
-              <td style="width: 16%;text-align: center">{{manager.office}}</td>
-              <td style="width: 16%;text-align: center">{{manager.phone}}</td>
-              <td style="width: 14%;text-align: center">{{manager.role}}</td>
-              <td style="width: 14%">{{manager.note}}</td>
-            </tr>
-          </tbody>
-        </table>
-      </td>
-      <td style="text-align: center">
-        <button style="margin: 5px" class="btn btn-outline-primary" [routerLink]="['/contact/detail/' + site.id]">Detail</button>
-<!--        <button style="margin: 5px" class="btn btn-outline-info">-->
-<!--          <i class="fa fa-copy"></i>-->
-<!--        </button>-->
-        <button style="margin: 5px" class="btn btn-outline-info" (click)="copyEmail(site.id)">
-          <i class="fa fa-envelope-o"></i>
-        </button>
-      </td>
-    </tr>
+  <tr *ngFor="let site of siteList; let i = index">
+    <td style="text-align: center">{{i + 1}}</td>
+    <td style="text-align: center; font-weight: bold">{{site.ric}}</td>
+    <td>
+      <div style="font-size: 14px; font-weight: bold">{{site.name}}</div>
+      <div>{{site.nation}}</div>
+      <div>{{site.city}}</div>
+    </td>
+
+    <td>{{site.address}}</td>
+    <td colspan="3" style="padding: 0; margin: 0; width: 60%">
+      <table class="table table-bordered" style="margin: 0">
+        <tbody>
+        <tr *ngFor="let manager of site.contactList">
+          <td style="width: 30%">
+            <div style="font-weight: bold; font-size: 14px">{{manager.name | titlecase}}</div>
+            <div style="font-style: italic">{{manager.role}}</div>
+            <div>{{manager.email}}</div>
+          </td>
+          <td style="vertical-align: middle; width: 30%">
+            <div *ngIf = "manager.office"><span style="font-weight: bold; font-style: italic">
+            <svg xmlns="http://www.w3.org/2000/svg" height="20px" viewBox="0 -960 960 960" width="20px" fill="#1f1f1f"><path d="M798-120q-125 0-247-54.5T329-329Q229-429 174.5-551T120-798q0-18 12-30t30-12h162q14 0 25 9.5t13 22.5l26 140q2 16-1 27t-11 19l-97 98q20 37 47.5 71.5T387-386q31 31 65 57.5t72 48.5l94-94q9-9 23.5-13.5T670-390l138 28q14 4 23 14.5t9 23.5v162q0 18-12 30t-30 12ZM241-600l66-66-17-94h-89q5 41 14 81t26 79Zm358 358q39 17 79.5 27t81.5 13v-88l-94-19-67 67ZM241-600Zm358 358Z"/></svg>
+            </span>{{manager.office}}
+            </div>
+
+            <div style="margin-top: 5px" *ngIf = "manager.phone"><span style="font-weight: bold; font-style: italic">
+              <svg xmlns="http://www.w3.org/2000/svg" height="20px" viewBox="0 -960 960 960" width="20px" fill="#1f1f1f"><path d="M280-40q-33 0-56.5-23.5T200-120v-720q0-33 23.5-56.5T280-920h400q33 0 56.5 23.5T760-840v720q0 33-23.5 56.5T680-40H280Zm0-200v120h400v-120H280Zm200 100q17 0 28.5-11.5T520-180q0-17-11.5-28.5T480-220q-17 0-28.5 11.5T440-180q0 17 11.5 28.5T480-140ZM280-320h400v-400H280v400Zm0-480h400v-40H280v40Zm0 560v120-120Zm0-560v-40 40Z"/></svg>
+            </span>{{manager.phone}}
+            </div>
+          </td>
+
+          <td>{{manager.note}}</td>
+        </tr>
+        </tbody>
+      </table>
+    </td>
+    <td style="text-align: center; vertical-align: middle">
+      <button style="margin: 5px" class="btn btn-outline-primary" [routerLink]="['/contact/detail/' + site.id]"><i
+        class="fa fa-newspaper-o"></i></button>
+      <button style="margin: 5px" class="btn btn-outline-info" (click)="copyEmail(site.id)">
+        <i class="fa fa-envelope-o"></i>
+      </button>
+    </td>
+  </tr>
   </tbody>
 </table>

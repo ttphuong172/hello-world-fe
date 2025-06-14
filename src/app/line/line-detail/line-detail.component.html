@@ -1,15 +1,15 @@
 <h4>DETAIL LINE</h4>
 <div class="row">
   <div style="margin: 5px 0px" class="col-md-6">
-    <p><span style="font-weight: bold">Name</span>: {{site.name}}</p>
-    <p><span style="font-weight: bold">Nation</span>: {{site.nation}}</p>
-    <p><span style="font-weight: bold">City</span>: {{site.city}}</p>
-    <p><span style="font-weight: bold">Address</span>: {{site.address}}</p>
-    <p><span style="font-weight: bold">ZoneId</span>: {{site.zoneId}}</p>
+    <p><span style="font-weight: bold">Name</span>: {{site?.name}}</p>
+    <p><span style="font-weight: bold">Nation</span>: {{site?.nation}}</p>
+    <p><span style="font-weight: bold">City</span>: {{site?.city}}</p>
+    <p><span style="font-weight: bold">Address</span>: {{site?.address}}</p>
+    <p><span style="font-weight: bold">ZoneId</span>: {{site?.zoneId}}</p>
     <p><span style="font-weight: bold">GMT</span>: {{gmtValue}}</p>
-    <p><span style="font-weight: bold">Configuration</span>: {{site.configure}}</p>
-    <p><span style="font-weight: bold">Configuration Kr</span>: {{site.configureKr}}</p>
-    <p><span style="font-weight: bold">Company</span>: {{site.company.name}}</p>
+    <p><span style="font-weight: bold">Configuration</span>: {{site?.configure}}</p>
+    <p><span style="font-weight: bold">Configuration Kr</span>: {{site?.configureKr}}</p>
+    <p><span style="font-weight: bold">Company</span>: {{site?.company.name}}</p>
   </div>
 </div>
 
@@ -21,7 +21,7 @@
   <div class="col-md-2"></div>
   <div class="col-md-2"></div>
   <div class="col-md-2">
-    <button [routerLink]="['/line/add/' + site.id]" style="width: 100%" class="btn btn-outline-info">Create Line</button>
+    <button [routerLink]="['/line/add/' + site?.id]" style="width: 100%" class="btn btn-outline-info">Create Line</button>
   </div>
 </div>
 <table class="table table-bordered">
@@ -39,19 +39,21 @@
   <th style="text-align: center">Action</th>
   </thead>
   <tbody>
-  <tr *ngFor="let line of site.lineList,  index as i">
+  <tr *ngFor="let line of site?.lineList,  index as i">
     <td style="text-align: center">{{i + 1}}</td>
     <!--      <td>{{line.id}}</td>-->
-    <td>{{line.name}}</td>
-    <td>{{line.shortName}}</td>
-    <td>{{line.shortName2}}</td>
+    <td>{{line?.name}}</td>
+    <td>{{line?.shortName}}</td>
+    <td>{{line?.shortName2}}</td>
     <td style="text-align: center">{{line.isp != null ? line.isp : ""}}</td>
     <td style="text-align: center">{{line.circuitId != null ? line.circuitId : ""}}</td>
     <td>{{line.affectLines}}</td>
     <td>{{line.ipAddress != null ? line.ipAddress : ""}}</td>
     <td>{{line.pingtest != null ? line.pingtest : ""}}</td>
     <td style="text-align: center">
-      <button class="btn btn-outline-info" [routerLink]="['/line/edit/' + line.id]">Edit</button>
+      <button style="margin: 5px" class="btn btn-outline-info" [routerLink]="['/line/edit/' + line.id]">Edit</button>
+      <button style="margin: 5px" class="btn btn-outline-danger" (click)="openDialogDelete(line)">Delete</button>
+<!--      <button style="width: 100%" [hidden]="this.username != this.tkn?.creator" class="btn btn-outline-danger" (click)="openDialogDelete(tkn)">Delete</button>-->
     </td>
   </tr>
   </tbody>

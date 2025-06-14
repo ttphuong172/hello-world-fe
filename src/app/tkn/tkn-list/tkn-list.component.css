@@ -1,0 +1,17 @@
+#reading:hover {
+  background-color: #f0f0f0; /* Change background color on hover */
+}
+
+/* Style for the text displayed on hover */
+.hover-text {
+  position: fixed; /* Make the text float over the content */
+  padding: 8px 15px;
+  background-color: rgba(0, 0, 0, 0.7); /* Dark background */
+  color: white;
+  font-size: 14px;
+  border-radius: 5px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2); /* Shadow to make it pop */
+  pointer-events: none; /* Prevent the text from interfering with mouse events */
+  transform: translate(-50%, -50%); /* Center the text at the cursor */
+  transition: transform 0.1s ease-out; /* Smooth transition for movement */
+}

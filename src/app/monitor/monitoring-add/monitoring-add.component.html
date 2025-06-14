@@ -1,0 +1,43 @@
+<h4>CREATE MONITORING</h4>
+<form [formGroup]="monitoringForm">
+  <div class="row" style="margin: 10px 0px">
+    <div class="col-md-2">
+      <label style="font-weight: bold">IP Address</label>
+    </div>
+    <div class="col-md-10">
+      <input class="form-control" type="text" formControlName="ipAddress">
+    </div>
+  </div>
+
+  <div class="row" style="margin: 10px 0px">
+    <div class="col-md-2">
+      <label style="font-weight: bold">Name</label>
+    </div>
+    <div class="col-md-10">
+      <input class="form-control" type="text" formControlName="name">
+    </div>
+  </div>
+
+  <div class="row" style="margin: 10px 0px">
+    <div class="col-md-2">
+      <label style="font-weight: bold">Note</label>
+    </div>
+    <div class="col-md-10">
+      <quill-editor style="width: 100%;height: 250px" formControlName="note" [modules]="quillModules" ></quill-editor>
+    </div>
+  </div>
+
+  <div class="row" style="margin: 5px 0px">
+    <div class="col-md-9"></div>
+    <div class="col-md-1">
+      <button style="width: 100%" class="btn btn-outline-dark" (click)="cancel()">Cancel</button>
+    </div>
+    <div class="col-md-1">
+      <button [disabled]="!monitoringForm.valid" style="width: 100%" class="btn btn-outline-success" (click)="save()">Save
+      </button>
+    </div>
+    <div class="col-md-1"></div>
+  </div>
+</form>
+
+<!--{{monitoringForm.value | json}}-->

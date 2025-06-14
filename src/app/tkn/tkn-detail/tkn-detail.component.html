@@ -1,7 +1,7 @@
 <h3>DETAIL DOCUMENT</h3>
 <div class="row">
   <div class="col-md-1"></div>
-  <div class="col-md-8">
+  <div class="col-md-10">
     <div class="row">
       <div class="col-md-3"></div>
       <div class="col-md-3"></div>
@@ -15,23 +15,27 @@
       <div class="col-md-3"><span>Ngày tạo: </span>{{this.tkn?.creatingDate | date :'short'}}</div>
     </div>
 
-    <div class="row" class="row" style="margin: 10px 0px">
-      <div class="col-md-2"></div>
-      <div class="col-md-2"></div>
+    <div class="row">
+      <div class="col-md-4"><span style="font-weight: bold">Type: {{this.tkn?.tknType.name}}</span></div>
       <div class="col-md-2"></div>
       <div class="col-md-2"></div>
       <div class="col-md-2">
-        <button style="width: 100%;" [hidden]="this.username != this.tkn?.creator" class="btn btn-outline-info" [routerLink]="['/tkn/edit/' + tkn?.id]">Edit</button>
+<!--        <button style="width: 100%;" [hidden]="this.username != this.tkn?.creator" class="btn btn-outline-info" [routerLink]="['/tkn/edit/' + tkn?.id]">Edit</button>-->
+        <button style="width: 100%;" [hidden]="!(['quytp1', 'khoapa3', 'phuongtt58', this.tkn?.creator].includes(this.username))" class="btn btn-outline-info" [routerLink]="['/tkn/edit/' + tkn?.id]">Edit</button>
       </div>
       <div class="col-md-2">
-        <button style="width: 100%" [hidden]="this.username != this.tkn?.creator" class="btn btn-outline-danger" (click)="delete()">Delete</button>
+<!--        <button style="width: 100%" [hidden]="this.username != this.tkn?.creator" class="btn btn-outline-danger" (click)="openDialogDelete(tkn)">Delete</button>-->
+        <button style="width: 100%" [hidden]="!(['quytp1', 'khoapa3', 'phuongtt58', this.tkn?.creator].includes(this.username))" class="btn btn-outline-danger" (click)="openDialogDelete(tkn)">Delete</button>
       </div>
     </div>
-    <h4>{{tkn?.title}}</h4>
+    <h4 style="margin: 0 10px">{{tkn?.title}}</h4>
 
-    <div [innerHTML]="htmlContent"></div>
+    <div class="ql-snow">
+      <div style="font-family: Roboto; font-size: 14px" class="ql-editor" [innerHTML]="htmlContent"></div>
+    </div>
+<!--    <div [innerHTML]="htmlContent"></div>-->
 <!--    <div ng-bind-html="htmlContent"></div>-->
-    <p>---------------------------------------------</p>
+    <p>---------------------------------------------------------------</p>
     <span style="font-weight: bold">Danh sách người đã đọc: </span>
       <ol>
         <li *ngFor = "let a of tkn?.readingList">{{a?.account.username}} - {{a?.readingDate | date :'short'}}</li>
@@ -43,14 +47,12 @@
 </div>
 
 
-
 <div class="row">
   <div class="col-md-2"></div>
   <div class="col-md-2"></div>
   <div class="col-md-2">
     <button (click)="toggleComment()" style="width: 100%" class="btn btn-outline-info">Comment</button>
   </div>
-
   <div class="col-md-2">
     <button [disabled]="isRead" style="width: 100%" class="btn btn-outline-success" (click)="mark()">Đã đọc và hiểu</button>
   </div>
@@ -60,36 +62,38 @@
   <div class="col-md-2"></div>
 </div>
 
-<div *ngIf="isCommentVisible" class="row" style="margin: 10px 0px">
-
-  <div class="col-md-2"></div>
-  <div class="col-md-6">
+<div *ngIf="isCommentVisible" class="row" style="margin: 10px 0">
+  <div class="col-md-1"></div>
+  <div class="col-md-8">
     <input class="form-control" type="text" [(ngModel)] = "content">
   </div>
-  <div class="col-md-2">
+  <div class="col-md-1">
     <button style="width: 100%" class="btn btn-outline-info" (click)="commentPost()">Send</button>
   </div>
   <div class="col-md-2"></div>
 </div>
 
-<div>
-  <div  class="row" style="margin: 10px 0px">
-    <div class="col-md-1"></div>
+<div class="row">
+  <div class="col-md-1"></div>
+  <div class="col-md-10">
+    <ul style="list-style-type: none">
+      <li style="margin: 5px 0" *ngFor = "let comment of this.tkn?.commentList">
+        <div style="display: flex; align-items: center; margin-bottom: 8px;">
+          <i class="fa fa-user-circle-o" style="font-size:36px"></i>
+          <div style="display: flex; flex-direction: column; margin-left: 8px; align-items: flex-start;">
+            <span style="font-weight: bold; font-size: 14px;">{{comment.account.username}}</span>
+            <span style="font-weight: bold; font-size: 10px; color: #777;">{{comment.commentDate | date: 'short'}}</span>
+          </div>
+        </div>
 
-    <div class="col-md-10">
-      <table class="table table-bordered">
-        <tbody>
-        <tr *ngFor = "let comment of this.tkn?.commentList">
-          <td>{{comment.account.username}}</td>
-          <td>{{comment.commentDate | date: 'short'}}</td>
-          <td>{{comment.content}}</td>
-        </tr>
-        </tbody>
-      </table>
-    </div>
+        <div style="margin-left: 44px; font-size: 14px; color: #333;">
+          <span>{{comment.content}}</span>
+        </div>
 
-    <div class="col-md-1"></div>
+      </li>
+    </ul>
   </div>
+  <div class="col-md-1"></div>
 </div>
 
 

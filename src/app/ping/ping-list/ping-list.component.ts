@@ -4,9 +4,10 @@ import {ActivatedRoute, Router} from "@angular/router";
 import {AudioService} from "../../../services/audio.service";
 
 @Component({
-  selector: 'app-ping-list',
-  templateUrl: './ping-list.component.html',
-  styleUrls: ['./ping-list.component.css']
+    selector: 'app-ping-list',
+    templateUrl: './ping-list.component.html',
+    styleUrls: ['./ping-list.component.css'],
+    standalone: false
 })
 export class PingListComponent implements OnInit {
   pingList: any;

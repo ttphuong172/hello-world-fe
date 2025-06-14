@@ -37,4 +37,8 @@ export class LineService {
   update(line:any){
     return this.httpClient.put(this.apiURL + "/lines/" + line.id, line, this.getHttpOptions())
   }
+
+  delete(line:any){
+    return this.httpClient.delete(this.apiURL + "/lines/" + line.id, this.getHttpOptions())
+  }
 }

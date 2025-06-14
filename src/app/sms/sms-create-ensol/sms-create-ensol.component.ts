@@ -9,9 +9,10 @@ import {IspService} from "../../../services/isp.service";
 import {TimeService} from "../../../services/time.service";
 
 @Component({
-  selector: 'app-sms-create-ensol',
-  templateUrl: './sms-create-ensol.component.html',
-  styleUrls: ['./sms-create-ensol.component.css']
+    selector: 'app-sms-create-ensol',
+    templateUrl: './sms-create-ensol.component.html',
+    styleUrls: ['./sms-create-ensol.component.css'],
+    standalone: false
 })
 export class SmsCreateEnsolComponent implements OnInit {
   zoneIdToChild: string = '';
@@ -315,206 +316,10 @@ export class SmsCreateEnsolComponent implements OnInit {
     }
   }
 
-  loadEvent() {
-    if (this.smsForm.get('event').value.name == 'Down') {
-
-      // Impact
-      this.smsForm.get('impact')?.enable();
-      this.smsForm.controls['impact'].setValue({"id": 1, "name": "Backup service", "nameKr": "백업 서비스"})
-
-      // Value Pingloss
-      this.smsForm.controls['extra'].setValue("")
-      this.smsForm.get('extra')?.disable();
-
-      // Restore Time
-      this.smsForm.get('restoreTime').setValue("")
-      this.smsForm.get('restoreTime')?.disable()
-
-    } else if (this.smsForm.get('network').value == "Down, power outage confirmed") {
-      this.smsForm.get('line').setValue("")
-      this.smsForm.get('line')?.disable();
-
-      this.smsForm.get('event').setValue("")
-      this.smsForm.get('event')?.disable();
-
-      this.smsForm.get('extra').setValue("")
-      this.smsForm.get('extra')?.disable();
-
-      this.smsForm.get('impact')?.enable();
-      this.smsForm.get('impact').setValue({"id": 2, "name": "Service unavailable", "nameKr": "서비스 불가"})
-
-      this.smsForm.get('restoreTime').setValue("")
-      this.smsForm.get('restoreTime')?.disable();
-
-    } else if (this.smsForm.get('event').value.name == 'Up') {
-
-      // Impact
-      this.smsForm.controls['impact'].setValue("")
-      this.smsForm.get('impact')?.disable();
-
-      // Value
-      this.smsForm.controls['extra'].setValue("")
-      this.smsForm.get('extra')?.disable();
-
-      // Restore Time
-      this.smsForm.get('restoreTime')?.enable()
-
-    } else if (this.smsForm.get('event').value.name == 'Down/up') {
-
-      // Impact
-      this.smsForm.get('impact')?.enable();
-      this.smsForm.controls['impact'].setValue({"id": 1, "name": "Backup service", "nameKr": "백업 서비스"})
-
-      // Value Pingloss
-      this.smsForm.get('extra')?.enable();
-
-      // Restore Time
-      this.smsForm.get('restoreTime').setValue("")
-      this.smsForm.get('restoreTime')?.disable()
-
-    }else if (this.smsForm.get('event').value.name == 'Down/up x times') {
-
-      // Impact
-      this.smsForm.get('impact')?.enable();
-      this.smsForm.controls['impact'].setValue({"id": 1, "name": "Backup service", "nameKr": "백업 서비스"})
-
-      // Value Pingloss
-      this.smsForm.controls['extra'].setValue(2)
-      this.smsForm.get('extra')?.enable();
-
-      // Restore Time
-      this.smsForm.get('restoreTime')?.enable()
-
-    } else if (this.smsForm.get('event').value.name == 'Down and recovery') {
-
-      // Impact
-      this.smsForm.get('impact')?.enable();
-      this.smsForm.controls['impact'].setValue({"id": 1, "name": "Backup service", "nameKr": "백업 서비스"})
-
-      // Value Pingloss
-      this.smsForm.controls['extra'].setValue("")
-      this.smsForm.get('extra')?.disable();
-
-      // Restore Time
-      this.smsForm.get('restoreTime')?.enable()
-    } else if (this.smsForm.get('event').value.name == 'Redown') {
-
-      // Impact
-      this.smsForm.get('impact')?.enable();
-      this.smsForm.controls['impact'].setValue({"id": 1, "name": "Backup service", "nameKr": "백업 서비스"})
-
-      // Value Pingloss
-      this.smsForm.controls['extra'].setValue("")
-      this.smsForm.get('extra')?.disable();
-
-      // Restore Time
-      this.smsForm.get('restoreTime').setValue("")
-      this.smsForm.get('restoreTime')?.disable()
-    } else if (this.smsForm.get('event').value.name == 'Redown and recovey') {
-
-      // Impact
-      this.smsForm.get('impact')?.enable();
-      this.smsForm.controls['impact'].setValue({"id": 1, "name": "Backup service", "nameKr": "백업 서비스"})
-
-      // Value Pingloss
-      this.smsForm.controls['extra'].setValue("")
-      this.smsForm.get('extra')?.disable();
-
-      // Restore Time
-      this.smsForm.get('restoreTime')?.enable()
-    } else if (this.smsForm.get('event').value.name == "Flapping") {
-      // Impact
-      this.smsForm.get('impact')?.enable();
-      this.smsForm.controls['impact'].setValue({"id": 1, "name": "Backup service", "nameKr": "백업 서비스"})
-
-      // Value Pingloss
-      this.smsForm.controls['extra'].setValue("")
-      this.smsForm.get('extra')?.disable();
-
-      // Restore Time
-      this.smsForm.get('restoreTime').setValue("")
-      this.smsForm.get('restoreTime')?.disable()
-    } else if (this.smsForm.get('event').value.name == "Recovery flapping") {
-
-      // Impact
-      this.smsForm.controls['impact'].setValue("")
-      this.smsForm.get('impact')?.disable();
-
-      // Value Pingloss
-      this.smsForm.controls['extra'].setValue("")
-      this.smsForm.get('extra')?.disable();
-
-      // Restore Time
-      this.smsForm.get('restoreTime')?.enable()
-    } else if (this.smsForm.get('event').value.name == 'Flapping and recovery') {
-
-      // Impact
-      this.smsForm.controls['impact'].setValue("")
-      this.smsForm.get('impact')?.disable();
-
-      // Value Pingloss
-      this.smsForm.controls['extra'].setValue("")
-      this.smsForm.get('extra')?.disable();
-
-      // Restore Time
-      this.smsForm.get('restoreTime')?.enable()
-    } else if (this.smsForm.get('event').value.name == 'Pingloss') {
-
-      // Impact
-      this.smsForm.get('impact')?.enable();
-      this.smsForm.controls['impact'].setValue({"id": 5, "name": "Delay of service", "nameKr": "서비스 지연"})
-
-      // Value
-      this.smsForm.get('extra')?.enable();
-
-      // Restore Time
-      this.smsForm.get('restoreTime').setValue("")
-      this.smsForm.get('restoreTime')?.disable()
-
-    } else if (this.smsForm.get('event').value.name == 'Recovery pingloss') {
-
-      // Impact
-      this.smsForm.controls['impact'].setValue("")
-      this.smsForm.get('impact')?.disable();
-
-      // Value Pingloss
-      this.smsForm.controls['extra'].setValue("")
-      this.smsForm.get('extra')?.disable();
-
-      // Restore Time
-      this.smsForm.get('restoreTime')?.enable()
-    } else if (this.smsForm.get('event').value.name == 'RTT') {
-
-      // Impact
-      this.smsForm.get('impact')?.enable();
-      this.smsForm.controls['impact'].setValue({"id": 5, "name": "Delay of service", "nameKr": "서비스 지연"})
-
-      // Value
-      this.smsForm.get('extra')?.enable();
-
-      // Restore Time
-      this.smsForm.get('restoreTime').setValue("")
-      this.smsForm.get('restoreTime')?.disable()
-
-    } else if (this.smsForm.get('event').value.name == 'Recovery RTT') {
-
-      // Impact
-      this.smsForm.controls['impact'].setValue("")
-      this.smsForm.get('impact')?.disable();
-
-      // Value
-      this.smsForm.controls['extra'].setValue("")
-      this.smsForm.get('extra')?.disable();
-
-      // Restore Time
-      this.smsForm.get('restoreTime')?.enable()
-    }
-
-  }
-
   compareByID(obj1: any, obj2: any) {
     return obj1 && obj2 && obj1.id == obj2.id
   }
+
 
   loadNetwork() {
     if (this.smsForm.get('network').value == "") {
@@ -603,7 +408,192 @@ export class SmsCreateEnsolComponent implements OnInit {
     this.isTextPresentPingLog = true;
     this.ipAddress = this.smsForm.get('line').value.ipAddress;
     this.pingCommand = this.smsForm.get('line').value.pingtest;
-
-
   }
+
+  loadEvent() {
+    if (this.smsForm.get('event').value.name == 'Down') {
+
+      // Impact
+      this.smsForm.get('impact')?.enable();
+      this.smsForm.controls['impact'].setValue({"id": 1, "name": "Backup service", "nameKr": "백업 서비스"})
+
+      // Value Pingloss
+      this.smsForm.controls['extra'].setValue("")
+      this.smsForm.get('extra')?.disable();
+
+      // Restore Time
+      this.smsForm.get('restoreTime').setValue("")
+      this.smsForm.get('restoreTime')?.disable()
+
+    } else if (this.smsForm.get('event').value.name == 'Up') {
+
+      // Impact
+      this.smsForm.controls['impact'].setValue("")
+      this.smsForm.get('impact')?.disable();
+
+      // Value Pingloss
+      this.smsForm.controls['extra'].setValue("")
+      this.smsForm.get('extra')?.disable();
+
+      // Restore Time
+      this.smsForm.get('restoreTime')?.enable()
+
+    } else if (this.smsForm.get('event').value.name == 'Down/up') {
+
+      // Impact
+      this.smsForm.get('impact')?.enable();
+      this.smsForm.controls['impact'].setValue({"id": 1, "name": "Backup service", "nameKr": "백업 서비스"})
+
+      // Value Pingloss
+      this.smsForm.get('extra')?.enable();
+
+      // Restore Time
+      this.smsForm.get('restoreTime').setValue("")
+      this.smsForm.get('restoreTime')?.disable()
+    } else if (this.smsForm.get('event').value.name == 'Down/up x times') {
+
+      // Impact
+      this.smsForm.get('impact')?.enable();
+      this.smsForm.controls['impact'].setValue({"id": 1, "name": "Backup service", "nameKr": "백업 서비스"})
+
+      // Value Pingloss
+      this.smsForm.controls['extra'].setValue(2)
+      this.smsForm.get('extra')?.enable();
+
+      // Restore Time
+      this.smsForm.get('restoreTime')?.enable()
+
+    } else if (this.smsForm.get('event').value.name == 'Down and recovery') {
+
+      // Impact
+      this.smsForm.get('impact')?.enable();
+      this.smsForm.controls['impact'].setValue({"id": 1, "name": "Backup service", "nameKr": "백업 서비스"})
+
+      // Value Pingloss
+      this.smsForm.controls['extra'].setValue("")
+      this.smsForm.get('extra')?.disable();
+
+      // Restore Time
+      this.smsForm.get('restoreTime')?.enable()
+
+    } else if (this.smsForm.get('event').value.name == 'Redown') {
+
+      // Impact
+      this.smsForm.get('impact')?.enable();
+      this.smsForm.controls['impact'].setValue({"id": 1, "name": "Backup service", "nameKr": "백업 서비스"})
+
+      // Value Pingloss
+      this.smsForm.controls['extra'].setValue("")
+      this.smsForm.get('extra')?.disable();
+
+      // Restore Time
+      this.smsForm.get('restoreTime').setValue("")
+      this.smsForm.get('restoreTime')?.disable()
+    } else if (this.smsForm.get('event').value.name == 'Redown and recovery') {
+
+      // Impact
+      this.smsForm.get('impact')?.enable();
+      this.smsForm.controls['impact'].setValue({"id": 1, "name": "Backup service", "nameKr": "백업 서비스"})
+
+      // Value Pingloss
+      this.smsForm.controls['extra'].setValue("")
+      this.smsForm.get('extra')?.disable();
+
+      // Restore Time
+      this.smsForm.get('restoreTime')?.enable()
+
+    } else if (this.smsForm.get('event').value.name == "Flapping") {
+      // Impact
+      this.smsForm.get('impact')?.enable();
+      this.smsForm.controls['impact'].setValue({"id": 1, "name": "Backup service", "nameKr": "백업 서비스"})
+
+      // Value Pingloss
+      this.smsForm.controls['extra'].setValue("")
+      this.smsForm.get('extra')?.disable();
+
+      // Restore Time
+      this.smsForm.get('restoreTime').setValue("")
+      this.smsForm.get('restoreTime')?.disable()
+    } else if (this.smsForm.get('event').value.name == "Recovery flapping") {
+
+      // Impact
+      this.smsForm.controls['impact'].setValue("")
+      this.smsForm.get('impact')?.disable();
+
+      // Value Pingloss
+      this.smsForm.controls['extra'].setValue("")
+      this.smsForm.get('extra')?.disable();
+
+      // Restore Time
+      this.smsForm.get('restoreTime')?.enable()
+    } else if (this.smsForm.get('event').value.name == 'Flapping and recovery') {
+
+      // Impact
+      this.smsForm.controls['impact'].setValue("")
+      this.smsForm.get('impact')?.disable();
+
+      // Value Pingloss
+      this.smsForm.controls['extra'].setValue("")
+      this.smsForm.get('extra')?.disable();
+
+      // Restore Time
+      this.smsForm.get('restoreTime')?.enable()
+    } else if (this.smsForm.get('event').value.name == 'Pingloss') {
+
+      // Impact
+      this.smsForm.get('impact')?.enable();
+      this.smsForm.controls['impact'].setValue({"id": 5, "name": "Delay of service", "nameKr": "서비스 지연"})
+
+      // Value Pingloss
+      this.smsForm.get('extra')?.enable();
+
+      // Restore Time
+      this.smsForm.get('restoreTime').setValue("")
+      this.smsForm.get('restoreTime')?.disable()
+
+    } else if (this.smsForm.get('event').value.name == 'Recovery pingloss') {
+
+      // Impact
+      this.smsForm.controls['impact'].setValue("")
+      this.smsForm.get('impact')?.disable();
+
+      // Value
+      this.smsForm.controls['extra'].setValue("")
+      this.smsForm.get('extra')?.disable();
+
+      // Restore Time
+      this.smsForm.get('restoreTime')?.enable()
+    } else if (this.smsForm.get('event').value.name == 'RTT') {
+
+      // Impact
+      this.smsForm.get('impact')?.enable();
+      this.smsForm.controls['impact'].setValue({"id": 5, "name": "Delay of service", "nameKr": "서비스 지연"})
+
+      // Value
+      this.smsForm.get('extra')?.enable();
+
+      // Restore Time
+      this.smsForm.get('restoreTime').setValue("")
+      this.smsForm.get('restoreTime')?.disable()
+
+    } else if (this.smsForm.get('event').value.name == 'Recovery RTT') {
+
+      // Impact
+      this.smsForm.controls['impact'].setValue("")
+      this.smsForm.get('impact')?.disable();
+
+      // Value
+      this.smsForm.controls['extra'].setValue("")
+      this.smsForm.get('extra')?.disable();
+
+      // Restore Time
+      this.smsForm.get('restoreTime')?.enable()
+    }
+  }
+
+
+
+
+
+
 }

@@ -9,9 +9,10 @@ import {Router} from "@angular/router";
 import {SiteService} from "../../services/site.service";
 
 @Component({
-  selector: 'app-tasks',
-  templateUrl: './tasks.component.html',
-  styleUrls: ['./tasks.component.css']
+    selector: 'app-tasks',
+    templateUrl: './tasks.component.html',
+    styleUrls: ['./tasks.component.css'],
+    standalone: false
 })
 export class TasksComponent implements OnInit, AfterViewInit {
   taskForm: FormGroup | any;

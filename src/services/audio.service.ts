@@ -24,4 +24,8 @@ export class AudioService {
   getAudio(){
     return this.httpClient.get(this.apiURL + "/ping/audio" , { responseType: 'blob' });
   }
+
+  getAudioAlarm(){
+    return this.httpClient.get(this.apiURL + "/ping/audioalarm" , { responseType: 'blob' });
+  }
 }

@@ -5,9 +5,10 @@ import {FormControl, FormGroup} from "@angular/forms";
 import {IspService} from "../../../services/isp.service";
 
 @Component({
-  selector: 'app-line-edit',
-  templateUrl: './line-edit.component.html',
-  styleUrls: ['./line-edit.component.css']
+    selector: 'app-line-edit',
+    templateUrl: './line-edit.component.html',
+    styleUrls: ['./line-edit.component.css'],
+    standalone: false
 })
 export class LineEditComponent implements OnInit{
   lineId: any

@@ -8,9 +8,10 @@ import {JwtHelperService} from "@auth0/angular-jwt";
 // import {JwtHelperService} from "@auth0/angular-jwt";
 
 @Component({
-  selector: 'app-login',
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
+    selector: 'app-login',
+    templateUrl: './login.component.html',
+    styleUrls: ['./login.component.css'],
+    standalone: false
 })
 export class LoginComponent implements OnInit {
   formLogin = new FormGroup({

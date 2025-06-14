@@ -4,9 +4,10 @@ import {SiteService} from "../../../services/site.service";
 import {LineService} from "../../../services/line.service";
 
 @Component({
-  selector: 'app-site-detail',
-  templateUrl: './site-detail.component.html',
-  styleUrls: ['./site-detail.component.css']
+    selector: 'app-site-detail',
+    templateUrl: './site-detail.component.html',
+    styleUrls: ['./site-detail.component.css'],
+    standalone: false
 })
 
 

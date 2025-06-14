@@ -6,9 +6,10 @@ import {ActivatedRoute, Router} from "@angular/router";
 import {TimeService} from "../../../services/time.service";
 
 @Component({
-  selector: 'app-site-edit',
-  templateUrl: './site-edit.component.html',
-  styleUrls: ['./site-edit.component.css']
+    selector: 'app-site-edit',
+    templateUrl: './site-edit.component.html',
+    styleUrls: ['./site-edit.component.css'],
+    standalone: false
 })
 export class SiteEditComponent implements OnInit{
   companyList: any

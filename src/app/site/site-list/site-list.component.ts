@@ -5,9 +5,10 @@ import {ActivatedRoute, Router} from "@angular/router";
 import {TimeService} from "../../../services/time.service";
 
 @Component({
-  selector: 'app-site-list',
-  templateUrl: './site-list.component.html',
-  styleUrls: ['./site-list.component.css']
+    selector: 'app-site-list',
+    templateUrl: './site-list.component.html',
+    styleUrls: ['./site-list.component.css'],
+    standalone: false
 })
 export class SiteListComponent implements OnInit {
   siteList: any
@@ -61,7 +62,7 @@ export class SiteListComponent implements OnInit {
                 this.company = data
                 this.selectedItem = this.company.name
 
-                console.log(this.selectedItem)
+                // console.log(this.selectedItem)
 
                 this.companyName = this.company.name.split(".")[1].toLocaleUpperCase()
               }

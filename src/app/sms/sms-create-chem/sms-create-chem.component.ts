@@ -9,9 +9,10 @@ import {IspService} from "../../../services/isp.service";
 import {TimeService} from "../../../services/time.service";
 
 @Component({
-  selector: 'app-sms-create-chem',
-  templateUrl: './sms-create-chem.component.html',
-  styleUrls: ['./sms-create-chem.component.css']
+    selector: 'app-sms-create-chem',
+    templateUrl: './sms-create-chem.component.html',
+    styleUrls: ['./sms-create-chem.component.css'],
+    standalone: false
 })
 export class SmsCreateChemComponent implements OnInit {
 
@@ -141,7 +142,7 @@ export class SmsCreateChemComponent implements OnInit {
     if ((this.smsForm.get('event').value.name == "Up" ||
       this.smsForm.get('event').value.name == "Down and recovery" ||
       this.smsForm.get('event').value.name == "Down/up x times" ||
-      this.smsForm.get('event').value.name == "Redown and recovey" ||
+      this.smsForm.get('event').value.name == "Redown and recovery" ||
       this.smsForm.get('event').value.name == "Recovery flapping" ||
       this.smsForm.get('event').value.name == "Flapping and recovery" ||
       this.smsForm.get('event').value.name == "Recovery pingloss") &&
@@ -170,6 +171,7 @@ export class SmsCreateChemComponent implements OnInit {
       this.smsService.generatorChemSms(this.smsForm.value).subscribe(
         (data) => {
           this.smsList = data
+
           this.smsString = this.smsList[0];
           this.isTextPresent = this.smsString.trim().length > 0;
 
@@ -394,7 +396,7 @@ export class SmsCreateChemComponent implements OnInit {
       // Restore Time
       this.smsForm.get('restoreTime').setValue("")
       this.smsForm.get('restoreTime')?.disable()
-    } else if (this.smsForm.get('event').value.name == 'Redown and recovey') {
+    } else if (this.smsForm.get('event').value.name == 'Redown and recovery') {
 
       // Impact
       this.smsForm.get('impact')?.enable();

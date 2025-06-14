@@ -1,4 +1,4 @@
-ul {
+#submenu {
   list-style-type: none;
   margin: 0;
   padding: 0;
@@ -7,11 +7,11 @@ ul {
   font-size: 12px;
 }
 
-li {
+#submenu li {
   float: left;
 }
 
-li a {
+#submenu li a {
   display: block;
   color: white;
   text-align: center;
@@ -20,11 +20,11 @@ li a {
   text-decoration: none;
 }
 
-li a:hover {
+#submenu li a:hover {
   background-color: #6b6b6b;
 }
 
-li a.active {
+#submenu li a.active {
   background-color: #388e3c; /* Active link background color */
   color: white; /* Active link text color */
 }

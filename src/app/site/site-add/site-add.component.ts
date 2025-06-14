@@ -6,9 +6,10 @@ import {ActivatedRoute, Router} from "@angular/router";
 import {TimeService} from "../../../services/time.service";
 
 @Component({
-  selector: 'app-site-add',
-  templateUrl: './site-add.component.html',
-  styleUrls: ['./site-add.component.css']
+    selector: 'app-site-add',
+    templateUrl: './site-add.component.html',
+    styleUrls: ['./site-add.component.css'],
+    standalone: false
 })
 export class SiteAddComponent implements OnInit {
   companyList: any

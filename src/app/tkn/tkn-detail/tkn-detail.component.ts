@@ -6,11 +6,15 @@ import {JwtHelperService} from "@auth0/angular-jwt";
 import {AuthService} from "../../../services/auth.service";
 import {CommentService} from "../../../services/comment.service";
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
+import {TknDeleteComponent} from "../tkn-delete/tkn-delete.component";
+import {MatDialog} from "@angular/material/dialog";
+
 
 @Component({
-  selector: 'app-tkn-detail',
-  templateUrl: './tkn-detail.component.html',
-  styleUrls: ['./tkn-detail.component.css']
+    selector: 'app-tkn-detail',
+    templateUrl: './tkn-detail.component.html',
+    styleUrls: ['./tkn-detail.component.css'],
+    standalone: false
 })
 export class TknDetailComponent implements OnInit {
   comment = {
@@ -40,7 +44,8 @@ export class TknDetailComponent implements OnInit {
     private jwtHelperService:JwtHelperService,
     private authService:AuthService,
     private companyService:CommentService,
-    private sanitizer: DomSanitizer
+    private sanitizer: DomSanitizer,
+    private matDialog:MatDialog,
   ) {
   }
 
@@ -79,7 +84,11 @@ export class TknDetailComponent implements OnInit {
       }
     ).subscribe(
       () => {
-        this.router.navigateByUrl("/tkn")
+        this.router.navigateByUrl("/tkn").then(()=>{
+          window.location.reload();
+        })
+
+
       }
     )
   }
@@ -87,7 +96,7 @@ export class TknDetailComponent implements OnInit {
   commentPost(){
     this.comment.account.username = this.username
     this.comment.tkn.id = this.id
-    console.log(this.comment)
+    // console.log(this.comment)
     // @ts-ignore
     this.comment.content = this.content
     this.companyService.save(this.comment).subscribe(
@@ -112,5 +121,18 @@ export class TknDetailComponent implements OnInit {
 
   toggleComment() {
     this.isCommentVisible = !this.isCommentVisible;
+  }
+
+  openDialogDelete(tkn: any) {
+    const dialogRefDelete = this.matDialog.open(TknDeleteComponent, {
+      width: '600px',
+      data: tkn,
+      disableClose: true
+    })
+    dialogRefDelete.afterClosed().subscribe(
+      ()=>{
+        this.ngOnInit()
+      }
+    )
   }
 }

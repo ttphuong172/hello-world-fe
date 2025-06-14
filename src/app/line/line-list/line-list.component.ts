@@ -5,9 +5,10 @@ import {CompanyService} from "../../../services/company.service";
 import {TimeService} from "../../../services/time.service";
 
 @Component({
-  selector: 'app-line-list',
-  templateUrl: './line-list.component.html',
-  styleUrls: ['./line-list.component.css']
+    selector: 'app-line-list',
+    templateUrl: './line-list.component.html',
+    styleUrls: ['./line-list.component.css'],
+    standalone: false
 })
 export class LineListComponent implements OnInit{
   private id: any;

@@ -13,7 +13,9 @@
 <!--      </li>-->
 
       <li (click)="selectItem('TKN')" [ngClass]="{'selected': selectedItem === 'TKN'}">
-        <a class="active" href="#tkn">DOCUMENT</a>
+        <a  class="active" href="#tkn">DOCUMENT
+          <span [hidden]="countFalse==0" class="notification-badge">{{ countFalse }}</span>
+        </a>
       </li>
 
 <!--      <li (click)="selectItem('REPORT')" [ngClass]="{'selected': selectedItem === 'REPORT'}">-->
@@ -36,13 +38,17 @@
         <a href="#site/company/contacts/1">CONTACTS</a>
       </li>
 
+      <li (click)="selectItem('MONITORING')" [ngClass]="{'selected': selectedItem === 'MONITORING'}">
+        <a href="#monitoring">MONITORING</a>
+      </li>
+
       <li (click)="selectItem('PING')" [ngClass]="{'selected': selectedItem === 'PING'}">
         <a href="#ping">PINGTEST</a>
       </li>
 
-      <li (click)="selectItem('TRUNK')" [ngClass]="{'selected': selectedItem === 'TRUNK'}">
-        <a href="#smstrunk">TRUNK</a>
-      </li>
+<!--      <li (click)="selectItem('TRUNK')" [ngClass]="{'selected': selectedItem === 'TRUNK'}">-->
+<!--        <a href="#smstrunk">TRUNK</a>-->
+<!--      </li>-->
 
       <li (click)="selectItem('INNOTEK')" [ngClass]="{'selected': selectedItem === 'INNOTEK'}">
         <a href="#smsinnotek">INNOTEK</a>
@@ -59,6 +65,10 @@
       <li (click)="selectItem('OTHER')" [ngClass]="{'selected': selectedItem === 'OTHER'}">
         <a href="#sms">OTHER</a>
       </li>
+
+      <li (click)="selectItem('NOTIFICATION')" [ngClass]="{'selected': selectedItem === 'NOTIFICATION'}">
+        <a href="#notification">NOTIFICATION</a>
+      </li>
       <li [hidden]="!isLogin" (click)="selectItem('ACCOUNT')" [ngClass]="{'selected': selectedItem === 'ACCOUNT'}">
         <a href="#account">{{fullname}}</a>
       </li>
@@ -68,6 +78,7 @@
     </ul>
 
     <router-outlet></router-outlet>
+
 
   </div>
   <div class="col-1">
@@ -82,3 +93,5 @@
     Your browser does not support the audio element.
   </audio>
 </div>
+
+

@@ -68,13 +68,13 @@
 <!--    <th rowspan="2" style="text-align: center; vertical-align: middle;">Nation</th>-->
 <!--    <th rowspan="2" style="text-align: center; vertical-align: middle;">City</th>-->
     <th rowspan="2" style="text-align: center; vertical-align: middle;">Zone Id</th>
-    <th rowspan="2" style="text-align: center; vertical-align: middle;">GMT</th>
-    <th colspan="5" style="width: 50%; text-align: center; vertical-align: middle;">Lines</th>
+<!--    <th rowspan="2" style="text-align: center; vertical-align: middle;">GMT</th>-->
+    <th colspan="3" style="width: 70%; text-align: center; vertical-align: middle;">Lines</th>
   </tr>
   <tr>
-    <th style="width: 13%; vertical-align: middle;">Name</th>
-    <th style="width: 5%; text-align: center; vertical-align: middle;">ISP</th>
-    <th style="width: 9%; text-align: center; vertical-align: middle;">Circuit ID</th>
+    <th style="width: 27%; vertical-align: middle;">Name</th>
+<!--    <th style="width: 5%; text-align: center; vertical-align: middle;">ISP</th>-->
+<!--    <th style="width: 9%; text-align: center; vertical-align: middle;">Circuit ID</th>-->
     <th style="width: 12%; vertical-align: middle;">ShortName 1 (Internal)</th>
     <th style="width: 11%; vertical-align: middle;">ShortName 2 (Customer)</th>
   </tr>
@@ -83,19 +83,29 @@
   <tbody>
   <tr *ngFor = "let site of siteList; let i = index">
     <td style="text-align: center">{{i + 1}}</td>
-    <td style="text-align: center">{{site.ric}}</td>
-    <td>{{site.name}}</td>
+    <td style="text-align: center; font-weight: bold">{{site.ric}}</td>
+    <td>
+      <div style="font-size: 14px; font-weight: bold">{{site.name}}</div>
+      <div>{{site.nation}}</div>
+      <div>{{site.city}}</div>
+    </td>
 <!--    <td style="text-align: center">{{site.nation}}</td>-->
 <!--    <td style="text-align: center">{{site.city}}</td>-->
-    <td style="text-align: center">{{site.zoneId}}</td>
-    <td style="text-align: center">{{site.gmt}}</td>
-    <td colspan="5" style="padding: 0; margin: 0; width: 50%">
+    <td style="text-align: center">
+      <div>{{site.zoneId}}</div>
+      <div>{{site.gmt}}</div>
+
+    </td>
+    <td colspan="3" style="padding: 0; margin: 0; width: 70%">
       <table class="table table-bordered" style="margin: 0;">
         <tbody>
         <tr *ngFor = "let line of site.lineList">
-          <td style="width: 26%">{{line.name}}</td>
-          <td style="width: 10%;text-align: center">{{line.isp}}</td>
-          <td style="width: 18%;text-align: center">{{line.circuitId}}</td>
+          <td style="width: 54%">
+            <div>{{line.name}}</div>
+            <div style="font-style: italic" *ngIf = "line.isp">-ISP: <span style="font-weight: bold">{{line.isp}}</span></div>
+            <div *ngIf = "line.circuitId">-CI: <span style="font-weight: bold">{{line.circuitId}}</span></div>
+
+          </td>
           <td style="width: 24%">{{line.shortName}}</td>
           <td style="width: 22%">{{line.shortName2}}</td>
         </tr>
@@ -103,7 +113,9 @@
       </table>
     </td>
     <td style="text-align: center">
-      <button style="margin: 5px" class="btn btn-outline-primary" [routerLink]="['/line/detail/' + site.id]">Detail</button>
+      <button style="margin: 5px" class="btn btn-outline-primary" [routerLink]="['/line/detail/' + site.id]">
+        <i class="fa fa-newspaper-o"></i>
+      </button>
     </td>
   </tr>
   </tbody>

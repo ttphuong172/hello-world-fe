@@ -8,11 +8,12 @@ import {SmsService} from "../../../services/sms.service";
 import {IspService} from "../../../services/isp.service";
 import {TimeService} from "../../../services/time.service";
 
-@Component({
-  selector: 'app-sms-create-innotek',
-  templateUrl: './sms-create-innotek.component.html',
-  styleUrls: ['./sms-create-innotek.component.css'],
 
+@Component({
+    selector: 'app-sms-create-innotek',
+    templateUrl: './sms-create-innotek.component.html',
+    styleUrls: ['./sms-create-innotek.component.css'],
+    standalone: false
 })
 export class SmsCreateInnotekComponent implements OnInit {
 
@@ -324,6 +325,83 @@ export class SmsCreateInnotekComponent implements OnInit {
     }
   }
 
+  compareByID(obj1: any, obj2: any) {
+    return obj1 && obj2 && obj1.id == obj2.id
+  }
+
+  loadNetwork() {
+    if (this.smsForm.get('network').value == "") {
+      this.smsForm.get('line').setValue("")
+      this.smsForm.get('line')?.enable();
+
+      this.smsForm.get('event').setValue("")
+      this.smsForm.get('event')?.enable();
+
+      this.smsForm.get('extra').setValue("")
+      this.smsForm.get('extra')?.enable();
+
+      this.smsForm.get('impact').setValue("")
+      this.smsForm.get('impact')?.enable();
+
+      this.smsForm.get('restoreTime').setValue("")
+      this.smsForm.get('restoreTime')?.enable();
+
+    } else if (this.smsForm.get('network').value == "Down") {
+      this.smsForm.get('line').setValue("")
+      this.smsForm.get('line')?.disable();
+
+      this.smsForm.get('event').setValue("")
+      this.smsForm.get('event')?.disable();
+
+      this.smsForm.get('extra').setValue("")
+      this.smsForm.get('extra')?.disable();
+
+      this.smsForm.get('impact')?.enable();
+      this.smsForm.get('impact').setValue({"id": 2, "name": "Service unavailable", "nameKr": "서비스 불가"})
+
+      this.smsForm.get('restoreTime').setValue("")
+      this.smsForm.get('restoreTime')?.disable();
+
+    } else if (this.smsForm.get('network').value == "Down, power outage confirmed") {
+      this.smsForm.get('line').setValue("")
+      this.smsForm.get('line')?.disable();
+
+      this.smsForm.get('event').setValue("")
+      this.smsForm.get('event')?.disable();
+
+      this.smsForm.get('extra').setValue("")
+      this.smsForm.get('extra')?.disable();
+
+      this.smsForm.get('impact')?.enable();
+      this.smsForm.get('impact').setValue({"id": 2, "name": "Service unavailable", "nameKr": "서비스 불가"})
+
+      this.smsForm.get('restoreTime').setValue("")
+      this.smsForm.get('restoreTime')?.disable();
+
+    } else if (this.smsForm.get('network').value == "Recovered") {
+      this.smsForm.get('line').setValue("")
+      this.smsForm.get('line')?.disable();
+
+      this.smsForm.get('event').setValue("")
+      this.smsForm.get('event')?.disable();
+
+      this.smsForm.get('extra').setValue("")
+      this.smsForm.get('extra')?.disable();
+
+      this.smsForm.get('impact').setValue("")
+      this.smsForm.get('impact')?.disable();
+
+      this.smsForm.get('restoreTime').setValue("")
+      this.smsForm.get('restoreTime')?.enable();
+    }
+  }
+
+  loadLine() {
+    this.isTextPresentPingLog = true;
+    this.ipAddress = this.smsForm.get('line').value.ipAddress;
+    this.pingCommand = this.smsForm.get('line').value.pingtest;
+  }
+
   loadEvent() {
     if (this.smsForm.get('event').value.name == 'Down') {
 
@@ -402,7 +480,7 @@ export class SmsCreateInnotekComponent implements OnInit {
       // Restore Time
       this.smsForm.get('restoreTime').setValue("")
       this.smsForm.get('restoreTime')?.disable()
-    } else if (this.smsForm.get('event').value.name == 'Redown and recovey') {
+    } else if (this.smsForm.get('event').value.name == 'Redown and recovery') {
 
       // Impact
       this.smsForm.get('impact')?.enable();
@@ -503,80 +581,5 @@ export class SmsCreateInnotekComponent implements OnInit {
     }
   }
 
-  compareByID(obj1: any, obj2: any) {
-    return obj1 && obj2 && obj1.id == obj2.id
-  }
 
-  loadNetwork() {
-    if (this.smsForm.get('network').value == "") {
-      this.smsForm.get('line').setValue("")
-      this.smsForm.get('line')?.enable();
-
-      this.smsForm.get('event').setValue("")
-      this.smsForm.get('event')?.enable();
-
-      this.smsForm.get('extra').setValue("")
-      this.smsForm.get('extra')?.enable();
-
-      this.smsForm.get('impact').setValue("")
-      this.smsForm.get('impact')?.enable();
-
-      this.smsForm.get('restoreTime').setValue("")
-      this.smsForm.get('restoreTime')?.enable();
-
-    } else if (this.smsForm.get('network').value == "Down") {
-      this.smsForm.get('line').setValue("")
-      this.smsForm.get('line')?.disable();
-
-      this.smsForm.get('event').setValue("")
-      this.smsForm.get('event')?.disable();
-
-      this.smsForm.get('extra').setValue("")
-      this.smsForm.get('extra')?.disable();
-
-      this.smsForm.get('impact')?.enable();
-      this.smsForm.get('impact').setValue({"id": 2, "name": "Service unavailable", "nameKr": "서비스 불가"})
-
-      this.smsForm.get('restoreTime').setValue("")
-      this.smsForm.get('restoreTime')?.disable();
-
-    } else if (this.smsForm.get('network').value == "Down, power outage confirmed") {
-      this.smsForm.get('line').setValue("")
-      this.smsForm.get('line')?.disable();
-
-      this.smsForm.get('event').setValue("")
-      this.smsForm.get('event')?.disable();
-
-      this.smsForm.get('extra').setValue("")
-      this.smsForm.get('extra')?.disable();
-
-      this.smsForm.get('impact')?.enable();
-      this.smsForm.get('impact').setValue({"id": 2, "name": "Service unavailable", "nameKr": "서비스 불가"})
-
-      this.smsForm.get('restoreTime').setValue("")
-      this.smsForm.get('restoreTime')?.disable();
-
-    } else if (this.smsForm.get('network').value == "Recovered") {
-      this.smsForm.get('line').setValue("")
-      this.smsForm.get('line')?.disable();
-
-      this.smsForm.get('event').setValue("")
-      this.smsForm.get('event')?.disable();
-
-      this.smsForm.get('extra').setValue("")
-      this.smsForm.get('extra')?.disable();
-
-      this.smsForm.get('impact').setValue("")
-      this.smsForm.get('impact')?.disable();
-
-      this.smsForm.get('restoreTime').setValue("")
-      this.smsForm.get('restoreTime')?.enable();
-    }
-  }
-
-  loadLine() {
-    this.isTextPresentPingLog = true;
-    this.ipAddress = this.smsForm.get('line').value.ipAddress;
-    this.pingCommand = this.smsForm.get('line').value.pingtest;
-  }
 }

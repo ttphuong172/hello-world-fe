@@ -40,8 +40,19 @@ import {JWT_OPTIONS, JwtHelperService} from "@auth0/angular-jwt";
 import { HomeComponent } from './common/home/home.component';
 import { TknDetailComponent } from './tkn/tkn-detail/tkn-detail.component';
 import { TknEditComponent } from './tkn/tkn-edit/tkn-edit.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { TknDeleteComponent } from './tkn/tkn-delete/tkn-delete.component';
+import {MatDialogModule} from "@angular/material/dialog";
+import { NotificationComponent } from './common/notification/notification.component';
+import { LineDeleteComponent } from './line/line-delete/line-delete.component';
+import { ContactDeleteComponent } from './contact/contact-delete/contact-delete.component';
+import { MonitoringListComponent } from './monitor/monitoring-list/monitoring-list.component';
+import { MonitoringAddComponent } from './monitor/monitoring-add/monitoring-add.component';
+import { MonitoringEditComponent } from './monitor/monitoring-edit/monitoring-edit.component';
+import { MonitoringDeleteComponent } from './monitor/monitoring-delete/monitoring-delete.component';
+import { TestComponent } from './test/test/test.component';
 
-
+// @ts-ignore
 @NgModule({
   declarations: [
     AppComponent,
@@ -78,18 +89,31 @@ import { TknEditComponent } from './tkn/tkn-edit/tkn-edit.component';
     HomeComponent,
     TknDetailComponent,
     TknEditComponent,
+    TknDeleteComponent,
+    NotificationComponent,
+    LineDeleteComponent,
+    ContactDeleteComponent,
+    MonitoringListComponent,
+    MonitoringAddComponent,
+    MonitoringEditComponent,
+    MonitoringDeleteComponent,
+    TestComponent,
+
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
+    MatDialogModule,
+
+
     QuillModule.forRoot(),
     RouterModule.forRoot([
       {path: "", component: LoginComponent},
       {
-        path:"", component:HomeComponent, children:[
-          {path:"tkn", component:TknListComponent},
+        path: "", component: HomeComponent, children: [
+          {path: "tkn", component: TknListComponent},
           {path: "tkn/add", component: TknCreateComponent},
           {path: "tkn/detail/:id", component: TknDetailComponent},
           {path: "tkn/edit/:id", component: TknEditComponent},
@@ -118,6 +142,11 @@ import { TknEditComponent } from './tkn/tkn-edit/tkn-edit.component';
           {path: "wiki", component: WikiListComponent},
           {path: "wiki/detail/:id", component: WikiDetailComponent},
           {path: "smstrunk", component: SmsCreateTrunkComponent},
+          {path: "notification", component: NotificationComponent},
+          {path: "monitoring", component: MonitoringListComponent},
+          {path: "monitoring/add", component: MonitoringAddComponent},
+          {path: "monitoring/edit/:id", component: MonitoringEditComponent},
+          {path: "test", component: TestComponent},
         ]
       }
       // {path: "tkn", component: TknListComponent},
@@ -148,7 +177,8 @@ import { TknEditComponent } from './tkn/tkn-edit/tkn-edit.component';
       // {path: "wiki/detail/:id", component: WikiDetailComponent},
       // {path: "smstrunk", component: SmsCreateTrunkComponent},
 
-    ], {useHash: true})
+    ], {useHash: true}),
+    BrowserAnimationsModule,
   ],
   providers: [
     {provide: JWT_OPTIONS, useValue: JWT_OPTIONS},

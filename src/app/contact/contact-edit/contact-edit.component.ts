@@ -4,9 +4,10 @@ import {ActivatedRoute, Router} from "@angular/router";
 import {ContactService} from "../../../services/contact.service";
 
 @Component({
-  selector: 'app-contact-edit',
-  templateUrl: './contact-edit.component.html',
-  styleUrls: ['./contact-edit.component.css']
+    selector: 'app-contact-edit',
+    templateUrl: './contact-edit.component.html',
+    styleUrls: ['./contact-edit.component.css'],
+    standalone: false
 })
 export class ContactEditComponent implements OnInit{
   contactForm: FormGroup |any;

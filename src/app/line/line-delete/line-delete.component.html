@@ -1,0 +1,18 @@
+<div>
+  <p style="font-size: 20px; margin:10px">Delete Line {{line.name}}?</p>
+</div>
+<div class="row" style="margin: 0;padding: 0">
+  <div class="col-md-3"></div>
+  <div class="col-md-3"></div>
+  <div class="col-md-3">
+    <button style="width: 100%" class="btn btn-danger" (click)="delete(line)">
+      Yes, Delete
+    </button>
+  </div>
+  <div class="col-md-3">
+    <button style="width: 100%" class="btn btn-outline-dark" (click)="closeDialogDelete()">
+      No, Keep
+    </button>
+  </div>
+</div>
+<div style="margin-bottom: 30px"></div>

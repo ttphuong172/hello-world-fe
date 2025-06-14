@@ -9,9 +9,10 @@ import {ActivatedRoute, Router} from "@angular/router";
 import {SiteService} from "../../services/site.service";
 
 @Component({
-  selector: 'app-tasks-edit',
-  templateUrl: './tasks-edit.component.html',
-  styleUrls: ['./tasks-edit.component.css']
+    selector: 'app-tasks-edit',
+    templateUrl: './tasks-edit.component.html',
+    styleUrls: ['./tasks-edit.component.css'],
+    standalone: false
 })
 export class TasksEditComponent implements OnInit{
   taskForm: FormGroup | any;

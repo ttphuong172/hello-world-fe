@@ -2,9 +2,7 @@
 <form [formGroup]="smsForm">
 
   <div class="row">
-
     <div class="col-md-6">
-
       <div class="row" style="margin: 10px 0px">
         <div class="col-md-2">
           <label style="font-weight: bold">Site</label>
@@ -81,7 +79,7 @@
         </div>
       </div>
 
-      <div class="row" style="margin: 10px 0px">
+      <div class="row" style="margin: 10px 0px;">
         <div class="col-md-2">
           <label style="font-weight: bold">Restore Time</label>
         </div>
@@ -89,6 +87,7 @@
           <input type="datetime-local" class="form-control" formControlName="restoreTime" placeholder="">
         </div>
       </div>
+
 
       <div class="row" style="margin: 20px 0px">
         <div class="col-md-3"></div>
@@ -171,8 +170,8 @@
       </div>
       <div *ngIf="isTextPresentPingLog">
         <p style="font-weight: bold">WORKING:</p>
-        <p>Device IP: {{ipAddress}}</p>
-        <p>Ping Command: {{pingCommand}}</p>
+        <p><span style="font-weight: bold">Device IP</span>: {{ipAddress}}</p>
+        <p><span style="font-weight: bold">Ping Command</span>: {{pingCommand}}</p>
       </div>
       <div>
         <p style="font-weight: bold"> EMAIL:</p>
@@ -229,5 +228,6 @@
   </div>
 
 </form>
+
 
 <!--{{smsForm.value | json}}-->

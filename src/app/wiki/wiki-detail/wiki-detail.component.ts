@@ -3,9 +3,10 @@ import {WikiService} from "../../../services/wiki.service";
 import {ActivatedRoute} from "@angular/router";
 
 @Component({
-  selector: 'app-wiki-detail',
-  templateUrl: './wiki-detail.component.html',
-  styleUrls: ['./wiki-detail.component.css']
+    selector: 'app-wiki-detail',
+    templateUrl: './wiki-detail.component.html',
+    styleUrls: ['./wiki-detail.component.css'],
+    standalone: false
 })
 export class WikiDetailComponent implements OnInit{
   wiki: any;

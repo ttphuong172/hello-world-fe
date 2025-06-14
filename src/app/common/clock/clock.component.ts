@@ -3,9 +3,10 @@ import {TimeService} from "../../../services/time.service";
 import { DateTime } from 'luxon';
 
 @Component({
-  selector: 'app-clock',
-  templateUrl: './clock.component.html',
-  styleUrls: ['./clock.component.css']
+    selector: 'app-clock',
+    templateUrl: './clock.component.html',
+    styleUrls: ['./clock.component.css'],
+    standalone: false
 })
 export class ClockComponent implements OnInit {
   @Input() childData: string = '';

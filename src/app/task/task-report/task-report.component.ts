@@ -3,9 +3,10 @@ import {TaskService} from "../../../services/task.service";
 import {ReportService} from "../../../services/report.service";
 
 @Component({
-  selector: 'app-task-report',
-  templateUrl: './task-report.component.html',
-  styleUrls: ['./task-report.component.css']
+    selector: 'app-task-report',
+    templateUrl: './task-report.component.html',
+    styleUrls: ['./task-report.component.css'],
+    standalone: false
 })
 export class TaskReportComponent implements OnInit{
   taskListAIC: any;

@@ -10,9 +10,10 @@ import {IspService} from "../../../services/isp.service";
 import {TimeService} from "../../../services/time.service";
 
 @Component({
-  selector: 'app-sms-create',
-  templateUrl: './sms-create.component.html',
-  styleUrls: ['./sms-create.component.css']
+    selector: 'app-sms-create',
+    templateUrl: './sms-create.component.html',
+    styleUrls: ['./sms-create.component.css'],
+    standalone: false
 })
 export class SmsCreateComponent implements OnInit {
 
@@ -193,6 +194,7 @@ export class SmsCreateComponent implements OnInit {
           this.isTextPresentEmail = Object.keys(this.email).length > 0
 
           this.content = this.smsList[2];
+
         }
       )
     }
@@ -394,7 +396,7 @@ export class SmsCreateComponent implements OnInit {
       // Restore Time
       this.smsForm.get('restoreTime').setValue("")
       this.smsForm.get('restoreTime')?.disable()
-    } else if (this.smsForm.get('event').value.name == 'Redown and recovey') {
+    } else if (this.smsForm.get('event').value.name == 'Redown and recovery') {
 
       // Impact
       this.smsForm.get('impact')?.enable();

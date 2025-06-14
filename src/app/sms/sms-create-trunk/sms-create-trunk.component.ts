@@ -3,9 +3,10 @@ import {FormGroup} from "@angular/forms";
 import {SiteService} from "../../../services/site.service";
 
 @Component({
-  selector: 'app-sms-create-trunk',
-  templateUrl: './sms-create-trunk.component.html',
-  styleUrls: ['./sms-create-trunk.component.css']
+    selector: 'app-sms-create-trunk',
+    templateUrl: './sms-create-trunk.component.html',
+    styleUrls: ['./sms-create-trunk.component.css'],
+    standalone: false
 })
 export class SmsCreateTrunkComponent implements OnInit{
   // smsForm: FormGroup | any;

@@ -5,9 +5,10 @@ import {FormControl, FormGroup} from "@angular/forms";
 import {ContactService} from "../../../services/contact.service";
 
 @Component({
-  selector: 'app-contact-add',
-  templateUrl: './contact-add.component.html',
-  styleUrls: ['./contact-add.component.css']
+    selector: 'app-contact-add',
+    templateUrl: './contact-add.component.html',
+    styleUrls: ['./contact-add.component.css'],
+    standalone: false
 })
 export class ContactAddComponent implements OnInit{
   siteId: any;

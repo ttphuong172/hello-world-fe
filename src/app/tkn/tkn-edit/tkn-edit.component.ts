@@ -1,30 +1,33 @@
-
-import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {TknService} from "../../../services/tkn.service";
 import {ActivatedRoute, Router} from "@angular/router";
 import {FormControl, FormGroup} from "@angular/forms";
-import Quill from 'quill';
-import { Delta } from 'quill';  // For Quill 1.x
 import {AuthService} from "../../../services/auth.service";
+import Quill from 'quill';
+import {TkntypeService} from "../../../services/tkntype.service";
+
 
 
 @Component({
-  selector: 'app-tkn-edit',
-  templateUrl: './tkn-edit.component.html',
-  styleUrls: ['./tkn-edit.component.css']
+    selector: 'app-tkn-edit',
+    templateUrl: './tkn-edit.component.html',
+    styleUrls: ['./tkn-edit.component.css'],
+    standalone: false
 })
 export class TknEditComponent implements OnInit{
   tkn:any
   content: any;
   tknForm: FormGroup | any;
   quill: any;
+  tknTypeList: any;
 
 
   constructor(
     private tknService:TknService,
     private activatedRoute:ActivatedRoute,
     private router:Router,
-    private authService:AuthService
+    private authService:AuthService,
+    private tkntypeService:TkntypeService
   ) {
   }
   ngOnInit(): void {
@@ -32,6 +35,7 @@ export class TknEditComponent implements OnInit{
       this.tknForm = new FormGroup({
         id: new FormControl(''),
         title: new FormControl(''),
+        tknType: new FormControl(''),
         summaryContent: new FormControl(''),
         content: new FormControl(''),
         creator: new FormControl('')
@@ -42,6 +46,7 @@ export class TknEditComponent implements OnInit{
           this.tkn = data;
           this.tknForm.controls['id'].setValue(this.tkn.id)
           this.tknForm.controls['title'].setValue(this.tkn.title)
+          this.tknForm.controls['tknType'].setValue(this.tkn.tknType)
           this.tknForm.controls['summaryContent'].setValue(this.tkn.summaryContent)
           this.tknForm.controls['creator'].setValue(this.tkn.creator)
 
@@ -66,7 +71,11 @@ export class TknEditComponent implements OnInit{
             }
           });
           this.quill.clipboard.dangerouslyPasteHTML(this.tkn.content);
-
+          this.tkntypeService.findAll().subscribe(
+            (data)=>{
+              this.tknTypeList = data
+            }
+          )
         }
       )
     } else {
@@ -87,7 +96,7 @@ export class TknEditComponent implements OnInit{
       }
     )
   }
-
-
-
+  compareByID(obj1: any, obj2: any) {
+    return obj1 && obj2 && obj1.id == obj2.id
+  }
 }

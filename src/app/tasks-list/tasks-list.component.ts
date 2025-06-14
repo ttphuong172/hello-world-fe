@@ -6,9 +6,10 @@ import {ReportService} from "../../services/report.service";
 import { ImpactService } from 'src/services/impact.service';
 
 @Component({
-  selector: 'app-tasks-list',
-  templateUrl: './tasks-list.component.html',
-  styleUrls: ['./tasks-list.component.css']
+    selector: 'app-tasks-list',
+    templateUrl: './tasks-list.component.html',
+    styleUrls: ['./tasks-list.component.css'],
+    standalone: false
 })
 
 export class TasksListComponent implements OnInit{

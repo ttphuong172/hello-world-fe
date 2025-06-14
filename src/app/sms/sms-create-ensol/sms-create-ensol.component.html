@@ -36,7 +36,7 @@
           <label style="font-weight: bold">Line</label>
         </div>
         <div class="col-md-10">
-          <select name="" class="form-control" formControlName="line" (click)="loadLine()">
+          <select name="" class="form-control" formControlName="line" (change)="loadLine()">
             <option value="">Choose a line</option>
             <option *ngFor="let line of lineList" [ngValue]="line">{{line.name}}</option>
           </select>
@@ -148,7 +148,7 @@
           <span style="font-weight: bold">SITE: {{siteName}}</span>
           <ol>
             <li *ngFor = "let contact of contactList">
-              {{contact.name}} - Tel: {{contact.office}} - Mobile: {{contact.phone}}
+              {{contact.name}} - <span *ngIf = "contact.office">Tel: {{contact.office}} - </span>  <span *ngIf = "contact.phone"> Mobile: {{contact.phone}} </span>
             </li>
           </ol>
         </div>
@@ -166,8 +166,8 @@
       </div>
       <div *ngIf="isTextPresentPingLog">
         <p style="font-weight: bold">WORKING:</p>
-        <p>Device IP: {{ipAddress}}</p>
-        <p>Ping Command: {{pingCommand}}</p>
+        <p><span style="font-weight: bold">Device IP</span>: {{ipAddress}}</p>
+        <p><span style="font-weight: bold">Ping Command</span>: {{pingCommand}}</p>
       </div>
       <div>
         <p style="font-weight: bold"> EMAIL:</p>

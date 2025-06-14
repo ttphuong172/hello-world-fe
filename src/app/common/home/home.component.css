@@ -26,3 +26,25 @@ li a:hover {
   background-color: #6b6b6b;
   color: white;
 }
+
+
+a.active {
+  position: relative;
+  display: inline-block;
+}
+
+.notification-badge {
+  position: absolute;
+  top: 5px;
+  right: -5px;
+  background-color: red;  /* Màu nền của số thông báo */
+  color: white;  /* Màu chữ */
+  border-radius: 50%;
+  width: 20px;  /* Đặt kích thước cho số thông báo */
+  height: 20px;
+  font-size: 12px;  /* Kích thước chữ */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: bold;
+}

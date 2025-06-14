@@ -4,9 +4,10 @@ import {SiteService} from "../../../services/site.service";
 import {CompanyService} from "../../../services/company.service";
 
 @Component({
-  selector: 'app-contact-list',
-  templateUrl: './contact-list.component.html',
-  styleUrls: ['./contact-list.component.css']
+    selector: 'app-contact-list',
+    templateUrl: './contact-list.component.html',
+    styleUrls: ['./contact-list.component.css'],
+    standalone: false
 })
 export class ContactListComponent implements OnInit {
   private id: any
@@ -62,18 +63,29 @@ export class ContactListComponent implements OnInit {
   }
 
   copyEmail(id: any) {
-    let textToCopy="";
+    let emailListCopy = "";
+
     this.siteService.findById(id).subscribe(
       (data) => {
-        this.site = data
+        this.site = data;
+        emailListCopy = this.site.contactList.map((item: any) => item.email).join(';');
 
-        for (let i = 0; i < this.site.contactList.length; i++) {
-          textToCopy += this.site.contactList[i].email + ";"
-        }
-        navigator.clipboard.writeText(textToCopy);
+        // Tạo một input tạm thời để copy
+        const textArea = document.createElement("textarea");
+        textArea.value = emailListCopy;
+        document.body.appendChild(textArea);
+        textArea.select();
+        textArea.setSelectionRange(0, 99999); // Đảm bảo hoạt động trên thiết bị di động
+        document.execCommand("copy");
+        document.body.removeChild(textArea); // Xóa textarea tạm thời
+
+        // alert("Emails copied to clipboard!");
+      },
+      (error) => {
+        console.error('Error fetching site data:', error);
+        // alert('Error fetching site data. Please try again.');
       }
-    )
-
+    );
   }
 
   searchSite() {

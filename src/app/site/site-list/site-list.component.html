@@ -58,11 +58,11 @@
       <th style="border-bottom: none; text-align: center;  vertical-align: middle;">No.</th>
       <th style="border-bottom: none; text-align: center;  vertical-align: middle;">Position</th>
       <th style="border-bottom: none; vertical-align: middle;">Name</th>
-      <th style="border-bottom: none; text-align: center;vertical-align: middle;">Nation</th>
-      <th style="border-bottom: none; text-align: center;vertical-align: middle;">City</th>
+<!--      <th style="border-bottom: none; text-align: center;vertical-align: middle;">Nation</th>-->
+<!--      <th style="border-bottom: none; text-align: center;vertical-align: middle;">City</th>-->
       <th style="border-bottom: none; vertical-align: middle;">Address</th>
       <th style="border-bottom: none; text-align: center;  vertical-align: middle;">Zone</th>
-      <th style="border-bottom: none; text-align: center;  vertical-align: middle;">GMT</th>
+<!--      <th style="border-bottom: none; text-align: center;  vertical-align: middle;">GMT</th>-->
 <!--      <th style="border-bottom: none; text-align: center;  vertical-align: middle;">GMT</th>-->
       <th style="border-bottom: none;  vertical-align: middle;" >Configure</th>
       <th style="border-bottom: none;  vertical-align: middle;" >Configure Kr</th>
@@ -71,13 +71,17 @@
   <tbody>
     <tr *ngFor="let site of siteList; let i = index">
       <td style="text-align: center">{{i + 1}}</td>
-      <td style="text-align: center">{{site.ric}}</td>
-      <td>{{site.name}}</td>
-      <td style="text-align: center">{{site.nation}}</td>
-      <td style="text-align: center">{{site.city}}</td>
+      <td style="text-align: center; font-weight: bold">{{site.ric}}</td>
+      <td>
+        <div style="font-size: 14px; font-weight: bold">{{site.name}}</div>
+        <div>{{site.nation}}</div>
+        <div>{{site.city}}</div>
+      </td>
       <td>{{site.address}}</td>
-      <td style="text-align: center">{{site.zoneId}}</td>
-      <td style="text-align: center">{{site.gmt}}</td>
+      <td style="text-align: center">
+        <div>{{site.zoneId}}</div>
+        <div>{{site.gmt}}</div>
+      </td>
       <td>{{site.configure}}</td>
       <td>{{site.configureKr}}</td>
       <td style="text-align: center">

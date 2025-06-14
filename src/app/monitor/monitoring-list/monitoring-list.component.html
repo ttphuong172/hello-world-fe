@@ -1,0 +1,54 @@
+<h3>MONITORING LIST</h3>
+<div class="row" style="margin-bottom: 5px">
+  <div class="col-md-2"></div>
+  <div class="col-md-2"></div>
+  <div class="col-md-2"></div>
+  <div class="col-md-2"></div>
+  <div class="col-md-2"></div>
+  <div class="col-md-2">
+    <button class="btn btn-outline-primary" [routerLink]="['/monitoring/add/']">Create Monitoring</button>
+  </div>
+</div>
+
+<table class="table table-bordered">
+  <thead>
+    <th style="text-align: center">No.</th>
+    <th style="text-align: center">IP</th>
+    <th>Name</th>
+    <th style="text-align: center">Status</th>
+    <th>Note</th>
+    <th style="text-align: center">Alarm</th>
+    <th>Action</th>
+  </thead>
+  <tbody>
+  <tr *ngFor = "let monitoring of monitoringList; let i = index" [style.color]="monitoring.isUp ? 'green': 'red'">
+    <td style="text-align: center">{{i + 1}}</td>
+    <td style="text-align: center">{{monitoring.ipAddress}}</td>
+    <td>{{monitoring.name}}</td>
+    <td style="text-align: center">{{(monitoring.isUp ? 'UP' : 'DOWN')}}</td>
+<!--    <td>{{monitoring.note}}</td>-->
+    <td [innerHTML]="monitoring.note"></td>
+    <td style="text-align: center">
+      <button style="margin: 5px; width: 70px" class="btn btn-outline-info"
+              (click)="isAlarm(monitoring.id)">
+        <ng-container *ngIf="monitoring.isAlarm; else volumeOff">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><title>high audio</title><g id="high_audio" data-name="high audio"><path d="M11.46,3c-1,0-1,.13-6.76,4H1A1,1,0,0,0,0,8v8a1,1,0,0,0,1,1H4.7l5.36,3.57A2.54,2.54,0,0,0,14,18.46V5.54A2.54,2.54,0,0,0,11.46,3ZM2,9H4v6H2Zm10,9.46a.55.55,0,0,1-.83.45L6,15.46V8.54l5.17-3.45a.55.55,0,0,1,.83.45Z"/><path d="M16.83,9.17a1,1,0,0,0-1.42,1.42,2,2,0,0,1,0,2.82,1,1,0,0,0,.71,1.71C17.5,15.12,19.16,11.5,16.83,9.17Z"/><path d="M19,7.05a1,1,0,0,0-1.41,1.41,5,5,0,0,1,0,7.08,1,1,0,0,0,.7,1.7C19.9,17.24,23.09,11.19,19,7.05Z"/><path d="M21.07,4.93a1,1,0,0,0-1.41,1.41,8,8,0,0,1,0,11.32,1,1,0,0,0,1.41,1.41A10,10,0,0,0,21.07,4.93Z"/></g></svg>
+        </ng-container>
+        <ng-template #volumeOff>
+<!--          <i class="fa fa-volume-off" style="font-size: 18px;color: #A50034"></i>-->
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><title>mute</title><g id="mute"><path d="M21.29,1.29,17.86,4.73a2.52,2.52,0,0,0-3.8-1.3L8.7,7H5A1,1,0,0,0,4,8v8a1,1,0,0,0,1,1h.59l-4.3,4.29a1,1,0,0,0,1.42,1.42C9.05,16.36,8.29,17,8.7,17c5.7,3.8,5.73,4,6.76,4A2.54,2.54,0,0,0,18,18.46v-11l4.71-4.7A1,1,0,0,0,21.29,1.29Zm-6.12,3.8a.55.55,0,0,1,.83.45v1l-6,6V8.54ZM6,15V9H8C8,15.81,8.53,15,6,15Zm10,3.46a.55.55,0,0,1-.83.45L10,15.46c0-.1-.46.42,6-6.05Z"/></g></svg>
+        </ng-template>
+
+      </button>
+    </td>
+
+    <td style="text-align: center; margin: 5px">
+      <button style="margin: 5px" class="btn btn-outline-info" [routerLink]="['/monitoring/edit/' + monitoring.id]">Edit</button>
+      <button class="btn btn-outline-danger" (click)="openDialogDelete(monitoring)">Delete</button>
+
+<!--      <button class="btn btn-outline-danger" (click)="delete(monitoring)">Delete</button>-->
+
+    </td>
+  </tr>
+  </tbody>
+</table>

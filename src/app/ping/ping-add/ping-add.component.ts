@@ -4,9 +4,10 @@ import {PingService} from "../../../services/ping.service";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 
 @Component({
-  selector: 'app-ping-add',
-  templateUrl: './ping-add.component.html',
-  styleUrls: ['./ping-add.component.css']
+    selector: 'app-ping-add',
+    templateUrl: './ping-add.component.html',
+    styleUrls: ['./ping-add.component.css'],
+    standalone: false
 })
 export class PingAddComponent implements OnInit{
   pingForm: FormGroup |any;

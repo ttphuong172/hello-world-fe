@@ -1,12 +1,12 @@
 <h4>DETAIL CONTACT</h4>
 <div class="row">
   <div style="margin: 5px 0px" class="col-md-6">
-    <p><span style="font-weight: bold">Name</span>: {{site.name}}</p>
-    <p><span style="font-weight: bold">ZoneId</span>: {{site.zoneId}}</p>
+    <p><span style="font-weight: bold">Name</span>: {{site?.name}}</p>
+    <p><span style="font-weight: bold">ZoneId</span>: {{site?.zoneId}}</p>
     <p><span style="font-weight: bold">GMT</span>: {{gmtValue}}</p>
-    <p><span style="font-weight: bold">Configuration</span>: {{site.configure}}</p>
-    <p><span style="font-weight: bold">Configuration Kr</span>: {{site.configureKr}}</p>
-    <p><span style="font-weight: bold">Company</span>: {{site.company.name}}</p>
+    <p><span style="font-weight: bold">Configuration</span>: {{site?.configure}}</p>
+    <p><span style="font-weight: bold">Configuration Kr</span>: {{site?.configureKr}}</p>
+    <p><span style="font-weight: bold">Company</span>: {{site?.company.name}}</p>
   </div>
 
 
@@ -20,7 +20,7 @@
   <div class="col-md-2"></div>
   <div class="col-md-2"></div>
   <div class="col-md-2">
-    <button [routerLink]="['/contact/add/' + site.id]" style="width: 100%" class="btn btn-outline-info">Create Contact</button>
+    <button [routerLink]="['/contact/add/' + site?.id]" style="width: 100%" class="btn btn-outline-info">Create Contact</button>
   </div>
 </div>
 <table class="table table-bordered">
@@ -35,7 +35,7 @@
   <th style="text-align: center">Action</th>
   </thead>
   <tbody>
-  <tr *ngFor="let contact of site.contactList,  index as i">
+  <tr *ngFor="let contact of site?.contactList,  index as i">
     <td style="text-align: center">{{i + 1}}</td>
     <td>{{contact.name != null ? contact.name : "" }}</td>
     <td>{{contact.email != null ? contact.email : ""}}</td>
@@ -44,7 +44,8 @@
     <td style="text-align: center">{{contact.role != null ? contact.role : ""}}</td>
     <td>{{contact.note != null ? contact.note : ""}}</td>
     <td style="text-align: center">
-      <button class="btn btn-outline-info" [routerLink]="['/contact/edit/' + contact.id]">Edit</button>
+      <button style="margin: 5px" class="btn btn-outline-info" [routerLink]="['/contact/edit/' + contact.id]">Edit</button>
+      <button style="margin: 5px" class="btn btn-outline-danger" (click)="openDialogDelete(contact)">Delete</button>
     </td>
   </tr>
   </tbody>

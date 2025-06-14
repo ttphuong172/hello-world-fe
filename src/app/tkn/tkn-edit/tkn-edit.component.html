@@ -2,6 +2,19 @@
 <form [formGroup]="tknForm">
   <div class="row" style="margin: 10px 0px">
     <div class="col-md-2">
+      <label style="font-weight: bold">Type</label>
+    </div>
+
+    <div class="col-md-10">
+      <select class="form-control" formControlName="tknType" [compareWith]="compareByID">
+        <option value="">Choose a type</option>
+        <option *ngFor="let tknType of tknTypeList" [ngValue]="tknType">{{tknType.name}}</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="row" style="margin: 10px 0px">
+    <div class="col-md-2">
       <label style="font-weight: bold">Title</label>
     </div>
 

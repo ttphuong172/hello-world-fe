@@ -1,0 +1,22 @@
+<h3>NOTIFICATION</h3>
+<div class="row">
+  <div class="col-md-1"></div>
+  <div class="col-md-10">
+    <ul style="list-style-type: none">
+      <li id = "notification" [routerLink]="['/tkn/detail/' + notification?.comment.tkn.id]" *ngFor = "let notification of notificationList">
+        <div style="display: flex; align-items: center; margin-bottom: 8px;">
+          <i class="fa fa-user-circle-o" style="font-size:36px"></i>
+          <div style="display: flex; flex-direction: column; margin-left: 8px; align-items: flex-start;">
+            <span style="font-weight: bold; font-size: 14px;">{{notification.comment.account.username}}</span>
+            <span style="font-weight: bold; font-size: 10px; color: #777;">{{notification.comment.commentDate | date:'short'}}</span>
+          </div>
+        </div>
+
+        <div style="margin-left: 44px; font-size: 14px; color: #333;">
+          <span>Đã bình luận <span style="font-style: italic"> "{{notification.comment.content}}" </span> trong bài viết <span style="font-weight: bold">"{{notification.comment.tkn.title}}"</span> </span>
+        </div>
+      </li>
+    </ul>
+  </div>
+  <div class="col-md-1"></div>
+</div>

@@ -29,6 +29,10 @@ export class ContactService {
   }
 
   update(contact:any){
-    return this.httpClient.put(this.apiURL + "/contacts/" + contact.id, contact)
+    return this.httpClient.put(this.apiURL + "/contacts/" + contact.id, contact,this.getHttpOptions())
+  }
+
+  delete(contact:any){
+    return this.httpClient.delete(this.apiURL + "/contacts/" + contact.id, this.getHttpOptions())
   }
 }

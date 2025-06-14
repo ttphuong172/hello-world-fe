@@ -13,7 +13,7 @@
     <td style="text-align: center">{{i + 1}}</td>
     <td style="text-align: center">{{ping.ipAddress}}</td>
     <td>{{ping.name}}</td>
-    <td style="text-align: center">{{ (ping.isUp ? 'UP' : 'DOWN')   }}</td>
+    <td style="text-align: center">{{(ping.isUp ? 'UP' : 'DOWN')}}</td>
     <td style="text-align: center">{{ping.upTime | date: 'MM/dd: HH:mm'}}</td>
     <td style="text-align: center"><button class="btn btn-outline-danger" (click)="delete(ping)"><i class="fa fa-trash"></i></button></td>
   </tr>

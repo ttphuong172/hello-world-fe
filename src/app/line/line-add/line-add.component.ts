@@ -6,9 +6,10 @@ import {LineService} from "../../../services/line.service";
 import {IspService} from "../../../services/isp.service";
 
 @Component({
-  selector: 'app-line-add',
-  templateUrl: './line-add.component.html',
-  styleUrls: ['./line-add.component.css']
+    selector: 'app-line-add',
+    templateUrl: './line-add.component.html',
+    styleUrls: ['./line-add.component.css'],
+    standalone: false
 })
 export class LineAddComponent implements OnInit{
   site: any;
