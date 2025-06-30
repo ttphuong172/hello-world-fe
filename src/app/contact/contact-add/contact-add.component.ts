@@ -3,6 +3,7 @@ import {SiteService} from "../../../services/site.service";
 import {ActivatedRoute, Router} from "@angular/router";
 import {FormControl, FormGroup} from "@angular/forms";
 import {ContactService} from "../../../services/contact.service";
+import {CountryService} from "../../../services/country.service";
 
 @Component({
     selector: 'app-contact-add',
@@ -14,20 +15,23 @@ export class ContactAddComponent implements OnInit{
   siteId: any;
   site: any;
   contactForm: FormGroup |any;
+  countryList: any;
 
   constructor(
     private siteService:SiteService,
     private activatedRoute:ActivatedRoute,
     private router:Router,
     private contactService:ContactService,
+    private countryService:CountryService
   ) {
   }
   ngOnInit(): void {
     this.contactForm = new FormGroup({
       name: new FormControl(''),
       email: new FormControl(''),
-      office: new FormControl(''),
-      phone: new FormControl(''),
+      countryCode: new FormControl(''),
+      officePhoneNumber: new FormControl(''),
+      mobilePhoneNumber: new FormControl(''),
       site: new FormControl(''),
       role: new FormControl(''),
       note: new FormControl(''),
@@ -38,6 +42,11 @@ export class ContactAddComponent implements OnInit{
       (data)=>{
         this.site = data
         this.contactForm.controls['site'].setValue(this.site)
+        this.countryService.findAll().subscribe(
+          (data)=>{
+            this.countryList = data
+          }
+        )
       }
     )
   }

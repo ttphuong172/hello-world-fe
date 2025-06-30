@@ -1,5 +1,4 @@
-<p>contact-add works!</p>
-<h4>CREATE LINE</h4>
+<h4>CREATE CONTACT</h4>
 <div style="margin: 5px 0px">
   <p><span style="font-weight: bold">Name</span>: {{site.name}}</p>
   <p><span style="font-weight: bold">GMT</span>: {{site.gmt}}</p>
@@ -31,8 +30,16 @@
     <div class="col-md-2">
       <label style="font-weight: bold">Office</label>
     </div>
-    <div class="col-md-10">
-      <input type="text" class="form-control" formControlName="office">
+
+    <div class="col-md-2">
+      <select name="" class="form-control" formControlName="countryCode">
+        <option value="">Choose a country</option>
+        <option *ngFor="let country of countryList" [ngValue]="country.isoCode">{{country.countryName}}  {{country.diallingCode}}</option>
+      </select>
+    </div>
+
+    <div class="col-md-8">
+      <input type="text" class="form-control" formControlName="officePhoneNumber">
     </div>
   </div>
 
@@ -41,7 +48,7 @@
       <label style="font-weight: bold">Mobile</label>
     </div>
     <div class="col-md-10">
-      <input type="text" class="form-control" formControlName="phone">
+      <input type="text" class="form-control" formControlName="mobilePhoneNumber">
     </div>
   </div>
 
@@ -96,3 +103,5 @@
   </tr>
   </tbody>
 </table>
+
+{{contactForm.value | json}}

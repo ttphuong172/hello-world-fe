@@ -5,6 +5,7 @@ import {TimeService} from "../../../services/time.service";
 import {LineDeleteComponent} from "../../line/line-delete/line-delete.component";
 import {MatDialog} from "@angular/material/dialog";
 import {ContactDeleteComponent} from "../contact-delete/contact-delete.component";
+import { parsePhoneNumber, PhoneNumber } from 'libphonenumber-js';
 
 @Component({
     selector: 'app-contact-detail',
@@ -29,6 +30,11 @@ export class ContactDetailComponent implements OnInit {
     this.siteService.findById(id).subscribe(
       (data)=> {
         this.site = data
+
+        for (let i = 0; i < this.site.contactList.length; i ++){
+          this.site.contactList[i].officePhoneNumber = (parsePhoneNumber(this.site.contactList[i].officePhoneNumber).formatInternational())
+        }
+
         this.timeService.getGmt(this.site.zoneId).subscribe(
           (data)=>{
             this.gmtValue = data;

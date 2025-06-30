@@ -26,7 +26,7 @@
 <table class="table table-bordered">
   <thead>
   <th style="text-align: center">No.</th>
-  <th>Name</th>
+  <th>Name!</th>
   <th>Email</th>
   <th style="text-align: center">Office</th>
   <th style="text-align: center">Mobile</th>
@@ -39,8 +39,8 @@
     <td style="text-align: center">{{i + 1}}</td>
     <td>{{contact.name != null ? contact.name : "" }}</td>
     <td>{{contact.email != null ? contact.email : ""}}</td>
-    <td style="text-align: center">{{contact.office != null ? contact.office : ""}}</td>
-    <td style="text-align: center">{{contact.phone != null ? contact.phone : ""}}</td>
+    <td style="text-align: center">{{contact.officePhoneNumber != null ? contact.officePhoneNumber  : ""}} ({{contact.countryCode}})</td>
+    <td style="text-align: center">{{contact.mobilePhoneNumber != null ? contact.mobilePhoneNumber : ""}}</td>
     <td style="text-align: center">{{contact.role != null ? contact.role : ""}}</td>
     <td>{{contact.note != null ? contact.note : ""}}</td>
     <td style="text-align: center">
