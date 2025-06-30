@@ -87,7 +87,7 @@ export class SiteEditComponent implements OnInit{
   }
 
   cancel() {
-    this.router.navigateByUrl('/site/company/' + this.site.company.id)
+    this.router.navigateByUrl('/site/detail/' + this.site.id)
   }
 
   update() {

@@ -4,6 +4,7 @@ import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {SiteService} from "../../../services/site.service";
 import {ActivatedRoute, Router} from "@angular/router";
 import {TimeService} from "../../../services/time.service";
+import {CountryService} from "../../../services/country.service";
 
 @Component({
     selector: 'app-site-add',
@@ -18,13 +19,15 @@ export class SiteAddComponent implements OnInit {
   id: any;
   zoneIdList: any;
   gmtValue: any;
+  countryList: any;
 
   constructor(
     private companyService: CompanyService,
     private siteService: SiteService,
     private router: Router,
     private activatedRoute: ActivatedRoute,
-    private timeService: TimeService
+    private timeService: TimeService,
+    private countryService:CountryService
   ) {
   }
 
@@ -32,6 +35,7 @@ export class SiteAddComponent implements OnInit {
     this.id = Number(this.activatedRoute.snapshot.paramMap.get('id'));
     this.siteForm = new FormGroup({
       name: new FormControl('', [Validators.required]),
+      country: new FormControl(''),
       nation: new FormControl(''),
       city: new FormControl(''),
       address: new FormControl(''),
@@ -55,6 +59,11 @@ export class SiteAddComponent implements OnInit {
             this.company = data
             this.siteForm.controls['company'].setValue(this.company)
             this.loadCompany()
+            this.countryService.findAll().subscribe(
+              (data)=>{
+                this.countryList = data
+              }
+            )
           }
         )
       }

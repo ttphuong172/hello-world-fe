@@ -29,8 +29,9 @@ export class ContactAddComponent implements OnInit{
     this.contactForm = new FormGroup({
       name: new FormControl(''),
       email: new FormControl(''),
-      countryCode: new FormControl(''),
+      countryCodeOfficePhoneNumber: new FormControl(''),
       officePhoneNumber: new FormControl(''),
+      countryCodeMobilePhoneNumber: new FormControl(''),
       mobilePhoneNumber: new FormControl(''),
       site: new FormControl(''),
       role: new FormControl(''),
@@ -52,13 +53,13 @@ export class ContactAddComponent implements OnInit{
   }
 
   cancel() {
-    this.router.navigateByUrl("contact/detail/" + this.siteId)
+    this.router.navigateByUrl("site/detail/" + this.siteId)
   }
 
   save() {
     this.contactService.save(this.contactForm.value).subscribe(
       ()=>{
-        this.router.navigateByUrl("contact/detail/" + this.siteId)
+        this.router.navigateByUrl("site/detail/" + this.siteId)
       }
     )
   }

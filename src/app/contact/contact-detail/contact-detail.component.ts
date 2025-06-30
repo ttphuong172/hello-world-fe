@@ -32,7 +32,14 @@ export class ContactDetailComponent implements OnInit {
         this.site = data
 
         for (let i = 0; i < this.site.contactList.length; i ++){
-          this.site.contactList[i].officePhoneNumber = (parsePhoneNumber(this.site.contactList[i].officePhoneNumber).formatInternational())
+          const contact = this.site.contactList[i];
+          if (contact.officePhoneNumber !== null && typeof contact.officePhoneNumber === 'string' && contact.officePhoneNumber.trim() !== '') {
+            this.site.contactList[i].officePhoneNumber = (parsePhoneNumber(this.site.contactList[i].officePhoneNumber).formatInternational());
+          }
+
+          if (contact.mobilePhoneNumber !== null && typeof contact.mobilePhoneNumber === 'string' && contact.mobilePhoneNumber.trim() !== '') {
+            this.site.contactList[i].mobilePhoneNumber = (parsePhoneNumber(this.site.contactList[i].mobilePhoneNumber).formatInternational());
+          }
         }
 
         this.timeService.getGmt(this.site.zoneId).subscribe(

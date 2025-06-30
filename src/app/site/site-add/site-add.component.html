@@ -17,6 +17,18 @@
 
   <div class="row" style="margin: 5px 0px">
     <div class="col-md-2">
+      <label style="font-weight: bold">Country</label>
+    </div>
+    <div class="col-md-10">
+      <select name="" class="form-control" formControlName="country">
+        <option value="">Choose a country</option>
+        <option *ngFor="let country of countryList" [ngValue]="country">{{country.countryName}}</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="row" style="margin: 5px 0px">
+    <div class="col-md-2">
       <label style="font-weight: bold">Nation</label>
     </div>
     <div class="col-md-10">

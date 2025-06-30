@@ -32,7 +32,7 @@
     </div>
 
     <div class="col-md-2">
-      <select name="" class="form-control" formControlName="countryCode">
+      <select name="" class="form-control" formControlName="countryCodeOfficePhoneNumber">
         <option value="">Choose a country</option>
         <option *ngFor="let country of countryList" [ngValue]="country.isoCode">{{country.countryName}}  {{country.diallingCode}}</option>
       </select>
@@ -47,7 +47,13 @@
     <div class="col-md-2">
       <label style="font-weight: bold">Mobile</label>
     </div>
-    <div class="col-md-10">
+    <div class="col-md-2">
+      <select name="" class="form-control" formControlName="countryCodeMobilePhoneNumber">
+        <option value="">Choose a country</option>
+        <option *ngFor="let country of countryList" [ngValue]="country.isoCode">{{country.countryName}}  {{country.diallingCode}}</option>
+      </select>
+    </div>
+    <div class="col-md-8">
       <input type="text" class="form-control" formControlName="mobilePhoneNumber">
     </div>
   </div>

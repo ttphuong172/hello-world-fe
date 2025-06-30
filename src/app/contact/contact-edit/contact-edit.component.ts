@@ -49,13 +49,13 @@ export class ContactEditComponent implements OnInit{
   }
 
   cancel() {
-    this.router.navigateByUrl('/contact/detail/' + this.contact.site.id)
+    this.router.navigateByUrl('/site/detail/' + this.contact.site.id)
   }
 
   update() {
     this.contactService.update(this.contactForm.value).subscribe(
       ()=>{
-        this.router.navigateByUrl('/contact/detail/' + this.contact.site.id)
+        this.router.navigateByUrl('/site/detail/' + this.contact.site.id)
       }
 
     )
