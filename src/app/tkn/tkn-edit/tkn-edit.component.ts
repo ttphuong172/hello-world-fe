@@ -90,6 +90,7 @@ export class TknEditComponent implements OnInit{
   save() {
     const htmlContent = this.quill.root.innerHTML;
     this.tknForm.controls['content'].setValue(htmlContent)
+
     this.tknService.save(this.tknForm.value).subscribe(
       ()=>{
         this.router.navigateByUrl("/tkn")

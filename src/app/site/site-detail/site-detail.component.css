@@ -1,0 +1,35 @@
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: #A50034;
+  font-size: 12px;
+}
+
+li {
+  float: left;
+}
+
+li a {
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 5px 10px;
+  margin: 0 5px;
+  text-decoration: none;
+}
+
+li a:hover {
+  background-color: #6b6b6b;
+}
+
+li a.active {
+  background-color: #388e3c; /* Active link background color */
+  color: white; /* Active link text color */
+}
+
+.selected {
+  background-color: #6b6b6b; /* Example: green background for selected item */
+  color: white; /* White text for selected item */
+}

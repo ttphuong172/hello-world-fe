@@ -13,6 +13,7 @@ export class MonitoringEditComponent implements OnInit{
   monitoringForm: FormGroup |any;
   monitoring: any;
   quill: any;
+
   constructor(
     private activatedRoute: ActivatedRoute,
     private monitoringService: MonitoringService,
@@ -34,6 +35,7 @@ export class MonitoringEditComponent implements OnInit{
         this.monitoringForm.controls['id'].setValue(this.monitoring.id)
         this.monitoringForm.controls['ipAddress'].setValue(this.monitoring.ipAddress)
         this.monitoringForm.controls['name'].setValue(this.monitoring.name)
+
         // Initialize Quill
         this.quill = new Quill('#quill-editor', {
           theme: 'snow',
@@ -56,7 +58,9 @@ export class MonitoringEditComponent implements OnInit{
 
   update() {
     const htmlContent = this.quill.root.innerHTML;
+
     this.monitoringForm.controls['note'].setValue(htmlContent)
+
     this.monitoringService.save(this.monitoringForm.value).subscribe(
       ()=>{
         this.router.navigateByUrl("/monitoring")

@@ -1,4 +1,35 @@
 <h4>DETAIL SITE</h4>
+
+<ul style="list-style-type: none">
+  <li [ngClass]="{'selected': selectedItem === 'I. LG Electronic'}" >
+    <a href="#/site/company/1" (click)="load1()">I. LG Electronic</a>
+  </li>
+
+  <li [ngClass]="{'selected': selectedItem === 'II. LG Energy Solution'}">
+    <a href="#/site/company/2" (click)="load2()">II. LG Energy Solution</a>
+  </li>
+
+  <li [ngClass]="{'selected': selectedItem === 'III. LG Chem / LG Household & Health Care'}">
+    <a href="#/site/company/3"  (click)="load3()">III. LG Chem / LG Household & Health Care</a>
+  </li>
+
+  <li [ngClass]="{'selected': selectedItem === 'IV. LG Display'}">
+    <a href="#/site/company/4" (click)="load4()">IV. LG Display</a>
+  </li>
+
+  <li [ngClass]="{'selected': selectedItem === 'V. LG Innotek'}">
+    <a href="#/site/company/5" (click)="load5()">V. LG Innotek</a>
+  </li>
+
+  <li [ngClass]="{'selected': selectedItem === 'VI. LX International / LX Pantos / LX Hausys Overseas'}">
+    <a href="#/site/company/6" (click)="load6()">VI. LX International / LX Pantos / LX Hausys Overseas</a>
+  </li>
+
+  <!--  <li [ngClass]="{'selected': selectedItem === 'VII. Trunk'}">-->
+  <!--    <a href="#/site/company/7" (click)="load7()">VII. Trunk</a>-->
+  <!--  </li>-->
+</ul>
+
 <div class="row">
   <div style="margin: 5px 0px" class="col-md-10">
     <p><span style="font-weight: bold">Name</span>: {{site.name}}</p>
@@ -32,8 +63,9 @@
   <th>Short Name 2 (Customer)</th>
   <th style="text-align: center">ISP</th>
   <th style="text-align: center">Circuit ID</th>
-  <th>Device IP</th>
-  <th>Ping Test</th>
+  <th>TIP</th>
+<!--  <th>Device IP</th>-->
+<!--  <th>Ping Test</th>-->
   <th style="text-align: center">Action</th>
   </thead>
   <tbody>
@@ -45,11 +77,19 @@
     <td>{{line.shortName2}}</td>
     <td style="text-align: center">{{line.isp != null ? line.isp : ""}}</td>
     <td style="text-align: center">{{line.circuitId != null ? line.circuitId : ""}}</td>
-    <td>{{line.ipAddress != null ? line.ipAddress : ""}}</td>
-    <td>{{line.pingtest != null ? line.pingtest : ""}}</td>
+    <td [innerHTML]="line.tip"></td>
+<!--    <td>{{line.ipAddress != null ? line.ipAddress : ""}}</td>-->
+<!--    <td>{{line.pingtest != null ? line.pingtest : ""}}</td>-->
     <td style="text-align: center">
-      <button class="btn btn-outline-info" [routerLink]="['/line/edit/' + line.id]">Edit</button>
+      <button style="margin: 5px" class="btn btn-outline-info" [routerLink]="['/line/edit/' + line.id]">Edit</button>
       <button style="margin: 5px" class="btn btn-outline-danger" (click)="openDialogDelete(line)">Delete</button>
+      <a [routerLink]="['/test/line/' + line.id]"
+         target="_blank"
+         rel="noopener noreferrer"
+         class="btn btn-outline-primary"
+         style="margin: 5px;">
+        Action
+      </a>
     </td>
   </tr>
   </tbody>

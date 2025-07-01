@@ -1,3 +1,14 @@
 <p>test works!</p>
 
-<input type="datetime-local">
+<div *ngIf="myVariable === 1 || 4 || 6" style="border: 2px solid blue; padding: 15px; margin-top: 10px;">
+  <h3>I. LG Electronic</h3>
+  <h3>Site: {{line.site.name}}</h3>
+  <h3>Line: {{line.name}}</h3>
+  <app-sms-create></app-sms-create>
+  <p>Chỉ hiển thị khi biến `myVariable` bằng **1**.</p>
+</div>
+
+<div *ngIf="myVariable === 2" style="border: 2px solid green; padding: 15px; margin-top: 10px;">
+  <h3>Đây là Div 2</h3>
+  <p>Chỉ hiển thị khi biến `myVariable` bằng **2**.</p>
+</div>

@@ -16,6 +16,7 @@ import {MatDialog} from "@angular/material/dialog";
 
 export class SiteDetailComponent implements OnInit{
   site:any
+  selectedItem: string = '';
 
 
   constructor(
@@ -63,4 +64,29 @@ export class SiteDetailComponent implements OnInit{
       }
     )
   }
+
+  load1() {
+    this.router.navigateByUrl("#/site/company/1")
+  }
+
+  load2() {
+    this.router.navigateByUrl("#/site/company/2")
+  }
+
+  load3() {
+    this.router.navigateByUrl("#/site/company/3")
+  }
+
+  load4() {
+    this.router.navigateByUrl("#/site/company/4")
+  }
+
+  load5() {
+    this.router.navigateByUrl("#/site/company/5")
+  }
+
+  load6() {
+    this.router.navigateByUrl("#/site/company/6")
+  }
+
 }

@@ -98,7 +98,6 @@ import { TestComponent } from './test/test/test.component';
     MonitoringEditComponent,
     MonitoringDeleteComponent,
     TestComponent,
-
   ],
   imports: [
     BrowserModule,
@@ -146,7 +145,7 @@ import { TestComponent } from './test/test/test.component';
           {path: "monitoring", component: MonitoringListComponent},
           {path: "monitoring/add", component: MonitoringAddComponent},
           {path: "monitoring/edit/:id", component: MonitoringEditComponent},
-          {path: "test", component: TestComponent},
+          {path: "test/line/:id", component: TestComponent},
         ]
       }
       // {path: "tkn", component: TknListComponent},
