@@ -38,8 +38,8 @@ export class TknService {
     return this.httpClient.get(this.apiURL + "/tkn/" + id);
   }
 
-  searchByKeyword(username: any,keyword: string){
-    return this.httpClient.get(this.apiURL+ "/tkn/search/" + username + "?keyword=" + keyword);
+  searchByKeyword(username: any,keyword: string, companyId: any, siteId:any){
+    return this.httpClient.get(this.apiURL+ "/tkn/search/" + username + "?keyword=" + keyword + '&companyId='+ companyId + '&siteId='+ siteId);
     // http://localhost:8080/api/tkn/search/phuongtt58?keyword=hai
   }
 

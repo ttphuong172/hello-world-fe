@@ -1,4 +1,4 @@
-<h3>EDIT DOCUMENT</h3>
+<h3>CREATE DOCUMENT</h3>
 <form [formGroup]="tknForm">
 
   <div class="row" style="margin: 10px 0px">
@@ -13,6 +13,31 @@
       </select>
     </div>
   </div>
+
+  <div class="row" style="margin: 10px 0px">
+    <div class="col-md-2">
+      <label style="font-weight: bold">Company</label>
+    </div>
+
+    <div class="col-md-4">
+      <select name="" class="form-control" formControlName="company" (change)="changeCompany()">
+        <option value="">Choose a company</option>
+        <option *ngFor="let company of companyList" [ngValue]="company">{{company.name}}</option>
+      </select>
+    </div>
+
+    <div class="col-md-2">
+      <label style="font-weight: bold">Site</label>
+    </div>
+
+    <div class="col-md-4">
+      <select name="" class="form-control" formControlName="site" (change)="changeSite()">
+        <option value="">Choose a site</option>
+        <option *ngFor="let site of siteList" [ngValue]="site">{{site.ric}} {{site.ric != null ? "-" : ""}} {{site.name}}</option>
+      </select>
+    </div>
+  </div>
+
   <div class="row" style="margin: 10px 0px">
     <div class="col-md-2">
       <label style="font-weight: bold">Title</label>
@@ -57,4 +82,4 @@
 
 </form>
 
-<!--{{tknForm.value | json}}-->
+{{tknForm.value | json}}

@@ -37,7 +37,6 @@
       <select name="" class="form-control" formControlName="site" (change)="loadSite()">
         <option value="">Choose a site</option>
         <option *ngFor="let site of siteList" [ngValue]="site">{{site.ric}} {{site.ric != null ? "-" : ""}} {{site.name}}</option>
-
       </select>
     </div>
   </div>
