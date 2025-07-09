@@ -3,14 +3,22 @@
 <!--<button (click)="sendDataToHome()">Send Data to Home</button>-->
 
 <div class="row" style="margin-bottom: 20px">
-  <div style="font-weight: bold" class="col-md-2" >Company</div>
+  <div style="font-weight: bold" class="col-md-1" >Type</div>
+  <div class="col-md-2">
+    <select name="" class="form-control" [(ngModel)]="selectedtknType" (change)="changetknType()">
+      <option value="">Choose a type</option>
+      <option *ngFor="let tknType of tknTypeList" [ngValue]="tknType">{{tknType.name}}</option>
+    </select>
+  </div>
+
+  <div style="font-weight: bold" class="col-md-1" >Company</div>
   <div class="col-md-2">
     <select name="" class="form-control" [(ngModel)]="selectedCompany" (change)="changeCompany()">
       <option value="">Choose a company</option>
       <option *ngFor="let company of companyList" [ngValue]="company">{{company.name}}</option>
     </select>
   </div>
-  <div style="font-weight: bold" class="col-md-2">Site</div>
+  <div style="font-weight: bold" class="col-md-1">Site</div>
   <div class="col-md-2">
     <select name="" class="form-control" [(ngModel)]="selectedSite" (change)="changeSite()">
       <option value="">Choose a site</option>
@@ -20,7 +28,7 @@
   <div class="col-md-2">
     <input class="form-control" type="text" [(ngModel)]="keyword" (keyup.enter)="search()">
   </div>
-    <div class="col-md-2">
+    <div class="col-md-1">
       <button style="width: 100%" class="btn btn-outline-primary" (click)="search()">Search</button>
     </div>
 </div>
@@ -45,12 +53,11 @@
     <table class="table table-bordered">
       <thead>
       <th style="text-align: center">No.</th>
-      <th style="text-align: center">Type</th>
       <th style="text-align: center">Company</th>
       <th style="text-align: center">Site</th>
-
+      <th style="text-align: center">Type</th>
       <th>Title</th>
-      <th>Summary Content</th>
+<!--      <th>Summary Content</th>-->
       <th style="text-align: center">Creator</th>
       <th style="text-align: center">Date</th>
       <th style="text-align: center">Reading</th>
@@ -61,11 +68,16 @@
       <tbody>
       <tr *ngFor="let tkn of tknList, index as i" [style.color]="tkn.read ? 'black': 'red'">
         <td style="text-align: center">{{i + 1}}</td>
-        <td style="text-align: center">{{tkn.tknType.name}}</td>
         <td style="text-align: center">{{tkn.company.name}}</td>
         <td style="text-align: center">{{tkn.site.name}}</td>
-        <td>{{tkn.title}}</td>
-        <td [innerHTML]="tkn.summaryContent"></td>
+        <td style="text-align: center">{{tkn.tknType.name}}</td>
+
+        <td>
+          <strong>{{ tkn.title }}</strong> <br>
+          <span [innerHTML]="tkn.summaryContent"></span>
+        </td>
+<!--        <td>{{tkn.title}}</td>-->
+<!--        <td [innerHTML]="tkn.summaryContent"></td>-->
         <td style="text-align: center">{{tkn.creator}}</td>
         <td style="text-align: center">{{tkn.creatingDate | date :'short'}}</td>
         <td id ="reading" (mouseenter)="onMouseEnter($event,tkn)" (mouseleave)="onMouseLeave()"

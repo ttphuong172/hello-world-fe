@@ -2,9 +2,32 @@
 <form [formGroup]="tknForm">
   <div class="row" style="margin: 10px 0px">
     <div class="col-md-2">
-      <label style="font-weight: bold">Type</label>
+      <label style="font-weight: bold">Company</label>
     </div>
 
+    <div class="col-md-4">
+      <select name="" class="form-control" formControlName="company" (change)="changeCompany()" [compareWith]="compareByID">
+        <option value="">Choose a company</option>
+        <option *ngFor="let company of companyList" [ngValue]="company">{{company.name}}</option>
+      </select>
+    </div>
+
+    <div class="col-md-2">
+      <label style="font-weight: bold">Site</label>
+    </div>
+
+    <div class="col-md-4">
+      <select name="" class="form-control" formControlName="site" (change)="changeSite()" [compareWith]="compareByID">
+        <option value="">Choose a site</option>
+        <option *ngFor="let site of siteList" [ngValue]="site">{{site.ric}} {{site.ric != null ? "-" : ""}} {{site.name}}</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="row" style="margin: 10px 0px">
+    <div class="col-md-2">
+      <label style="font-weight: bold">Type</label>
+    </div>
     <div class="col-md-10">
       <select class="form-control" formControlName="tknType" [compareWith]="compareByID">
         <option value="">Choose a type</option>

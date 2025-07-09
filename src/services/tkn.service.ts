@@ -38,8 +38,8 @@ export class TknService {
     return this.httpClient.get(this.apiURL + "/tkn/" + id);
   }
 
-  searchByKeyword(username: any,keyword: string, companyId: any, siteId:any){
-    return this.httpClient.get(this.apiURL+ "/tkn/search/" + username + "?keyword=" + keyword + '&companyId='+ companyId + '&siteId='+ siteId);
+  searchByKeyword(username: any,keyword: string, tknTypeId:any, companyId: any, siteId:any){
+    return this.httpClient.get(this.apiURL+ "/tkn/search/" + username + "?keyword=" + keyword + '&tknTypeId='+ tknTypeId  + '&companyId='+ companyId + '&siteId='+ siteId);
     // http://localhost:8080/api/tkn/search/phuongtt58?keyword=hai
   }
 

@@ -162,16 +162,11 @@
         </div>
       </div>
 
+      <div *ngIf="isTextPresentTip">
+        <p style="font-weight: bold">TIP:</p>
+        <p [innerHTML]="tip"></p>
+      </div>
 
-      <div>
-        <p style="font-weight: bold">TOPO:</p>
-        <img style="width: 100%" src="{{topoPath}}" alt="">
-      </div>
-      <div *ngIf="isTextPresentPingLog">
-        <p style="font-weight: bold">WORKING:</p>
-        <p><span style="font-weight: bold">Device IP</span>: {{ipAddress}}</p>
-        <p><span style="font-weight: bold">Ping Command:</span> {{pingCommand}}</p>
-      </div>
       <div>
         <p style="font-weight: bold"> EMAIL:</p>
 

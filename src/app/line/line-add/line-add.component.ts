@@ -34,8 +34,7 @@ export class LineAddComponent implements OnInit{
       company: new FormControl(''),
       isp: new FormControl(''),
       circuitId: new FormControl(''),
-      ipAddress: new FormControl(''),
-      pingtest: new FormControl(''),
+      tip: new FormControl(''),
     })
     this.siteId = Number(this.activatedRoute.snapshot.paramMap.get('id'));
 

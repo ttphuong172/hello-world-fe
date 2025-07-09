@@ -1,19 +1,5 @@
 <h3>CREATE DOCUMENT</h3>
 <form [formGroup]="tknForm">
-
-  <div class="row" style="margin: 10px 0px">
-    <div class="col-md-2">
-      <label style="font-weight: bold">Type</label>
-    </div>
-
-    <div class="col-md-10">
-      <select class="form-control" formControlName="tknType">
-        <option value="">Choose a type</option>
-        <option *ngFor="let tknType of tknTypeList" [ngValue]="tknType">{{tknType.name}}</option>
-      </select>
-    </div>
-  </div>
-
   <div class="row" style="margin: 10px 0px">
     <div class="col-md-2">
       <label style="font-weight: bold">Company</label>
@@ -34,6 +20,18 @@
       <select name="" class="form-control" formControlName="site" (change)="changeSite()">
         <option value="">Choose a site</option>
         <option *ngFor="let site of siteList" [ngValue]="site">{{site.ric}} {{site.ric != null ? "-" : ""}} {{site.name}}</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="row" style="margin: 10px 0px">
+    <div class="col-md-2">
+      <label style="font-weight: bold">Type</label>
+    </div>
+    <div class="col-md-10">
+      <select class="form-control" formControlName="tknType">
+        <option value="">Choose a type</option>
+        <option *ngFor="let tknType of tknTypeList" [ngValue]="tknType">{{tknType.name}}</option>
       </select>
     </div>
   </div>
@@ -82,4 +80,4 @@
 
 </form>
 
-{{tknForm.value | json}}
+<!--{{tknForm.value | json}}-->

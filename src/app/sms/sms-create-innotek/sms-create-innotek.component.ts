@@ -40,10 +40,8 @@ export class SmsCreateInnotekComponent implements OnInit {
   isTextPresentToEmail: boolean = false;
   isTextPresentEmail: boolean = false;
 
-  isTextPresentPingLog: boolean = false;
-  topoPath = "";
-  ipAddress = "";
-  pingCommand = "";
+  isTextPresentTip: boolean = false;
+  tip = "";
 
   // Variable for contacts
   contactList: any;
@@ -111,8 +109,6 @@ export class SmsCreateInnotekComponent implements OnInit {
         this.siteService.findById(this.idSite).subscribe(
           (data) => {
             this.site = data
-            // console.log(this.site.zoneId)
-            this.topoPath = this.site.topoPath;
             this.contactList = this.site.contactList
             this.siteName = this.site.name
 
@@ -397,9 +393,8 @@ export class SmsCreateInnotekComponent implements OnInit {
   }
 
   loadLine() {
-    this.isTextPresentPingLog = true;
-    this.ipAddress = this.smsForm.get('line').value.ipAddress;
-    this.pingCommand = this.smsForm.get('line').value.pingtest;
+    this.isTextPresentTip = true;
+    this.tip = this.smsForm.get('line').value.tip;
   }
 
   loadEvent() {

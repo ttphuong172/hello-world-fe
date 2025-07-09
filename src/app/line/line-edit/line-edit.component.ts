@@ -3,6 +3,7 @@ import {ActivatedRoute, Router} from "@angular/router";
 import {LineService} from "../../../services/line.service";
 import {FormControl, FormGroup} from "@angular/forms";
 import {IspService} from "../../../services/isp.service";
+import Quill from "quill";
 
 @Component({
     selector: 'app-line-edit',
@@ -15,6 +16,7 @@ export class LineEditComponent implements OnInit{
   line:any
   lineForm: FormGroup | any;
   ispList: any;
+  quill: any;
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -34,8 +36,8 @@ export class LineEditComponent implements OnInit{
       company: new FormControl(''),
       isp: new FormControl(''),
       circuitId: new FormControl(''),
-      ipAddress: new FormControl(''),
-      pingtest: new FormControl(''),
+      tip: new FormControl(''),
+
     })
 
     this.lineId = Number(this.activatedRoute.snapshot.paramMap.get('id'));
@@ -50,8 +52,35 @@ export class LineEditComponent implements OnInit{
         this.lineForm.controls['company'].setValue(this.line.company)
         this.lineForm.controls['isp'].setValue(this.line.isp)
         this.lineForm.controls['circuitId'].setValue(this.line.circuitId)
-        this.lineForm.controls['ipAddress'].setValue(this.line.ipAddress)
-        this.lineForm.controls['pingtest'].setValue(this.line.pingtest)
+
+        // Initialize Quill
+        this.quill = new Quill('#quill-editor', {
+          theme: 'snow',
+          modules: {
+            toolbar: [
+              [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
+              [{ 'font': [] }],
+              [{ 'size': ['small', false, 'large', 'huge'] }],
+
+              ['bold', 'italic', 'underline', 'strike'],
+              ['blockquote', 'code-block'],
+
+              [{ 'list': 'ordered'}, { 'list': 'bullet' }],
+              [{ 'script': 'sub'}, { 'script': 'super' }],
+              [{ 'indent': '-1'}, { 'indent': '+1' }],
+              [{ 'direction': 'rtl' }],
+
+              [{ 'color': [] }, { 'background': [] }],
+              [{ 'align': [] }],
+
+              ['link', 'image', 'video'],
+              ['clean']
+            ]
+          }
+        });
+
+        this.quill.clipboard.dangerouslyPasteHTML(this.line.tip);
+
 
         this.ispService.findAll().subscribe(
           (data)=>{
@@ -69,6 +98,10 @@ export class LineEditComponent implements OnInit{
 
 
   update() {
+    const htmlContent = this.quill.root.innerHTML;
+
+    this.lineForm.controls['tip'].setValue(htmlContent)
+
     this.lineService.update(this.lineForm.value).subscribe(
       ()=>{
         this.router.navigateByUrl('/line/detail/' + this.line.site.id)

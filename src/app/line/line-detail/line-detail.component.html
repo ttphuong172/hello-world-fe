@@ -33,9 +33,7 @@
   <th>Short Name 2 (Customer)</th>
   <th style="text-align: center">ISP</th>
   <th style="text-align: center">Circuit ID</th>
-  <th>Affect Lines</th>
-  <th>Device IP</th>
-  <th>Ping Test</th>
+  <th>Tip</th>
   <th style="text-align: center">Action</th>
   </thead>
   <tbody>
@@ -47,9 +45,7 @@
     <td>{{line?.shortName2}}</td>
     <td style="text-align: center">{{line.isp != null ? line.isp : ""}}</td>
     <td style="text-align: center">{{line.circuitId != null ? line.circuitId : ""}}</td>
-    <td>{{line.affectLines}}</td>
-    <td>{{line.ipAddress != null ? line.ipAddress : ""}}</td>
-    <td>{{line.pingtest != null ? line.pingtest : ""}}</td>
+    <td [innerHTML]="line.tip != null ? line.tip : ''"></td>
     <td style="text-align: center">
       <button style="margin: 5px" class="btn btn-outline-info" [routerLink]="['/line/edit/' + line.id]">Edit</button>
       <button style="margin: 5px" class="btn btn-outline-danger" (click)="openDialogDelete(line)">Delete</button>

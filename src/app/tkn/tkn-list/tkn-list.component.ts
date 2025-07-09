@@ -6,6 +6,7 @@ import {JwtHelperService} from "@auth0/angular-jwt";
 import {DataService} from "../../../services/data.service";
 import {CompanyService} from "../../../services/company.service";
 import {SiteService} from "../../../services/site.service";
+import {TkntypeService} from "../../../services/tkntype.service";
 
 @Component({
     selector: 'app-tkn-list',
@@ -29,6 +30,9 @@ export class TknListComponent implements OnInit{
   selectedSite: any = "";
   companyId='';
   siteId ='';
+  selectedtknType: any = "";
+  tknTypeList: any;
+  tknTypeId = '';
 
 
   constructor(
@@ -37,7 +41,8 @@ export class TknListComponent implements OnInit{
     private router:Router,
     private jwtHelperService: JwtHelperService,
     private companyService:CompanyService,
-    private siteService:SiteService
+    private siteService:SiteService,
+    private tkntypeService:TkntypeService,
   ) {
   }
   ngOnInit(): void {
@@ -46,16 +51,18 @@ export class TknListComponent implements OnInit{
       // @ts-ignore
       this.username = this.jwtHelperService.decodeToken(this.authService.getToken()).sub;
 
-
-
       this.tknService.findAllUsername(this.username).subscribe(
         (data)=>{
           this.tknList = data;
-          console.log(this.tknList)
           this.unRead = this.tknList.filter((item: { read: boolean; }) => item.read === false).length;
           this.companyService.getCompany().subscribe(
             (data)=>{
               this.companyList = data;
+              this.tkntypeService.findAll().subscribe(
+                (data:any)=>{
+                  this.tknTypeList = data;
+                }
+              )
             }
           )
         }
@@ -66,7 +73,12 @@ export class TknListComponent implements OnInit{
   }
 
   search() {
-    this.tknService.searchByKeyword(this.username,this.keyword, this.companyId, this.siteId).subscribe(
+
+    this.tknTypeId = this.selectedtknType ? this.selectedtknType.id : "";
+    this.companyId = this.selectedCompany ? this.selectedCompany.id : "";
+    this.siteId = this.selectedSite ? this.selectedSite.id : "";
+
+    this.tknService.searchByKeyword(this.username,this.keyword, this.tknTypeId,this.companyId, this.siteId).subscribe(
       (data)=>{
         this.tknList = data
       }
@@ -92,32 +104,27 @@ export class TknListComponent implements OnInit{
     this.mouseY = event.clientY + 10; // Add an offset to avoid overlapping the cursor
   }
 
+  changetknType() {
+    this.search()
+  }
+
   changeCompany() {
+    this.selectedSite = ""
 
-    if (!this.selectedCompany) {
-      this.companyId = ""
-      this.siteId = ""
-      this.search()
-      this.selectedCompany = ""
-      this.selectedSite = ""
-    }
-
-    this.companyId = this.selectedCompany.id
     this.siteService.findSitesByCompany_Id(this.selectedCompany.id).subscribe(
       (data: any)=>{
         this.siteList = data;
       }
     )
-    this.siteId = "";
     this.search()
   }
-
 
 
   changeSite() {
-    this.siteId = this.selectedSite.id
     this.search()
   }
+
+
 }
 
 

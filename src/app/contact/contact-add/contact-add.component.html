@@ -1,11 +1,10 @@
-<p>contact-add works!</p>
-<h4>CREATE LINE</h4>
+<h4>CREATE CONTACT</h4>
 <div style="margin: 5px 0px">
-  <p><span style="font-weight: bold">Name</span>: {{site.name}}</p>
-  <p><span style="font-weight: bold">GMT</span>: {{site.gmt}}</p>
-  <p><span style="font-weight: bold">Configuration</span>: {{site.configure}}</p>
-  <p><span style="font-weight: bold">Configuration Kr</span>: {{site.configureKr}}</p>
-  <p><span style="font-weight: bold">Company</span>: {{site.company.name}}</p>
+  <p><span style="font-weight: bold">Name</span>: {{site?.name}}</p>
+  <p><span style="font-weight: bold">GMT</span>: {{site?.gmt}}</p>
+  <p><span style="font-weight: bold">Configuration</span>: {{site?.configure}}</p>
+  <p><span style="font-weight: bold">Configuration Kr</span>: {{site?.configureKr}}</p>
+  <p><span style="font-weight: bold">Company</span>: {{site?.company.name}}</p>
 </div>
 
 <form [formGroup]="contactForm">
@@ -86,7 +85,7 @@
   <th style="text-align: center">Role</th>
   </thead>
   <tbody>
-  <tr *ngFor="let contact of site.contactList,  index as i">
+  <tr *ngFor="let contact of site?.contactList,  index as i">
     <td style="text-align: center">{{i + 1}}</td>
     <td>{{contact.name != null ? contact.name : ""}}</td>
     <td>{{contact.email != null ? contact.email : ""}}</td>

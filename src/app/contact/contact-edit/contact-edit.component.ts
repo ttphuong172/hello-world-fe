@@ -29,12 +29,16 @@ export class ContactEditComponent implements OnInit{
       site: new FormControl(''),
       role: new FormControl(''),
       note: new FormControl(''),
+      sequence: new FormControl(''),
     })
 
     this.contactId = Number(this.activatedRoute.snapshot.paramMap.get('id'));
     this.contactService.findById(this.contactId).subscribe(
       (data)=>{
         this.contact = data;
+
+        // console.log(this.contact)
+
         this.contactForm.controls['id'].setValue(this.contact.id)
         this.contactForm.controls['name'].setValue(this.contact.name)
         this.contactForm.controls['email'].setValue(this.contact.email)
@@ -43,6 +47,7 @@ export class ContactEditComponent implements OnInit{
         this.contactForm.controls['site'].setValue(this.contact.site)
         this.contactForm.controls['role'].setValue(this.contact.role)
         this.contactForm.controls['note'].setValue(this.contact.note)
+        this.contactForm.controls['sequence'].setValue(this.contact.sequence)
       }
     )
 

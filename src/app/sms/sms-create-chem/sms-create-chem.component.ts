@@ -39,9 +39,9 @@ export class SmsCreateChemComponent implements OnInit {
   isTextPresentSubjectEmail: boolean = false;
   isTextPresentEmail: boolean = false;
 
-  isTextPresentPingLog: boolean = false;
+  isTextPresentTip: boolean = false;
   topoPath = "";
-  ipAddress = "";
+  tip = "";
   pingCommand = "";
 
   contactList: any;
@@ -569,8 +569,8 @@ export class SmsCreateChemComponent implements OnInit {
   }
 
   loadLine() {
-    this.isTextPresentPingLog = true;
-    this.ipAddress = this.smsForm.get('line').value.ipAddress;
-    this.pingCommand = this.smsForm.get('line').value.pingtest;
+    this.isTextPresentTip = true;
+    this.tip = this.smsForm.get('line').value.tip;
+
   }
 }

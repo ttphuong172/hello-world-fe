@@ -125,6 +125,14 @@
           </button>
         </div>
       </div>
+
+      <div>
+        <h4>TIPS</h4>
+        <div>
+          [정정] - Correction: Thêm vào đầu câu SMS nếu là SMS đính chính thông tin.
+        </div>
+      </div>
+
     </div>
 
     <div class="col-md-6">
@@ -157,18 +165,13 @@
         </div>
       </div>
 
-      <div>
-        <p style="font-weight: bold">TOPO:</p>
-        <img style="width: 100%" src="{{topoPath}}" alt="">
+      <div *ngIf="isTextPresentTip">
+        <p style="font-weight: bold">TIP:</p>
+        <p [innerHTML]="tip"></p>
       </div>
-      <div *ngIf="isTextPresentPingLog">
-        <p style="font-weight: bold">WORKING:</p>
-        <p><span style="font-weight: bold">Device IP</span>: {{ipAddress}}</p>
-        <p><span style="font-weight: bold">Ping Command</span>: {{pingCommand}}</p>
-      </div>
+
       <div>
         <p style="font-weight: bold"> EMAIL:</p>
-
         <p style="font-weight: bold" *ngIf="isTextPresentToEmail">To:</p>
         <div class="row" *ngIf="isTextPresentToEmail">
           <div style="padding-left: 15px;" id="toEmail">
