@@ -37,7 +37,7 @@ export class LineEditComponent implements OnInit{
       isp: new FormControl(''),
       circuitId: new FormControl(''),
       tip: new FormControl(''),
-
+      sequence: new FormControl(''),
     })
 
     this.lineId = Number(this.activatedRoute.snapshot.paramMap.get('id'));
@@ -52,6 +52,7 @@ export class LineEditComponent implements OnInit{
         this.lineForm.controls['company'].setValue(this.line.company)
         this.lineForm.controls['isp'].setValue(this.line.isp)
         this.lineForm.controls['circuitId'].setValue(this.line.circuitId)
+        this.lineForm.controls['sequence'].setValue(this.line.sequence)
 
         // Initialize Quill
         this.quill = new Quill('#quill-editor', {
