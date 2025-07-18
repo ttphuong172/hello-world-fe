@@ -94,7 +94,7 @@ export class LineEditComponent implements OnInit{
   }
 
   cancel() {
-    this.router.navigateByUrl('line/detail/' + this.line.site.id)
+    this.router.navigateByUrl('site/detail/' + this.line.site.id)
   }
 
 
@@ -105,7 +105,7 @@ export class LineEditComponent implements OnInit{
 
     this.lineService.update(this.lineForm.value).subscribe(
       ()=>{
-        this.router.navigateByUrl('/line/detail/' + this.line.site.id)
+        this.router.navigateByUrl('/site/detail/' + this.line.site.id)
       }
 
     )

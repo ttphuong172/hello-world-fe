@@ -55,13 +55,13 @@ export class LineAddComponent implements OnInit{
   save() {
     this.lineService.save(this.lineForm.value).subscribe(
       ()=>{
-        this.router.navigateByUrl("line/detail/" + this.siteId)
+        this.router.navigateByUrl("site/detail/" + this.siteId)
       }
     )
   }
 
   cancel() {
-    this.router.navigateByUrl("line/detail/" + this.siteId)
+    this.router.navigateByUrl("site/detail/" + this.siteId)
   }
 
 }

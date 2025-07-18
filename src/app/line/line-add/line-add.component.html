@@ -63,7 +63,6 @@
     </div>
   </div>
 
-
   <div class="row" style="margin: 5px 0px">
     <div class="col-md-9"></div>
     <div class="col-md-1">
@@ -74,6 +73,49 @@
     </div>
     <div class="col-md-1"></div>
   </div>
+
+  <h5>Line List</h5>
+  <div class="row" style="margin-bottom: 5px">
+    <div class="col-md-2"></div>
+    <div class="col-md-2"></div>
+    <div class="col-md-2"></div>
+    <div class="col-md-2"></div>
+    <div class="col-md-2"></div>
+    <div class="col-md-2">
+      <!--      <button [routerLink]="['/line/add/' + site?.id]" style="width: 100%" class="btn btn-outline-info">Create Line</button>-->
+    </div>
+  </div>
+  <table class="table table-bordered">
+    <thead>
+    <th style="text-align: center">No.</th>
+    <!--    <th>ID</th>-->
+    <th>Name</th>
+    <th>Short Name 1 (Internal)</th>
+    <th>Short Name 2 (Customer)</th>
+    <th style="text-align: center">ISP</th>
+    <th style="text-align: center">Circuit ID</th>
+    <th>Tip</th>
+    <!--    <th style="text-align: center">Action</th>-->
+    </thead>
+    <tbody>
+    <tr *ngFor="let line of site?.lineList,  index as i">
+      <td style="text-align: center">{{i + 1}}</td>
+      <!--      <td>{{line.id}}</td>-->
+      <td>{{line?.name}}</td>
+      <td>{{line?.shortName}}</td>
+      <td>{{line?.shortName2}}</td>
+      <td style="text-align: center">{{line.isp != null ? line.isp : ""}}</td>
+      <td style="text-align: center">{{line.circuitId != null ? line.circuitId : ""}}</td>
+      <td [innerHTML]="line.tip != null ? line.tip : ''"></td>
+      <!--      <td style="text-align: center">-->
+      <!--        <button style="margin: 5px" class="btn btn-outline-info" [routerLink]="['/line/edit/' + line.id]">Edit</button>-->
+      <!--        <button style="margin: 5px" class="btn btn-outline-danger" (click)="openDialogDelete(line)">Delete</button>-->
+      <!--      <button style="width: 100%" [hidden]="this.username != this.tkn?.creator" class="btn btn-outline-danger" (click)="openDialogDelete(tkn)">Delete</button>-->
+      <!--      </td>-->
+    </tr>
+    </tbody>
+  </table>
+
 </form>
 
 
